@@ -1,0 +1,25 @@
+/* Page home */
+.menu{
+	margin-bottom: 0px;
+}
+
+.form-search{
+	position: absolute; 
+	top: 40%; 
+	padding: 50px;
+	background-color: black; 
+	opacity: 0.9;
+}
+
+/* Page Sign up user */
+.form-signup{
+	background-color: white; 
+	padding: 20px; 
+	margin-top: 150px;
+	margin-bottom: 150px;
+}
+
+.form-signup h2{
+	margin-top: 0px; 
+	color: blue
+}
