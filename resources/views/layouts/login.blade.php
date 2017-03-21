@@ -12,14 +12,11 @@
         <style>
             body {
                 background: url("{{asset('images/bg.jpg')}}") no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
                 background-size: cover;
             }
         </style>
     </head>
-    <body style="background-color: #eee">
+    <body>
         <nav class="navbar navbar-inverse navbar-fixed-top menu">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->

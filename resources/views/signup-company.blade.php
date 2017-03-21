@@ -3,9 +3,9 @@
 @section('content')
         <div class="container">
             <div class="row">
-                <form action="{{url('/signup-company')}}" method="post" class="col-md-4 col-md-offset-4 form-signup">
+                <form action="{{url('/signup-company')}}" method="post" class="col-md-4 col-md-offset-4 form-login">
                     {!! csrf_field() !!}
-                    <h2 class="text-center">Nhà tuyển dụng</h2>
+                    <img src="{{asset('images/icons/company.png')}}" class="img-responsive" style="margin: 15px auto" />
                     @if (count($errors) > 0)
                     <div class="alert alert-danger" role="alert">
                         <ul>
