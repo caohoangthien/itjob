@@ -25,7 +25,7 @@ class SignupRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:accounts',
             'password' => 'required',
         ];
     }
@@ -37,6 +37,7 @@ class SignupRequest extends FormRequest
             'name.min' => 'Name phải lớn hơn 4 kí tự.',
             'email.required' => 'Email không được để trống.',
             'email.email' => 'Email nhập không đúng định dạng.',
+            'email.unique' => 'Email đã tồn tại.',
             'password.required'  => 'Password không được để trống.',
         ];
     }

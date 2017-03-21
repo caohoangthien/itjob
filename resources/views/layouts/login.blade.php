@@ -9,6 +9,15 @@
         <link rel="stylesheet" href="{{asset('css/style.css')}}">   
         <script type="text/javascript" src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+        <style>
+            body {
+                background: url("{{asset('images/bg.jpg')}}") no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+        </style>
     </head>
     <body style="background-color: #eee">
         <nav class="navbar navbar-inverse navbar-fixed-top menu">

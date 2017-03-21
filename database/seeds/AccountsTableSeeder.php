@@ -18,7 +18,7 @@ class AccountsTableSeeder extends Seeder
                         'email' => 'admin@gmail.com',
                         'password' => bcrypt('admin'),
                         'status' => 1,
-                        'role' => 'admin',
+                        'role' => '1',
         		]
             ]
     	);

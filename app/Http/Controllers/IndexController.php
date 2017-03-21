@@ -41,12 +41,13 @@ class IndexController extends Controller
     }
 
     public function postSignupUser(SignupRequest $request){
+
         $account = new Account;
         $account->name = $request->name;
         $account->email = $request->email;
-        $account->password = bcrypt($request->name);
+        $account->password = bcrypt($request->password);
         $account->status = 0;
-        $account->role = 'user';
+        $account->role = '3';
 
         if($account->save()){
             return redirect()->route('login')->with('success', 'Đăng kí thành công. Vui lòng đăng nhập !');
@@ -63,9 +64,9 @@ class IndexController extends Controller
         $account = new Account;
         $account->name = $request->name;
         $account->email = $request->email;
-        $account->password = bcrypt($request->name);
+        $account->password = bcrypt($request->password);
         $account->status = 0;
-        $account->role = 'company';
+        $account->role = '2';
 
         if($account->save()){
             return redirect()->route('login')->with('success', 'Đăng kí thành công. Vui lòng đăng nhập !');

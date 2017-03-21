@@ -5,7 +5,7 @@
             <div class="row">
                 <form action="{{url('/signup-user')}}" method="post" class="col-md-4 col-md-offset-4 form-signup">
                     {!! csrf_field() !!}
-                    <h2 class="text-center">Thành viên</h2>
+                    <img src="{{asset('images/logo.png')}}" class="img-responsive" alt="" style="margin: 15px auto;" />
                     @if (count($errors) > 0)
                     <div class="alert alert-danger" role="alert">
                         <ul>
