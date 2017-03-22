@@ -14,4 +14,16 @@ class Account extends Authenticatable
     ];
     
     protected $table = 'accounts';
+
+    public static function isAdmin($id) {
+        return ($id == 1) ? true : false;
+    }
+
+    public static function isAdmin($id) {
+        return ($id == 1) ? true : false;
+    }
+
+    public static function isAdmin($id) {
+        return ($id == 1) ? true : false;
+    }
 }

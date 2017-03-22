@@ -20,7 +20,7 @@ class CreateAccountsTable extends Migration
             $table->string('password');
             $table->integer('status');
             $table->string('role');
-            $table->string('remember_token')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

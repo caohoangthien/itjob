@@ -29,11 +29,11 @@ class IndexController extends Controller
 
     public function postLogin(LoginRequest $request){
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            echo 'ok';
+            $a = new Account();
+            dd($a->isAdmin(Auth::user()->role));
         }else{
             echo 'not ok';
         }
-
     }
 
     public function getSignupUser(){
