@@ -15,16 +15,12 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_company')->unsigned();
-            $table->foreign('id_company')->references('id')->on('companies');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('title');
             $table->string('describe');
             $table->integer('min_salary');
             $table->integer('max_salary');
-            $table->integer('id_language')->unsigned();
-            $table->foreign('id_language')->references('id')->on('languages');
-            $table->integer('id_level')->unsigned();
-            $table->foreign('id_level')->references('id')->on('levels');
             $table->integer('quantity');
             $table->timestamps();
         });

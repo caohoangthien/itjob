@@ -15,10 +15,12 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_account')->unsigned();
-            $table->foreign('id_account')->references('id')->on('accounts');
+            $table->integer('account_id')->unsigned();
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->string('name');
-            $table->string('address');
+            $table->integer('address_id')->unsigned();
+            $table->foreign('address_id')->references('id')->on('address');
+            $table->string('phone');
             $table->string('about');
             $table->string('avatar');
             $table->timestamps();

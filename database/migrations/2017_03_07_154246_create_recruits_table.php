@@ -15,8 +15,8 @@ class CreateRecruitsTable extends Migration
     {
         Schema::create('recruits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_language')->unsigned();
-            $table->foreign('id_language')->references('id')->on('languages');
+            $table->integer('skill_id')->unsigned();
+            $table->foreign('skill_id')->references('id')->on('skills');
             $table->integer('quantity');
             $table->timestamps();
         });
