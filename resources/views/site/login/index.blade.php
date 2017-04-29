@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        {!! Form::open(['route' => ['login'], 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
+        {!! Form::open(['route' => 'login', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
         <img src="{!! asset('images/icons/signin.png') !!}" width="100" class="img-responsive"/>
 
         @if (session('error'))

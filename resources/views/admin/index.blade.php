@@ -1,5 +1,7 @@
-@extends('layout.manager.template')
+@extends('layout.management.template')
+
+@section('title', 'Trang quản trị')
 
 @section('content')
-    <h1>This is page for company</h1>
+    ...
 @endsection

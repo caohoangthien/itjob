@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Address;
-use App\Model\Skill;
-use App\Model\Account;
-use App\Model\MemberSkill;
-use App\Model\Member;
+use App\Models\Address;
+use App\Models\Skill;
+use App\Models\Account;
+use App\Models\MemberSkill;
+use App\Models\Member;
 use App\Http\Requests\MemberRequest;
 
 class MemberController extends Controller
@@ -98,7 +98,7 @@ class MemberController extends Controller
         $skills = Skill::all(['id', 'name']);
         $address = Address::all(['id', 'name'])->pluck('name', 'id');
 
-        return view('member.create', compact('skills', 'address'));
+        return view('member.signup', compact('skills', 'address'));
     }
 
     /**
@@ -141,7 +141,7 @@ class MemberController extends Controller
                 }
 
                 if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
-                    return redirect()->route('home-manager');
+                    return redirect()->route('home-management');
                 }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
             }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
         }

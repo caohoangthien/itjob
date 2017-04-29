@@ -21,7 +21,7 @@ class CreateCompaniesTable extends Migration
             $table->integer('address_id')->unsigned();
             $table->foreign('address_id')->references('id')->on('address');
             $table->string('phone');
-            $table->string('about');
+            $table->text('about');
             $table->string('avatar');
             $table->timestamps();
         });

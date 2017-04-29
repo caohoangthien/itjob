@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Address;
+use App\Models\Address;
 use App\Http\Requests\CompanyRequest;
-use App\Model\Account;
-use App\Model\Company;
+use App\Models\Account;
+use App\Models\Company;
 use Auth;
 
 class CompanyController extends Controller
@@ -22,27 +22,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store()
-    {
-
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -50,7 +29,8 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        $company = Company::find($id);
+        return view('company.show', compact('company'));
     }
 
     /**
@@ -94,6 +74,7 @@ class CompanyController extends Controller
      */
     public function profile()
     {
+        dd(1);
         $company = auth()->user()->company->avatar;
 
         return view('company.profile', compact('company'));
@@ -137,9 +118,21 @@ class CompanyController extends Controller
 
             if ($company->save()) {
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                    return redirect()->route('home-manager');
+                    return redirect()->route('companies.index');
                 }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
             }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
         }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+    }
+
+    /**
+     * List company
+     *
+     * @return view
+     */
+    public function list()
+    {
+        $companies = Company::orderBy('id', 'desc')->paginate(15);
+
+        return view('company.list', compact('companies'));
     }
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Address;
-use App\Model\Skill;
-use App\Model\Level;
-use Auth;
+use App\Models\Address;
+use App\Models\Skill;
+use App\Models\Level;
 
 class SiteController extends Controller
 {
@@ -16,7 +15,6 @@ class SiteController extends Controller
      */
     public function index()
     {
-
         $address = Address::all();
         $skills = Skill::all();
         $levels = Level::all();

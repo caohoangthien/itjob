@@ -29,9 +29,7 @@
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
                     <span>Quản lý tin tuyển dụng</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-circle-o"></i> Đăng tin mới</a></li>

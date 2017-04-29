@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Model\Address;
-use App\Model\Skill;
+use App\Models\Address;
+use App\Models\Skill;
 use Illuminate\Validation\Rule;
 
 class MemberRequest extends FormRequest

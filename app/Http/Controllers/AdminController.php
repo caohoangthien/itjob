@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminRequest;
 
 class AdminController extends Controller
 {
@@ -32,9 +33,9 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -43,20 +44,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($action)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $profile = auth()->user()->admin;
+        return view('admin.profile', compact('profile', 'action'));
     }
 
     /**
@@ -80,5 +71,29 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Show profile
+     *
+     * @return view
+     */
+    public function profile()
+    {
+        $action = '';
+        $profile = auth()->user()->admin;
+        return view('admin.profile', compact('profile'));
+    }
+
+    /**
+     * Show the form for editing profile
+     *
+     * @return view
+     */
+    public function editProfile()
+    {
+        $action = 'edit';
+        $profile = auth()->user()->admin;
+        return view('admin.profile', compact('profile', 'action'));
     }
 }

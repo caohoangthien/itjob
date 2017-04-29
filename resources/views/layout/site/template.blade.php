@@ -40,12 +40,12 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                         <li><a href="{!! route('login') !!}"> Đăng nhập</a></li>
-                                        <li><a href="{!! route('signup-company') !!}"> Đăng kí</a></li>
+                                        <li><a href="{!! route('companies.signup') !!}"> Đăng kí</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li><a href="{!! route('login') !!}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Đăng nhập</a></li>
-                            <li><a href="{!! route('signup-member') !!}"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Đăng kí</a></li>
+                            <li><a href="{!! route('members.signup') !!}"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Đăng kí</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

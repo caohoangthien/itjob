@@ -7,8 +7,15 @@
         <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-theme.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/login.css')}}">
-        <script type="text/javascript" src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
-        <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+        <link rel="stylesheet" type="text/css" href="{{asset('css/datepicker.css')}}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( ".datepicker" ).datepicker();
+            } );
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top menu">
@@ -40,18 +47,20 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li><a href="{!! route('login') !!}"> Đăng nhập</a></li>
-                                    <li><a href="{!! route('signup-company') !!}"> Đăng kí</a></li>
+                                    <li><a href="{!! route('companies.signup') !!}"> Đăng kí</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li><a href="{!! route('login') !!}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Đăng nhập</a></li>
-                        <li><a href="{!! route('signup-member') !!}"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Đăng kí</a></li>
+                        <li><a href="{!! route('members.signup') !!}"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Đăng kí</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
 
         @yield('content')
-
+        <script type="text/javascript" src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.js')}}"></script>
     </body>
 </html>

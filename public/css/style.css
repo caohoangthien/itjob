@@ -1,12 +1,24 @@
 /* Page home */
-.menu{
+.menu {
 	margin-bottom: 0px;
 }
 
-.form-search{
+.form-search {
 	position: absolute; 
 	top: 40%; 
 	padding: 50px;
 	background-color: black; 
 	opacity: 0.9;
+}
+
+.pagination {
+	float: right;
+}
+
+.help-block {
+	margin-bottom: 0px;
+}
+
+.btn-update {
+	margin-top: 10px;
 }

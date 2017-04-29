@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Model\Address;
+use App\Models\Address;
 use Illuminate\Validation\Rule;
 
 class CompanyRequest extends FormRequest
