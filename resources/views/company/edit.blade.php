@@ -68,7 +68,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Giới thiệu</label>
                 <div class="col-sm-9 {!! $errors->has('about') ? 'has-error' : '' !!}">
-                    {!! Form::text('about', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('about', null, ['class' => 'form-control']) !!}
                     @if ($errors->has('about'))
                         <span class="help-block"><b>{!! $errors->first('about') !!}</b></span>
                     @endif

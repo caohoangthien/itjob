@@ -98,12 +98,11 @@
                     @endif
                 </div>
             </div>
-            {{dd()}}
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Kỹ năng</label>
                 <div class="col-sm-9 {!! $errors->has('skills_id') ? 'has-error' : '' !!}">
                     @foreach($skills as $skill)
-                        {!! Form::checkbox('skills_id[]', $skill->name, in_array($skill->id, $oldSkill) ) !!} {!! $skill->name !!}<br>
+                        {!! Form::checkbox('skills_id[]', $skill->id, in_array($skill->id, $oldSkill) ) !!} {!! $skill->name !!}<br>
                     @endforeach
                     @if ($errors->has('skills_id'))
                         <span class="help-block">

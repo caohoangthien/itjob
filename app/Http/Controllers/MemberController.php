@@ -168,7 +168,7 @@ class MemberController extends Controller
     {
         $profile = auth()->user()->member;
         $skills = Skill::all(['id', 'name']);
-        $oldSkill = $profile->skills->pluck('name')->toArray();
+        $oldSkill = $profile->skills->pluck('id')->toArray();
         $address = Address::all(['id', 'name'])->pluck('name', 'id');
         return view('member.edit', compact('profile', 'address', 'skills', 'oldSkill'));
     }

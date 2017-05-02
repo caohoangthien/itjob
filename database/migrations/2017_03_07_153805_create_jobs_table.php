@@ -17,10 +17,12 @@ class CreateJobsTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('address_id')->unsigned();
+            $table->foreign('address_id')->references('id')->on('address');
             $table->string('title');
-            $table->string('describe');
-            $table->integer('min_salary');
-            $table->integer('max_salary');
+            $table->text('describe');
+            $table->integer('salary_id')->unsigned();
+            $table->foreign('salary_id')->references('id')->on('salaries');
             $table->integer('quantity');
             $table->timestamps();
         });

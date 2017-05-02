@@ -23,46 +23,11 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="header">QUẢN TRỊ VIÊN</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-handshake-o"></i>
-                    <span>Nhà tuyển dụng</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{!! route('companies.list') !!}"><i class="fa fa-circle-o"></i> Danh sách công ty</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-pie-chart"></i>
-                    <span>Tin tuyển dụng</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-circle-o"></i> Tin đã duyệt</a></li>
-                    <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-circle-o"></i> Tin chưa duyệt</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-pie-chart"></i>
-                    <span>Thành viên</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{!! route('members.list') !!}"><i class="fa fa-circle-o"></i> Danh sách thành viên</a>
-                    </li>
-                </ul>
-            </li>
+            <li class="header">QUẢN LÝ TUYỂN DỤNG</li>
+            <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-plus-square"></i> <span>Đăng tin</span></a></li>
+            <li><a href="documentation/index.html"><i class="fa fa-eye-slash"></i> <span>Tin nháp</span></a></li>
+            <li><a href="documentation/index.html"><i class="fa fa-bell-o"></i> <span>Tin đã đăng</span></a></li>
+            <li><a href="documentation/index.html"><i class="fa fa-ban"></i> <span>Tin chưa duyệt</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->
