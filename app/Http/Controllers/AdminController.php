@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminRequest;
+use App\Http\Requests\AdminUpdateRequest;
+use App\Models\Account;
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
     /**
      * Get home admin
      *
-     * @return \Illuminate\Http\Response
+     * @return view
      */
     public function index()
     {
@@ -18,82 +20,45 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(AdminRequest $request)
-    {
-        dd($request);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($action)
-    {
-        $profile = auth()->user()->admin;
-        return view('admin.profile', compact('profile', 'action'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * Show profile
      *
      * @return view
      */
-    public function profile()
+    public function showProfile()
     {
-        $action = '';
         $profile = auth()->user()->admin;
-        return view('admin.profile', compact('profile'));
+        return view('admin.show', compact('profile'));
     }
 
     /**
-     * Show the form for editing profile
+     * Edit profile
      *
      * @return view
      */
     public function editProfile()
     {
-        $action = 'edit';
         $profile = auth()->user()->admin;
-        return view('admin.profile', compact('profile', 'action'));
+        return view('admin.edit', compact('profile'));
+    }
+
+    /**
+     * Update profile
+     *
+     * @return view
+     */
+    public function updateProfile(AdminUpdateRequest $request)
+    {
+        $account = Account::find(auth()->id());
+        $admin = Admin::where('account_id', $account->id);
+        $dataAccount = $request->only(['email']);
+        if ($request->password) {
+            $dataAccount['password'] = bcrypt($request->password);
+        }
+        $dataAdmin = $request->only(['name']);
+        if ($account->update($dataAccount) && $admin->update($dataAdmin)) {
+            return redirect()->route('admins.profile.show')->with('success', 'Cập nhật thông tin cá nhân thành công');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Cập nhật thông tin cá nhân thất bại');
+        }
     }
 }

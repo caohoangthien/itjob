@@ -3,15 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row">
-            {!! Form::open(['route' => ['login'], 'method' => 'post', 'files' => true, 'class' => 'col-md-6 col-md-offset-3 form-login'])  !!}
+            {!! Form::open(['route' => ['members.signup'], 'method' => 'post', 'files' => true, 'class' => 'col-md-6 col-md-offset-3 form-login'])  !!}
             <img src="{!! asset('images/icons/signin.png') !!}" width="100" class="img-responsive"/>
-
-            @if (session('errorSystem'))
-                <div class="alert alert-success">
-                    <p class="text-success">{{ session('errorSystem') }}</p>
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    <p>{{ session('error') }}</p>
                 </div>
             @endif
-
             <div class="form-group ">
                 {!! Form::label('', 'Họ và tên') !!}
                 <div class="{!! $errors->has('name') ? 'has-error' : '' !!}">
@@ -23,7 +21,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Email') !!}
                 <div class="{!! $errors->has('email') ? 'has-error' : '' !!}">
@@ -35,7 +32,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Mật khẩu') !!}
                 <div class="{!! $errors->has('password') ? 'has-error' : '' !!}">
@@ -47,7 +43,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group">
                 {!! Form::label('', 'Giới tính') !!}
                 <div class="{!! $errors->has('gender') ? 'has-error' : '' !!}">
@@ -61,11 +56,10 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group">
                 {!! Form::label('', 'Ngày sinh') !!}
                 <div class="{!! $errors->has('birthday') ? 'has-error' : '' !!}">
-                    {!! Form::text('birthday', null, ['class' => 'form-control datepicker', 'placeholder' => 'Ngày sinh']) !!}
+                    {!! Form::text('birthday', null, ['class' => 'form-control', 'id' => 'datepicker', 'placeholder' => 'Ngày sinh']) !!}
                     @if ($errors->has('birthday'))
                         <span class="help-block">
                             <strong>{!! $errors->first('birthday') !!}</strong>
@@ -73,7 +67,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Điện thoại') !!}
                 <div class="{!! $errors->has('phone') ? 'has-error' : '' !!}">
@@ -85,7 +78,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Địa chỉ') !!}
                 <div class="{!! $errors->has('address_id') ? 'has-error' : '' !!}">
@@ -97,7 +89,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Kỹ năng') !!}
                 <div class="{!! $errors->has('skills_id') ? 'has-error' : '' !!}">
@@ -111,7 +102,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Giới thiệu') !!}
                 <div class="{!! $errors->has('about') ? 'has-error' : '' !!}">
@@ -123,7 +113,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'Hình ảnh') !!}
                 <div class="{!! $errors->has('avatar') ? 'has-error' : '' !!}">
@@ -135,7 +124,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group ">
                 {!! Form::label('', 'CV xin việc') !!}
                 <div class="{!! $errors->has('cv') ? 'has-error' : '' !!}">
@@ -147,7 +135,6 @@
                     @endif
                 </div>
             </div>
-
             {!! Form::submit('Đăng kí', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
             {!! Form::close() !!}
         </div>

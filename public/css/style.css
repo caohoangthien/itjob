@@ -22,3 +22,11 @@
 .btn-update {
 	margin-top: 10px;
 }
+
+#previewing {
+	max-height: 200px;
+}
+
+.form-delete {
+	display: inline;
+}

@@ -154,11 +154,11 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{!! route('members.profile') !!}"
+                                <a href="{!! route('members.profile.show') !!}"
                                    class="btn btn-default btn-flat">Hồ sơ</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat"> Đăng xuất</a>
+                                <a href="{!! route('logout') !!}" class="btn btn-default btn-flat"> Đăng xuất</a>
                             </div>
                         </li>
                     </ul>

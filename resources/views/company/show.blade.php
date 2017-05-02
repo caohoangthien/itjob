@@ -3,30 +3,95 @@
 @section('title', 'Thông tin công ty')
 
 @section('content')
-    <form>
-        <div class="form-group">
-            <img style="height: 150px;" src="{{ asset($company->avatar) }}" class="img-thumbnail">
+    @if (session('success'))
+        <div class="alert alert-success">
+            <p>{{ session('success') }}</p>
         </div>
-        <div class="form-group">
-            <label>Tên công ty</label>
-            <p>{{ $company->name }}</p>
+    @endif
+    <div class="row">
+        <div class="col-md-8">
+            {!! Form::model($profile, ['class' => 'form-horizontal'])  !!}
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">Tên</label>
+                <div class="col-sm-9">
+                    {!! Form::text('name', null, ['class' => 'form-control', 'disabled']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                    {!! Form::text('email', $profile->account->email, ['class' => 'form-control', 'disabled']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">Địa chỉ</label>
+                <div class="col-sm-9">
+                    {!! Form::text('address_id', $profile->address->name, ['class' => 'form-control', 'disabled']) !!}
+                </div>
+            </div><div class="form-group row">
+                <label class="col-sm-3 control-label">Số điện thoại</label>
+                <div class="col-sm-9">
+                    {!! Form::text('phone', null, ['class' => 'form-control', 'disabled']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">Giới thiệu</label>
+                <div class="col-sm-9">
+                    {!! Form::text('about', null, ['class' => 'form-control', 'disabled']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <a href="{!! route('companies.profile.edit') !!}" class='btn btn-primary'>Sửa</a>
+                    <a href="{!! route('companies.index') !!}" class='btn btn-primary'>Trở về</a>
+                </div>
+            </div>
+            {!! Form::close() !!}
         </div>
-        <div class="form-group">
-            <label>Email</label>
-            <p>{{ $company->account->email }}</p>
+        <div class="col-md-4">
+            <form id="update-avatar" method="post" enctype="multipart/form-data">
+                <div class="text-center">
+                    <img id="previewing" src="{!! asset($profile->avatar) !!}" class="img-responsive img-thumbnail text-center" alt="User Image" />
+                </div>
+                <hr>
+                <input type="file" name="avatar" id="avatar"/>
+                <div id="message-error"></div>
+                <button id="btn-update-avatar" class="btn btn-primary btn-update">Thay đổi</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label>Địa chỉ</label>
-            <p>{{ $company->address->name }}</p>
-        </div>
-        <div class="form-group">
-            <label>Điện thoại</label>
-            <p>{{ $company->phone }}</p>
-        </div>
-        <div class="form-group">
-            <label>Giới thiệu</label>
-            <p>{{ $company->about }}</p>
-        </div>
-        <a href="{!! route('admins.index') !!}" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Trở về</a>
-    </form>
+    </div>
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btn-update-avatar').click(function(){
+                if (!$('#avatar').val()) {
+                    $("#message-error").html("<p class='help-block'>Vui lòng chọn ảnh</p>");
+                    return false;
+                }
+            });
+
+            $("#avatar").change(function() {
+                function loadImage(e) {
+                    $('#previewing').attr('src', e.target.result);
+                };
+
+                var typeImage = this.files[0].type;
+                if (typeImage == 'image/jpeg' || typeImage == 'image/png') {
+                    var reader = new FileReader();
+                    reader.onload = loadImage;
+                    reader.readAsDataURL(this.files[0]);
+                    $("#message-error").empty();
+                    $('#btn-update-avatar').attr("disabled",false);
+                } else {
+                    $('#previewing').attr("src","{{ asset('images/icons/image_not_found.jpg') }}");
+                    $("#message-error").empty();
+                    $("#message-error").html("<p class='help-block'>Vui lòng chọn ảnh có định dạng png hoặc jpg</p>");
+                    $('#btn-update-avatar').attr("disabled",true);
+                }
+            });
+        });
+    </script>
 @endsection

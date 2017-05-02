@@ -11,7 +11,6 @@
             <th>Địa chỉ</th>
             <th>Số điện thoại</th>
             <th>Giới thiệu</th>
-            <th class="text-center">Ngày tạo</th>
             <th class="text-center">Thao tác</th>
         </thead>
         <tbody>
@@ -22,11 +21,12 @@
                 <td>{{ $company->account->email }}</td>
                 <td>{{ $company->address->name }}</td>
                 <td>{{ $company->phone }}</td>
-                <td>{{ str_limit($company->about, 50) }}</td>
-                <td class="text-center">{{ $company->created_at->format('Y-m-d H:i:s') }}</td>
+                <td>{{ str_limit($company->about, 30) }}</td>
                 <td class="text-center">
                     <a href="{!! route('companies.show', [$company->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('companies.delete', [$company->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
+                    {{ Form::open(['route' => ['companies.destroy', $company->id], 'method' => 'DELETE', 'class' => 'form-delete']) }}
+                    <button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
+                    {{ Form::close() }}
                 </td>
             </tr>
         @endforeach

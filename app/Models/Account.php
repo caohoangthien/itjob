@@ -13,7 +13,7 @@ class Account extends Authenticatable
     use Notifiable;
 
 	protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'role'
     ];
     
     protected $table = 'accounts';

@@ -16,11 +16,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::resource('companies', 'CompanyController');
     Route::resource('admins', 'AdminController');
     Route::resource('jobs', 'JobController');
-    Route::get('company-list', 'CompanyController@list')->name('companies.list');
-    Route::get('member-list', 'CompanyController@list')->name('members.list');
-    Route::get('job-list', 'JobController@list')->name('jobs.list');
-    Route::get('companies/profile', 'CompanyController@profile')->name('companies.profile');
-    Route::get('members/profile', 'CompanyController@profile')->name('members.profile');
-    Route::get('admins/profile', 'AdminController@profile')->name('admins.profile');
-    Route::get('admins/edit', 'AdminController@profile')->name('admins.edit-profile');
+
+    Route::get('list-company', 'CompanyController@list')->name('companies.list');
+    Route::get('list-member', 'MemberController@list')->name('members.list');
+    Route::get('list-job', 'JobController@list')->name('jobs.list');
+
+    Route::get('profile/admins', 'AdminController@showProfile')->name('admins.profile.show');
+    Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
+    Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
+    Route::get('profile/members', 'MemberController@showProfile')->name('members.profile.show');
+    Route::get('profile/members/edit', 'MemberController@editProfile')->name('members.profile.edit');
+    Route::post('profile/members', 'MemberController@updateProfile')->name('members.profile.update');
+    Route::get('profile/companies', 'CompanyController@showProfile')->name('companies.profile.show');
+    Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
+    Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
 });

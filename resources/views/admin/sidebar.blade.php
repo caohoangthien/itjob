@@ -59,7 +59,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-circle-o"></i> Danh sách thành viên</a>
+                    <li><a href="{!! route('members.list') !!}"><i class="fa fa-circle-o"></i> Danh sách thành viên</a>
                     </li>
                 </ul>
             </li>

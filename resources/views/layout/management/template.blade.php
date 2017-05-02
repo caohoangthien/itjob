@@ -11,11 +11,7 @@
     <link rel="stylesheet" href="{!! asset('css/AdminLTE.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/_all-skins.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}">
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.min.css')}}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -53,6 +49,12 @@
 <script src="{!! asset('js/jquery-2.2.3.min.js') !!}"></script>
 <script src="{!! asset('js/bootstrap.min.js') !!}"></script>
 <script src="{!! asset('js/app.min.js') !!}"></script>
+<script src="{{asset('js/jquery-ui.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#datepicker").datepicker();
+    })
+</script>
 @yield('javascript')
 </body>
 </html>

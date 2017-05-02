@@ -154,7 +154,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{!! route('admins.profile') !!}"
+                                <a href="{!! route('admins.profile.show') !!}"
                                    class="btn btn-default btn-flat">Hồ sơ</a>
                             </div>
                             <div class="pull-right">

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Address;
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\CompanyCreateRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Account;
 use App\Models\Company;
 use Auth;
@@ -34,29 +35,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -64,20 +42,8 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Show profile
-     *
-     * @return view
-     */
-    public function profile()
-    {
-        dd(1);
-        $company = auth()->user()->company->avatar;
-
-        return view('company.profile', compact('company'));
+        Company::find($id)->delete();
+        return redirect()->route('admins.index');
     }
 
     /**
@@ -88,7 +54,7 @@ class CompanyController extends Controller
     public function getSignup()
     {
         $address = Address::all(['id', 'name'])->pluck('name', 'id');
-        return view('company.create', ['address' => $address]);
+        return view('company.signup', ['address' => $address]);
     }
 
     /**
@@ -96,32 +62,26 @@ class CompanyController extends Controller
      *
      * @return redirect
      */
-    public function postSignup(CompanyRequest $request)
+    public function postSignup(CompanyCreateRequest $request)
     {
-        $account = new Account;
-        $account->email = $request->email;
-        $account->password = bcrypt($request->password);
-        $account->role = '2';
-
-        if($account->save()){
-            $company = new Company;
-            $company->account_id = $account->id;
-            $company->name = $request->name;
-            $company->address_id = $request->address_id;
-            $company->phone = $request->phone;
-            $company->about = $request->about;
-
+        try {
+            $dataAccount = $request->only('email', 'password');
+            $dataAccount['password'] = bcrypt($dataAccount['password']);
+            $dataAccount['role'] = 2;
+            $account = Account::create($dataAccount);
+            $dataCompany = $request->only('name', 'address_id', 'phone', 'about');
+            $dataCompany['account_id'] = $account->id;
             $path = "images/avatars/";
             $fileName = str_random('10') . time() . '.' . $request->avatar->getClientOriginalExtension();
             $request->avatar->move($path, $fileName);
-            $company->avatar = $path . $fileName;
-
-            if ($company->save()) {
-                if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                    return redirect()->route('companies.index');
-                }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
-            }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
-        }else return back()->with('errorSystem', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+            $dataCompany['avatar'] = $path . $fileName;
+            Company::create($dataCompany);
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+                return redirect()->route('companies.index');
+            }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+        } catch (\Exception $ex) {
+            return back()->withInput()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+        }
     }
 
     /**
@@ -134,5 +94,49 @@ class CompanyController extends Controller
         $companies = Company::orderBy('id', 'desc')->paginate(15);
 
         return view('company.list', compact('companies'));
+    }
+
+    /**
+     * Show profile
+     *
+     * @return view
+     */
+    public function showProfile()
+    {
+        $profile = auth()->user()->company;
+        return view('company.show', compact('profile'));
+    }
+
+    /**
+     * Edit profile
+     *
+     * @return view
+     */
+    public function editProfile()
+    {
+        $address = Address::all(['id', 'name'])->pluck('name', 'id');
+        $profile = auth()->user()->company;
+        return view('company.edit', compact('profile', 'address'));
+    }
+
+    /**
+     * Update profile
+     *
+     * @return view
+     */
+    public function updateProfile(CompanyUpdateRequest $request)
+    {
+        $account = Account::find(auth()->id());
+        $company = Company::where('account_id', $account->id);
+        $dataAccount = $request->only(['email']);
+        if ($request->password) {
+            $dataAccount['password'] = bcrypt($request->password);
+        }
+        $dataCompany = $request->only(['name', 'address_id', 'phone', 'about']);
+        if ($account->update($dataAccount) && $company->update($dataCompany)) {
+            return redirect()->route('companies.profile.show')->with('success', 'Cập nhật thông tin cá nhân thành công');
+        } else {
+            return redirect()->back()->with('error', 'Cập nhật thông tin cá nhân thất bại');
+        }
     }
 }

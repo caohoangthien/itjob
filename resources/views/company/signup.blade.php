@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        {!! Form::open(['route' => ['signup-company'], 'method' => 'post', 'files' => true, 'class' => 'col-md-6 col-md-offset-3 form-login'])  !!}
+        {!! Form::open(['route' => ['companies.signup'], 'method' => 'post', 'files' => true, 'class' => 'col-md-6 col-md-offset-3 form-login'])  !!}
         <img src="{!! asset('images/icons/company.png') !!}" class="img-responsive" style="margin: 15px auto" />
 
-        @if (session('errorSystem'))
-        <div class="alert alert-success">
-            <p class="text-success">{{ session('errorSystem') }}</p>
+        @if (session('error'))
+        <div class="alert alert-danger">
+            <p>{{ session('error') }}</p>
         </div>
         @endif
 
