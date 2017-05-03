@@ -29,14 +29,11 @@ class LevelsTableSeeder extends Seeder
                         'name' => 'Senior'
         		],
                     [
-                        'name' => 'Project Admin'
+                        'name' => 'Project Manager'
         		],
                     [
                         'name' => 'Bridge Engineer'
-        		],
-                    [
-                        'name' => 'Tester'
-        		]    
+        		]
             ]
     	);
     }

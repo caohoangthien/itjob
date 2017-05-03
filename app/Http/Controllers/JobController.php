@@ -46,18 +46,24 @@ class JobController extends Controller
      */
     public function store(JobCreateRequest $request)
     {
-        $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id']);
-        $data['company_id'] = auth()->user()->company->id;
-        $job = Job::create($data);
-        foreach ($request->skills_id as $skill_id) {
-            $jobskill = ['job_id' => $job->id, 'skill_id' => $skill_id];
-            JobSkill::create($jobskill);
+        try {
+            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id']);
+            $data['company_id'] = auth()->user()->company->id;
+            $job = Job::create($data);
+            foreach ($request->skills_id as $skill_id) {
+                $jobSkill = ['job_id' => $job->id, 'skill_id' => $skill_id];
+                JobSkill::create($jobSkill);
+            }
+            foreach ($request->levels_id as $level_id) {
+                $jobLevel = ['job_id' => $job->id, 'level_id' => $level_id];
+                JobLevel::create($jobLevel);
+            }
+            return redirect()->route('companies.index')->with('success', 'Đăng tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
+        } catch (\Exception $ex) {
+            return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
         }
-        foreach ($request->levels_id as $level_id) {
-            $joblevel = ['job_id' => $job->id, 'level_id' => $level_id];
-            JobLevel::create($joblevel);
-        }
-        dd('asdadad');
+
+
     }
 
     /**

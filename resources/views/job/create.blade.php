@@ -3,6 +3,11 @@
 @section('title', 'Đăng tin mới')
 
 @section('content')
+    @if (session('error'))
+        <div class="alert alert-danger">
+            <p>{{ session('error') }}</p>
+        </div>
+    @endif
     {!! Form::open(['route' => 'jobs.store', 'method' => 'post', 'class' => 'form-horizontal']) !!}
     <div class="form-group row">
         <label class="col-sm-3 control-label">Tiêu đề</label>
@@ -19,7 +24,6 @@
             @foreach($skills as $skill)
                 {!! Form::checkbox('skills_id[]', $skill->id) !!} {!! $skill->name !!}<br>
             @endforeach
-                {!! Form::text('other_skill', null, ['class' => 'form-control', 'placeholder' => 'Kỹ năng khác']) !!}
             @if ($errors->has('skills_id'))
                 <span class="help-block"><b>{!! $errors->first('skills_id') !!}</b></span>
             @endif
@@ -37,15 +41,6 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-3 control-label">Địa chỉ</label>
-        <div class="col-sm-9 {!! $errors->has('address_id') ? 'has-error' : '' !!}">
-            {!! Form::select('address_id', $address, null, ['class' => 'form-control']) !!}
-            @if ($errors->has('address_id'))
-                <span class="help-block"><b>{!! $errors->first('address_id') !!}</b></span>
-            @endif
-        </div>
-    </div>
-    <div class="form-group row">
         <label class="col-sm-3 control-label">Cấp độ</label>
         <div class="col-sm-9 {!! $errors->has('levels_id') ? 'has-error' : '' !!}">
             @foreach($levels as $level)
@@ -53,6 +48,15 @@
             @endforeach
             @if ($errors->has('levels_id'))
                 <span class="help-block"><b>{!! $errors->first('levels_id') !!}</b></span>
+            @endif
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 control-label">Địa chỉ</label>
+        <div class="col-sm-9 {!! $errors->has('address_id') ? 'has-error' : '' !!}">
+            {!! Form::select('address_id', $address, null, ['class' => 'form-control']) !!}
+            @if ($errors->has('address_id'))
+                <span class="help-block"><b>{!! $errors->first('address_id') !!}</b></span>
             @endif
         </div>
     </div>
