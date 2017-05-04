@@ -52,9 +52,6 @@
 
 @section('javascript')
     <script type="text/javascript">
-
-    </script>
-    <script type="text/javascript">
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}

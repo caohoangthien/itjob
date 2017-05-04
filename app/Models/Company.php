@@ -19,6 +19,6 @@ class Company extends Model
 
     public function account()
     {
-        return $this->belongsTo('App\Models\Account');
+        return $this->belongsTo('App\Models\Account', 'account_id', 'id');
     }
 }

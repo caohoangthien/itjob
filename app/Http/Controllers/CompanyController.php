@@ -42,6 +42,7 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
+        dd(Company::find($id)->account());
         Company::find($id)->delete();
         return redirect()->route('admins.index');
     }
