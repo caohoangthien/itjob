@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-4">
             <div class="text-center">
-                <img id="previewing" src="{{ asset($profile->avatar) }}" class="img-responsive img-thumbnail text-center" alt="User Image" data-path="{{ $profile->avatar }}" />
+                <img id="previewing" src="{{ asset($profile->avatar) }}" class="img-responsive img-thumbnail text-center" alt="User Image" />
             </div>
             <hr>
             <h4>Thay đổi:</h4>
@@ -56,21 +56,22 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(document).ready(function () {
-                $.ajaxSetup({
-                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}
-                });
+            $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}
             });
-            var oldImage = $('#previewing').data('path');
-            $("#avatar").change(function() {
+            var oldImage = $('#previewing').attr('src').slice($('#previewing').attr('src').lastIndexOf('images'));
+            function loadImage(e) {
+                $('#previewing').attr('src', e.target.result);
+            };
+            $("#avatar").change(function(e) {
                 var typeImage = this.files[0].type;
                 if (typeImage == 'image/jpeg' || typeImage == 'image/png') {
                     var reader = new FileReader();
-                    reader.onload = $('#previewing').attr('src', e.target.result);
+                    reader.onload = loadImage;
                     reader.readAsDataURL(this.files[0]);
                     $("#message-error").empty();
                     var formData = new FormData();
-                    formData.append('file', $('#avatar')[0].files[0]);
+                    formData.append('file', this.files[0]);
                     formData.append('oldImage', oldImage);
                     $.ajax({
                         type: "POST",
@@ -81,6 +82,7 @@
                         contentType: false,
                         success: function(data) {
                             if (data.message == 'Success') {
+                                oldImage = data.fileName;
                                 $("#message-error").empty();
                                 $("#message-error").html("<p class='help-block'>Cập nhật avatar thành công.</p>");
                             } else {

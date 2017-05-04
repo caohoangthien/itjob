@@ -72,7 +72,8 @@ class AdminController extends Controller
         Admin::find(auth()->id())->update($data);
 
         return response()->json([
-            'message' => 'Success'
+            'message' => 'Success',
+            'fileName' => $data['avatar'],
         ]);
     }
 }
