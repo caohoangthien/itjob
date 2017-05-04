@@ -61,4 +61,18 @@ class AdminController extends Controller
             return redirect()->back()->withInput()->with('error', 'Cập nhật thông tin cá nhân thất bại');
         }
     }
+
+    public function updateImage(Request $request)
+    {
+        unlink($request->oldImage);
+        $path = "images/avatars/";
+        $fileName = str_random('10') . time() . '.' . $request->file->getClientOriginalExtension();
+        $request->file->move($path, $fileName);
+        $data['avatar'] = $path . $fileName;
+        Admin::find(auth()->id())->update($data);
+
+        return response()->json([
+            'message' => 'Success'
+        ]);
+    }
 }

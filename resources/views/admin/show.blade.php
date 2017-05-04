@@ -39,28 +39,30 @@
             {!! Form::close() !!}
         </div>
         <div class="col-md-4">
-            <form id="update-avatar" method="post" enctype="multipart/form-data">
-                <div class="text-center">
-                    <img id="previewing" src="{!! asset(auth()->user()->admin->avatar) !!}" class="img-responsive img-thumbnail text-center" alt="User Image" />
-                </div>
-                <hr>
-                <input type="file" name="avatar" id="avatar"/>
-                <div id="message-error"></div>
-                <button id="btn-update-avatar" class="btn btn-primary btn-update">Thay đổi</button>
-            </form>
+            <div class="text-center">
+                <img id="previewing" src="{{ asset($profile->avatar) }}" class="img-responsive img-thumbnail text-center" alt="User Image" data-path="{{ $profile->avatar }}" />
+            </div>
+            <hr>
+            <h4>Thay đổi:</h4>
+            <input type="file" name="avatar" id="avatar"/>
+            <div id="message-error"></div>
         </div>
     </div>
 @endsection
 
 @section('javascript')
     <script type="text/javascript">
+
+    </script>
+    <script type="text/javascript">
         $(document).ready(function () {
-            $('#btn-update-avatar').click(function(){
-                if (!$('#avatar').val()) {
-                    $("#message-error").html("<p class='help-block'>Vui lòng chọn ảnh</p>");
-                    return false;
-                }
+            $(document).ready(function () {
+                $.ajaxSetup({
+                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}
+                });
             });
+
+            var oldImage = $('#previewing').data('path');
 
             $("#avatar").change(function() {
                 function loadImage(e) {
@@ -73,12 +75,30 @@
                     reader.onload = loadImage;
                     reader.readAsDataURL(this.files[0]);
                     $("#message-error").empty();
-                    $('#btn-update-avatar').attr("disabled",false);
+                    var formData = new FormData();
+                    formData.append('file', $('#avatar')[0].files[0]);
+                    formData.append('oldImage', oldImage);
+                    $.ajax({
+                        type: "POST",
+                        url: '{{route('admins.image.update')}}',
+                        data: formData,
+                        cache : false,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.message == 'Success') {
+                                $("#message-error").empty();
+                                $("#message-error").html("<p class='help-block'>Cập nhật avatar thành công.</p>");
+                            } else {
+                                $("#message-error").empty();
+                                $("#message-error").html("<p class='help-block'>Cập nhật avatar thất bại.</p>");
+                            }
+                        }
+                    });
                 } else {
                     $('#previewing').attr("src","{{ asset('images/icons/image_not_found.jpg') }}");
                     $("#message-error").empty();
                     $("#message-error").html("<p class='help-block'>Vui lòng chọn ảnh có định dạng png hoặc jpg</p>");
-                    $('#btn-update-avatar').attr("disabled",true);
                 }
             });
         });
