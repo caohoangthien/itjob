@@ -61,18 +61,12 @@
                     headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}
                 });
             });
-
             var oldImage = $('#previewing').data('path');
-
             $("#avatar").change(function() {
-                function loadImage(e) {
-                    $('#previewing').attr('src', e.target.result);
-                };
-
                 var typeImage = this.files[0].type;
                 if (typeImage == 'image/jpeg' || typeImage == 'image/png') {
                     var reader = new FileReader();
-                    reader.onload = loadImage;
+                    reader.onload = $('#previewing').attr('src', e.target.result);
                     reader.readAsDataURL(this.files[0]);
                     $("#message-error").empty();
                     var formData = new FormData();
