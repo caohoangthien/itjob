@@ -106,6 +106,7 @@
                         </div>
                     </div>
                     <p id="result-ajax"></p>
+                    <div id="search-jobs-ajax"></div>
                     {{--@foreach($jobs as $job)--}}
                         {{--<div style="border: 1px seagreen solid; margin: 3px; padding: 3px">--}}
                             {{--<p><a href="#"><b>{{ $job->title }}</b></a></p>--}}
@@ -153,7 +154,7 @@
             title: '',
             address_id: '',
             company: ''
-        }
+        };
 
         $('#search-name').on('keyup', function(){
             search.title = $(this).val();
@@ -164,9 +165,18 @@
                 data : search,
                 success : function (result){
                     if (result.length == 0) {
-                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
+                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.');
                     } else {
-                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.')
+                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        $.each( result, function( key, value ) {
+                            var html = '';
+                            html += '<div class="job-ajax>';
+                            html += '<p><a href="#"><b>' + value.title + '</b></a></p>';
+                            html += '<p><a href="">' + 'name_company' +'</a> - <a href="">' + 'name_address' + '</a></p>';
+                            html += '<p>' + 'salary' + '</p>';
+                            html += '</div>';
+                        });
+                        $('#search-jobs-ajax').html(html);
                     }
                 }
             });
@@ -183,7 +193,16 @@
                     if (result.length == 0) {
                         $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
                     } else {
-                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.')
+                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        $.each( result, function( key, value ) {
+                            var html = '';
+                            html += '<div class="job-ajax>';
+                            html += '<p><a href="#"><b>' + value.title + '</b></a></p>';
+                            html += '<p><a href="">' + 'name_company' +'</a> - <a href="">' + 'name_address' + '</a></p>';
+                            html += '<p>' + 'salary' + '</p>';
+                            html += '</div>';
+                        });
+                        $('#search-jobs-ajax').html(html);
                     }
                 }
             });
@@ -200,7 +219,16 @@
                     if (result.length == 0) {
                         $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
                     } else {
-                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.')
+                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        $.each( result, function( key, value ) {
+                            var html = '';
+                            html += '<div class="job-ajax>';
+                            html += '<p><a href="#"><b>' + value.title + '</b></a></p>';
+                            html += '<p><a href="">' + 'name_company' +'</a> - <a href="">' + 'name_address' + '</a></p>';
+                            html += '<p>' + 'salary' + '</p>';
+                            html += '</div>';
+                            $('#search-jobs-ajax').html(html);
+                        });
                     }
                 }
             });

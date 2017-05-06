@@ -140,38 +140,30 @@ class JobController extends Controller
 
     public function searchAjax(Request $request)
     {
-        $results = collect();
-
-        if ($request['title']) {
-            $jobs = Job::where('title', 'like', '%'. $request['title'] .'%')->get();
-            $results = $results->merge($jobs);
-        }
-        dd();
-
-        if ($request['company']) {
-            $jobs = Job::with(['company' => function ($query) use ($request) {
-                $query->where('name', 'like', '%'. $request['company'] .'%');
-            }])->get();
-
-            foreach ($jobs as $job) {
-                if ($job->company) {
-                    $results = $results->merge($jobs);
-                }
+        $noResult = collect(new Job);
+        if (($request['title'] == null) && ($request['company'] == null) && ($request['address_id'] == null)) {
+            return response()->json($noResult);
+        } else {
+            $results = Job::all();
+            if ($request['title']) {
+                $jobs = Job::where('title', 'like', '%'. $request['title'] .'%')->get();
+                $results = $results->intersect($jobs);
             }
-        }
 
-        if ($request['address_id']) {
-            $jobs = Job::with(['address' => function ($query) use ($request) {
-                $query->where('id', $request['address_id']);
-            }])->get();
-
-            foreach ($jobs as $job) {
-                if ($job->address) {
-                    $results = $results->merge($jobs);
-                }
+            if ($request['company']) {
+                $jobs = Job::whereHas('company', function ($query) use ($request) {
+                    $query->where('name', 'like', '%'. $request['company'] .'%');
+                })->get();
+                $results = $results->intersect($jobs);
             }
-        }
 
-        return response()->json($results);
+            if ($request['address_id']) {
+                $jobs = Job::whereHas('address', function ($query) use ($request) {
+                    $query->where('id', $request['address_id']);
+                })->get();
+                $results = $results->intersect($jobs);
+            }
+            return response()->json($results);
+        }
     }
 }
