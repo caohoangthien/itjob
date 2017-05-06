@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMemberskillsTable extends Migration
+class CreateJobLevelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateMemberskillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('memberskills', function (Blueprint $table) {
+        Schema::create('job_level', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('member_id')->unsigned();
-            $table->foreign('member_id')->references('id')->on('members');
-            $table->integer('skill_id')->unsigned();
-            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->integer('job_id')->unsigned();
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');;
+            $table->integer('level_id')->unsigned();
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');;
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateMemberskillsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('memberskills');
+        Schema::drop('job_level');
     }
 }

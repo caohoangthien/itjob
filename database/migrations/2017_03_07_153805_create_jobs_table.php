@@ -25,6 +25,7 @@ class CreateJobsTable extends Migration
             $table->foreign('salary_id')->references('id')->on('salaries');
             $table->integer('quantity');
             $table->integer('status');
+            $table->integer('check');
             $table->timestamps();
         });
     }

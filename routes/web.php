@@ -25,10 +25,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
     Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
     Route::post('image/admins', 'AdminController@updateImage')->name('admins.image.update');
+
     Route::get('profile/members', 'MemberController@showProfile')->name('members.profile.show');
     Route::get('profile/members/edit', 'MemberController@editProfile')->name('members.profile.edit');
     Route::post('profile/members', 'MemberController@updateProfile')->name('members.profile.update');
+
     Route::get('profile/companies', 'CompanyController@showProfile')->name('companies.profile.show');
     Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
     Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
+    Route::post('image/companies', 'CompanyController@updateImage')->name('companies.image.update');
+
+    Route::get('jobs-uncheck', 'JobController@listUncheck')->name('jobs.uncheck');
+    Route::get('jobs-checked', 'JobController@listChecked')->name('jobs.checked');
 });

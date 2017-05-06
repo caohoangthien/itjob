@@ -49,6 +49,8 @@ class JobController extends Controller
         try {
             $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id']);
             $data['company_id'] = auth()->user()->company->id;
+            $data['status'] = 0;
+            $data['check'] = 0;
             $job = Job::create($data);
             foreach ($request->skills_id as $skill_id) {
                 $jobSkill = ['job_id' => $job->id, 'skill_id' => $skill_id];
@@ -74,7 +76,8 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        //
+        $job = Job::find($id);
+        return view('job.show', compact('job'));
     }
 
     /**
@@ -108,6 +111,19 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Job::find($id)->delete();
+        return redirect()->route('companies.index')->with('success', 'Xóa tin tuyển dụng thành công');
+    }
+
+    public function listUncheck()
+    {
+        $jobs = Job::where('check', Job::UNCHECK)->where('company_id', auth()->user()->company->id)->paginate(15);
+        return view('job.list', compact('jobs'));
+    }
+
+    public function listChecked()
+    {
+        $jobs = Job::where('check', Job::CHECKED)->where('company_id', auth()->user()->company->id)->paginate(15);
+        return view('job.list', compact('jobs'));
     }
 }

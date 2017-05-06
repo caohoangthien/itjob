@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function showProfile()
     {
         $profile = auth()->user()->admin;
-        return view('admin.show', compact('profile'));
+        return view('admin.profile', compact('profile'));
     }
 
     /**
@@ -69,7 +69,7 @@ class AdminController extends Controller
         $fileName = str_random('10') . time() . '.' . $request->file->getClientOriginalExtension();
         $request->file->move($path, $fileName);
         $data['avatar'] = $path . $fileName;
-        Admin::find(auth()->id())->update($data);
+        Admin::where('account_id', auth()->id())->first()->update($data);
 
         return response()->json([
             'message' => 'Success',

@@ -25,9 +25,9 @@
         <ul class="sidebar-menu">
             <li class="header">QUẢN LÝ TUYỂN DỤNG</li>
             <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-plus-square"></i> <span>Đăng tin</span></a></li>
-            <li><a href="documentation/index.html"><i class="fa fa-eye-slash"></i> <span>Tin nháp</span></a></li>
-            <li><a href="documentation/index.html"><i class="fa fa-bell-o"></i> <span>Tin đã đăng</span></a></li>
-            <li><a href="documentation/index.html"><i class="fa fa-ban"></i> <span>Tin chưa duyệt</span></a></li>
+            <li><a href="{!! route('jobs.checked') !!}"><i class="fa fa-ban"></i> <span>Tin đã đăng</span></a></li>
+            <li><a href="{!! route('jobs.uncheck') !!}"><i class="fa fa-ban"></i> <span>Tin chưa duyệt</span></a></li>
+            <li><a href="{!! route('companies.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

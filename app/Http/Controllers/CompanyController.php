@@ -42,8 +42,8 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        dd(Company::find($id)->account());
-        Company::find($id)->delete();
+        unlink(Company::find($id)->avatar);
+        Company::find($id)->account->delete();
         return redirect()->route('admins.index');
     }
 
@@ -105,7 +105,7 @@ class CompanyController extends Controller
     public function showProfile()
     {
         $profile = auth()->user()->company;
-        return view('company.show', compact('profile'));
+        return view('company.profile', compact('profile'));
     }
 
     /**
@@ -135,9 +135,24 @@ class CompanyController extends Controller
         }
         $dataCompany = $request->only(['name', 'address_id', 'phone', 'about']);
         if ($account->update($dataAccount) && $company->update($dataCompany)) {
-            return redirect()->route('companies.profile.show')->with('success', 'Cập nhật thông tin cá nhân thành công');
+            return redirect()->route('companies.profile.show')->with('success', 'Cập nhật thông tin công ty thành công');
         } else {
-            return redirect()->back()->with('error', 'Cập nhật thông tin cá nhân thất bại');
+            return redirect()->back()->with('error', 'Cập nhật thông tin công ty thất bại');
         }
+    }
+
+    public function updateImage(Request $request)
+    {
+        unlink($request->oldImage);
+        $path = "images/avatars/";
+        $fileName = str_random('10') . time() . '.' . $request->file->getClientOriginalExtension();
+        $request->file->move($path, $fileName);
+        $data['avatar'] = $path . $fileName;
+        Company::where('account_id', auth()->id())->first()->update($data);
+
+        return response()->json([
+            'message' => 'Success',
+            'fileName' => $data['avatar'],
+        ]);
     }
 }

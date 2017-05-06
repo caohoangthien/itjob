@@ -1,6 +1,6 @@
 @extends('layout.management.template')
 
-@section('title', 'Thông tin công ty')
+@section('title', 'Thông tin cá nhân')
 
 @section('content')
     @if (session('success'))
@@ -12,39 +12,28 @@
         <div class="col-md-8">
             {!! Form::model($profile, ['class' => 'form-horizontal'])  !!}
             <div class="form-group row">
-                <label class="col-sm-3 control-label">Công ty</label>
-                <div class="col-sm-9">
+                <label class="col-sm-3 control-label">Tên</label>
+                <div class="col-sm-9 {!! $errors->has('name') ? 'has-error' : '' !!}">
                     {!! Form::text('name', null, ['class' => 'form-control', 'disabled']) !!}
+                    @if ($errors->has('name'))
+                        <span class="help-block"><b>{!! $errors->first('name') !!}</b></span>
+                    @endif
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Email</label>
-                <div class="col-sm-9">
-                    {!! Form::text('email', $profile->account->email, ['class' => 'form-control', 'disabled']) !!}
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 control-label">Địa chỉ</label>
-                <div class="col-sm-9">
-                    {!! Form::text('address_id', $profile->address->name, ['class' => 'form-control', 'disabled']) !!}
-                </div>
-            </div><div class="form-group row">
-                <label class="col-sm-3 control-label">Số điện thoại</label>
-                <div class="col-sm-9">
-                    {!! Form::text('phone', null, ['class' => 'form-control', 'disabled']) !!}
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 control-label">Giới thiệu</label>
-                <div class="col-sm-9">
-                    {!! Form::textarea('about', null, ['class' => 'form-control', 'disabled']) !!}
+                <div class="col-sm-9 {!! $errors->has('email') ? 'has-error' : '' !!}">
+                    {!! Form::text('email', auth()->user()->email, ['class' => 'form-control', 'disabled']) !!}
+                    @if ($errors->has('email'))
+                        <span class="help-block"><b>{!! $errors->first('email') !!}</b></span>
+                    @endif
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                    <a href="{!! route('companies.profile.edit') !!}" class='btn btn-primary'>Sửa</a>
-                    <a href="{!! route('companies.index') !!}" class='btn btn-primary'>Trở về</a>
+                    <a href="{!! route('admins.profile.edit') !!}" class='btn btn-primary'>Sửa</a>
+                    <a href="{!! route('admins.index') !!}" class='btn btn-primary'>Trở về</a>
                 </div>
             </div>
             {!! Form::close() !!}
@@ -83,7 +72,7 @@
                     formData.append('oldImage', oldImage);
                     $.ajax({
                         type: "POST",
-                        url: '{{route('companies.image.update')}}',
+                        url: '{{route('admins.image.update')}}',
                         data: formData,
                         cache : false,
                         processData: false,
