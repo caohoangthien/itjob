@@ -19,6 +19,11 @@ class Company extends Model
 
     public function account()
     {
-        return $this->belongsTo('App\Models\Account', 'account_id', 'id');
+        return $this->belongsTo('App\Models\Account');
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany('App\Models\Job');
     }
 }

@@ -140,9 +140,38 @@ class JobController extends Controller
 
     public function searchAjax(Request $request)
     {
-        if ($request->search)
-        dd($request->search['title']);
-        $jobs = Job::where('title', 'like', '%'. $request->name .'%')->get();
-        return response()->json($jobs);
+        $results = collect();
+
+        if ($request['title']) {
+            $jobs = Job::where('title', 'like', '%'. $request['title'] .'%')->get();
+            $results = $results->merge($jobs);
+        }
+        dd();
+
+        if ($request['company']) {
+            $jobs = Job::with(['company' => function ($query) use ($request) {
+                $query->where('name', 'like', '%'. $request['company'] .'%');
+            }])->get();
+
+            foreach ($jobs as $job) {
+                if ($job->company) {
+                    $results = $results->merge($jobs);
+                }
+            }
+        }
+
+        if ($request['address_id']) {
+            $jobs = Job::with(['address' => function ($query) use ($request) {
+                $query->where('id', $request['address_id']);
+            }])->get();
+
+            foreach ($jobs as $job) {
+                if ($job->address) {
+                    $results = $results->merge($jobs);
+                }
+            }
+        }
+
+        return response()->json($results);
     }
 }

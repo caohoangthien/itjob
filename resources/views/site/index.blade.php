@@ -93,10 +93,10 @@
                                 <input id="search-name" type="text" class="form-control" placeholder="Tên công việc">
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="Công ty">
+                                <input id="search-company" type="text" class="form-control" placeholder="Công ty">
                             </div>
                             <div class="col-md-4">
-                                <select class="form-control">
+                                <select id="search-address" class="form-control">
                                     <option value="" disabled selected>Địa điểm</option>
                                     @foreach($address as $value)
                                         <option value="{{$value->id}}">{{$value->name}}</option>
@@ -145,6 +145,10 @@
 <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}
+        });
+
         var search = {
             title: '',
             address_id: '',
@@ -157,10 +161,41 @@
                 url : "{{route('job-search-ajax')}}",
                 type : "post",
                 dataType:"json",
-                data : {
-                    "_token": "{{ csrf_token() }}",
-                    search : search
-                },
+                data : search,
+                success : function (result){
+                    if (result.length == 0) {
+                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
+                    } else {
+                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.')
+                    }
+                }
+            });
+        });
+
+        $('#search-company').on('keyup', function(){
+            search.company = $(this).val();
+            $.ajax({
+                url : "{{route('job-search-ajax')}}",
+                type : "post",
+                dataType:"json",
+                data : search,
+                success : function (result){
+                    if (result.length == 0) {
+                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
+                    } else {
+                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.')
+                    }
+                }
+            });
+        });
+
+        $("#search-address").change(function() {
+            search.address_id = $(this).val();
+            $.ajax({
+                url : "{{route('job-search-ajax')}}",
+                type : "post",
+                dataType:"json",
+                data : search,
                 success : function (result){
                     if (result.length == 0) {
                         $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
