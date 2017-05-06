@@ -29,6 +29,12 @@
             <p>{{$job->quantity}}</p>
         </div>
         <div class="form-group">
+            <label for="exampleInputEmail1">Kỹ năng</label>
+            @foreach($job->skills as $skill)
+                <p>{{$skill->name}}</p>
+            @endforeach
+        </div>
+        <div class="form-group">
             <label for="exampleInputEmail1">Mô tả</label>
             <p>{{$job->describe}}</p>
         </div>

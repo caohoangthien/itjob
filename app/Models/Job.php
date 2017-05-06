@@ -48,4 +48,12 @@ class Job extends Model
     {
         return $this->belongsToMany('App\Models\Skill');
     }
+
+    /**
+     * Get levels for job
+     */
+    public function levels()
+    {
+        return $this->belongsToMany('App\Models\Level');
+    }
 }

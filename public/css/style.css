@@ -1,18 +1,27 @@
 /* Page home */
-.menu {
-	margin-bottom: 0px;
-}
-
 .form-search {
-	position: absolute; 
-	top: 40%; 
+	position: absolute;
+	top: 40%;
 	padding: 50px;
-	background-color: black; 
+	background-color: black;
 	opacity: 0.9;
 }
 
 .pagination {
 	float: right;
+}
+
+.main-body {
+	margin-top: 50px;
+}
+
+/* managements page */
+.form-delete {
+	display: inline;
+}
+
+#previewing {
+	max-height: 200px;
 }
 
 .help-block {
@@ -21,12 +30,4 @@
 
 .btn-update {
 	margin-top: 10px;
-}
-
-#previewing {
-	max-height: 200px;
-}
-
-.form-delete {
-	display: inline;
 }

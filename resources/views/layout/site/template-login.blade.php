@@ -5,7 +5,6 @@
         <title>Việc làm CNTT</title>
         <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-theme.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/login.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.min.css')}}">
         <script type="text/javascript" src="{{asset('js/jquery-3.1.1.min.js')}}"></script>

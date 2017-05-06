@@ -47,19 +47,13 @@ class JobController extends Controller
     public function store(JobCreateRequest $request)
     {
         try {
-            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id']);
+            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id', 'status']);
+            $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
             $data['company_id'] = auth()->user()->company->id;
-            $data['status'] = 0;
             $data['check'] = 0;
             $job = Job::create($data);
-            foreach ($request->skills_id as $skill_id) {
-                $jobSkill = ['job_id' => $job->id, 'skill_id' => $skill_id];
-                JobSkill::create($jobSkill);
-            }
-            foreach ($request->levels_id as $level_id) {
-                $jobLevel = ['job_id' => $job->id, 'level_id' => $level_id];
-                JobLevel::create($jobLevel);
-            }
+            $job->skills()->sync($request->skills_id);
+            $job->levels()->sync($request->levels_id);
             return redirect()->route('companies.index')->with('success', 'Đăng tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
         } catch (\Exception $ex) {
             return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
@@ -88,7 +82,14 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $job = Job::find($id);
+        $skills = Skill::all(['id', 'name']);
+        $oldSkills = $job->skills->pluck('id')->toArray();
+        $levels = Level::all(['id', 'name']);
+        $oldLevels = $job->levels->pluck('id')->toArray();
+        $salaries = Salary::all(['id', 'salary']);
+        $address = Address::all(['id', 'name'])->pluck('name', 'id');
+        return view('job.edit', compact('job', 'skills', 'salaries', 'address', 'levels', 'oldSkills', 'oldLevels'));
     }
 
     /**
@@ -98,9 +99,19 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobCreateRequest $request, $id)
     {
-        //
+        try {
+            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id', 'status']);
+            $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
+            $job = Job::find($id);
+            $job->update($data);
+            $job->skills()->sync($request->skills_id);
+            $job->levels()->sync($request->levels_id);
+            return redirect()->route('companies.index')->with('success', 'Cập nhật tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
+        } catch (\Exception $ex) {
+            return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
+        }
     }
 
     /**
@@ -125,5 +136,13 @@ class JobController extends Controller
     {
         $jobs = Job::where('check', Job::CHECKED)->where('company_id', auth()->user()->company->id)->paginate(15);
         return view('job.list', compact('jobs'));
+    }
+
+    public function searchAjax(Request $request)
+    {
+        if ($request->search)
+        dd($request->search['title']);
+        $jobs = Job::where('title', 'like', '%'. $request->name .'%')->get();
+        return response()->json($jobs);
     }
 }
