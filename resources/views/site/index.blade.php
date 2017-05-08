@@ -83,9 +83,7 @@
     <div class="row" style="margin-top: 10px;">
         <div class="col-md-8">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Việc làm mới nhất</h3>
-                </div>
+                <div class="panel-heading">Việc làm mới nhất</div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row text-center">
@@ -105,17 +103,25 @@
                             </div>
                         </div>
                     </div>
-                    <p id="result-ajax"></p>
-                    <div id="search-jobs-ajax"></div>
-                    {{--@foreach($jobs as $job)--}}
-                        {{--<div style="border: 1px seagreen solid; margin: 3px; padding: 3px">--}}
-                            {{--<p><a href="#"><b>{{ $job->title }}</b></a></p>--}}
-                            {{--<p><a href="">{{ $job->company->name }}</a> - <a href="">{{ $job->address->name }}</a></p>--}}
-                            {{--<p>{{ $job->salary->salary }}</p>--}}
-                        {{--</div>--}}
-                    {{--@endforeach--}}
-                    <div class="pagination">
-                        <a href="" class="btn btn-primary">Xem thêm</a>
+                    <p id="message-result"></p>
+                    <div id="new-job">
+                        <ul class="list-group">
+                            @foreach($jobs as $job)
+                                <li class="list-group-item">
+                                    <p class="job-title"><a>{{ str_limit($job->title, 70) }}</a></p>
+                                    <p class="job-company"><a><b>{{ $job->company->name }}</b></a> - <a><b>{{ $job->address->name }}</b></a></p>
+                                    <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
+                                </li>
+                            @endforeach
+                            <li class="list-group-item">
+                                <a class="btn btn-primary" href="#">Xem thêm</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="search-job">
+                        <ul class="list-group">
+                            <div id="job-result"></div>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -157,6 +163,8 @@
         };
 
         $('#search-name').on('keyup', function(){
+            $('#new-job').hide();
+            $('#job-result').empty();
             search.title = $(this).val();
             $.ajax({
                 url : "{{route('job-search-ajax')}}",
@@ -165,24 +173,26 @@
                 data : search,
                 success : function (result){
                     if (result.length == 0) {
-                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.');
+                        $('#message-result').text('Không tìm thấy công việc phù hợp.');
                     } else {
-                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        $('#message-result').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        var html = '';
                         $.each( result, function( key, value ) {
-                            var html = '';
-                            html += '<div class="job-ajax>';
-                            html += '<p><a href="#"><b>' + value.title + '</b></a></p>';
-                            html += '<p><a href="">' + 'name_company' +'</a> - <a href="">' + 'name_address' + '</a></p>';
-                            html += '<p>' + 'salary' + '</p>';
-                            html += '</div>';
+                            html += '<li class="list-group-item">';
+                            html += '<p class="job-title"><a>' + value.title + '</a></p>';
+                            html += '<p class="job-company"><a><b>' + value.company.name + '</b></a> - <a><b>' + value.address.name + '</b></a></p>';
+                            html += '<p class="job-salary">' + value.salary.salary + ' | Ngày đăng: ' + value.created_at + '</p>';
+                            html += '</li>';
                         });
-                        $('#search-jobs-ajax').html(html);
+                        $('#job-result').html(html);
                     }
                 }
             });
         });
 
         $('#search-company').on('keyup', function(){
+            $('#new-job').hide();
+            $('#job-result').empty();
             search.company = $(this).val();
             $.ajax({
                 url : "{{route('job-search-ajax')}}",
@@ -191,24 +201,26 @@
                 data : search,
                 success : function (result){
                     if (result.length == 0) {
-                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
+                        $('#message-result').text('Không tìm thấy công việc phù hợp.')
                     } else {
-                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        $('#message-result').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        var html = '';
                         $.each( result, function( key, value ) {
-                            var html = '';
-                            html += '<div class="job-ajax>';
-                            html += '<p><a href="#"><b>' + value.title + '</b></a></p>';
-                            html += '<p><a href="">' + 'name_company' +'</a> - <a href="">' + 'name_address' + '</a></p>';
-                            html += '<p>' + 'salary' + '</p>';
-                            html += '</div>';
+                            html += '<li class="list-group-item">';
+                            html += '<p class="job-title"><a>' + value.title + '</a></p>';
+                            html += '<p class="job-company"><a><b>' + value.company.name + '</b></a> - <a><b>' + value.address.name + '</b></a></p>';
+                            html += '<p class="job-salary">' + value.salary.salary + ' | Ngày đăng: ' + value.created_at + '</p>';
+                            html += '</li>';
                         });
-                        $('#search-jobs-ajax').html(html);
+                        $('#job-result').html(html);
                     }
                 }
             });
         });
 
         $("#search-address").change(function() {
+            $('#new-job').hide();
+            $('#job-result').empty();
             search.address_id = $(this).val();
             $.ajax({
                 url : "{{route('job-search-ajax')}}",
@@ -217,18 +229,18 @@
                 data : search,
                 success : function (result){
                     if (result.length == 0) {
-                        $('#result-ajax').text('Không tìm thấy công việc phù hợp.')
+                        $('#message-result').text('Không tìm thấy công việc phù hợp.')
                     } else {
-                        $('#result-ajax').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        $('#message-result').text('Tìm thấy ' + result.length + ' công việc phù hợp.');
+                        var html = '';
                         $.each( result, function( key, value ) {
-                            var html = '';
-                            html += '<div class="job-ajax>';
-                            html += '<p><a href="#"><b>' + value.title + '</b></a></p>';
-                            html += '<p><a href="">' + 'name_company' +'</a> - <a href="">' + 'name_address' + '</a></p>';
-                            html += '<p>' + 'salary' + '</p>';
-                            html += '</div>';
-                            $('#search-jobs-ajax').html(html);
+                            html += '<li class="list-group-item">';
+                            html += '<p class="job-title"><a>' + value.title + '</a></p>';
+                            html += '<p class="job-company"><a><b>' + value.company.name + '</b></a> - <a><b>' + value.address.name + '</b></a></p>';
+                            html += '<p class="job-salary">' + value.salary.salary + ' | Ngày đăng: ' + value.created_at + '</p>';
+                            html += '</li>';
                         });
+                        $('#job-result').html(html);
                     }
                 }
             });

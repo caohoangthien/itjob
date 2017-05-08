@@ -144,23 +144,42 @@ class JobController extends Controller
         if (($request['title'] == null) && ($request['company'] == null) && ($request['address_id'] == null)) {
             return response()->json($noResult);
         } else {
-            $results = Job::all();
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->get();
             if ($request['title']) {
-                $jobs = Job::where('title', 'like', '%'. $request['title'] .'%')->get();
+                $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                    ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                    ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                    ->where('title', 'like', '%'. $request['title'] .'%')
+                    ->get();
                 $results = $results->intersect($jobs);
             }
 
             if ($request['company']) {
-                $jobs = Job::whereHas('company', function ($query) use ($request) {
-                    $query->where('name', 'like', '%'. $request['company'] .'%');
-                })->get();
+                $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                    ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                    ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                    ->where('title', 'like', '%'. $request['title'] .'%')
+                    ->whereHas('company', function ($query) use ($request) {
+                        $query->where('name', 'like', '%'. $request['company'] .'%');
+                    })->get();
                 $results = $results->intersect($jobs);
             }
 
             if ($request['address_id']) {
-                $jobs = Job::whereHas('address', function ($query) use ($request) {
-                    $query->where('id', $request['address_id']);
-                })->get();
+                $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                    ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                    ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                    ->where('title', 'like', '%'. $request['title'] .'%')
+                    ->whereHas('address', function ($query) use ($request) {
+                        $query->where('id', $request['address_id']);
+                    })->get();
                 $results = $results->intersect($jobs);
             }
             return response()->json($results);

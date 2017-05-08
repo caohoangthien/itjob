@@ -1,4 +1,8 @@
 /* Page home */
+.main-body {
+	margin-top: 30px;
+}
+
 .form-search {
 	position: absolute;
 	top: 40%;
@@ -11,8 +15,8 @@
 	float: right;
 }
 
-.main-body {
-	margin-top: 50px;
+.job-title a {
+	color: red;
 }
 
 /* managements page */

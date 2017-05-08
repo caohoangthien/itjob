@@ -19,7 +19,7 @@ class SiteController extends Controller
         $address = Address::all();
         $skills = Skill::all();
         $levels = Level::all();
-        $jobs = Job::where('check', Job::CHECKED)->where('status', Job::ACTIVE)->orderBy('id', 'desc')->limit(5)->get();
+        $jobs = Job::where('check', Job::CHECKED)->where('status', Job::ACTIVE)->orderBy('id', 'desc')->limit(10)->get();
 
         return view('site.index', compact('address', 'skills', 'levels', 'jobs'));
     }
