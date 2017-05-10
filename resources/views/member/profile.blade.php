@@ -72,9 +72,12 @@
         </div>
         <div class="col-md-4">
             <div class="text-center">
-                <img id="previewing" src="{!! asset($profile->avatar) !!}" class="img-responsive img-thumbnail text-center" alt="User Image" />
+                <img id="previewing" src="{{ asset($profile->avatar) }}" class="img-responsive img-thumbnail text-center" alt="User Image" />
             </div>
             <hr>
+            <h4>Thay đổi:</h4>
+            <input type="file" name="avatar" id="avatar"/>
+            <div id="message-error"></div>
         </div>
     </div>
 @endsection
@@ -82,30 +85,45 @@
 @section('javascript')
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#btn-update-avatar').click(function(){
-                if (!$('#avatar').val()) {
-                    $("#message-error").html("<p class='help-block'>Vui lòng chọn ảnh</p>");
-                    return false;
-                }
+            $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'}
             });
-
-            $("#avatar").change(function() {
-                function loadImage(e) {
-                    $('#previewing').attr('src', e.target.result);
-                };
-
+            var oldImage = $('#previewing').attr('src').slice($('#previewing').attr('src').lastIndexOf('images'));
+            function loadImage(e) {
+                $('#previewing').attr('src', e.target.result);
+            };
+            $("#avatar").change(function(e) {
                 var typeImage = this.files[0].type;
                 if (typeImage == 'image/jpeg' || typeImage == 'image/png') {
                     var reader = new FileReader();
                     reader.onload = loadImage;
                     reader.readAsDataURL(this.files[0]);
                     $("#message-error").empty();
-                    $('#btn-update-avatar').attr("disabled",false);
+                    var formData = new FormData();
+                    formData.append('file', this.files[0]);
+                    formData.append('oldImage', oldImage);
+                    $.ajax({
+                        type: "POST",
+                        url: '{{route('members.image.update')}}',
+                        data: formData,
+                        cache : false,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.message == 'Success') {
+                                oldImage = data.fileName;
+                                $("#message-error").empty();
+                                $("#message-error").html("<p class='help-block'>Cập nhật avatar thành công.</p>");
+                            } else {
+                                $("#message-error").empty();
+                                $("#message-error").html("<p class='help-block'>Cập nhật avatar thất bại.</p>");
+                            }
+                        }
+                    });
                 } else {
                     $('#previewing').attr("src","{{ asset('images/icons/image_not_found.jpg') }}");
                     $("#message-error").empty();
                     $("#message-error").html("<p class='help-block'>Vui lòng chọn ảnh có định dạng png hoặc jpg</p>");
-                    $('#btn-update-avatar').attr("disabled",true);
                 }
             });
         });

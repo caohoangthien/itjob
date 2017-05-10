@@ -156,7 +156,22 @@ class MemberController extends Controller
     public function showProfile()
     {
         $profile = auth()->user()->member;
-        return view('member.show', compact('profile'));
+        return view('member.profile', compact('profile'));
+    }
+
+    public function updateImage(Request $request)
+    {
+        unlink($request->oldImage);
+        $path = "images/avatars/";
+        $fileName = str_random('10') . time() . '.' . $request->file->getClientOriginalExtension();
+        $request->file->move($path, $fileName);
+        $data['avatar'] = $path . $fileName;
+        Member::where('account_id', auth()->id())->first()->update($data);
+
+        return response()->json([
+            'message' => 'Success',
+            'fileName' => $data['avatar'],
+        ]);
     }
 
     /**

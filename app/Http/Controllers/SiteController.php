@@ -19,7 +19,8 @@ class SiteController extends Controller
         $address = Address::all();
         $skills = Skill::all();
         $levels = Level::all();
-        $jobs = Job::where('check', Job::CHECKED)->where('status', Job::ACTIVE)->orderBy('id', 'desc')->limit(10)->get();
+        $jobs = Job::where('check', Job::CHECKED)->where('status', Job::ACTIVE)->orderBy('id', 'desc')->limit(20)->get();
+
         $dataPoints = array(
             array("y" => 4, "label" => "Pineapple"),
             array("y" => 6, "label" => "Pears"),

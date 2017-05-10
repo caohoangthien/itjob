@@ -11,8 +11,9 @@ Route::post('company-signup', 'CompanyController@postSignup')->name('companies.s
 Route::get('member-signup', 'MemberController@getSignup')->name('members.signup');
 Route::post('member-signup', 'MemberController@postSignup')->name('members.signup');
 
-// Search ajax
-Route::post('job-search-ajax', 'JobController@searchAjax')->name('job-search-ajax');
+// Search job
+Route::post('search-job', 'JobController@search')->name('jobs.search');
+Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::resource('members', 'MemberController');
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('profile/members', 'MemberController@showProfile')->name('members.profile.show');
     Route::get('profile/members/edit', 'MemberController@editProfile')->name('members.profile.edit');
     Route::post('profile/members', 'MemberController@updateProfile')->name('members.profile.update');
+    Route::post('image/members', 'MemberController@updateImage')->name('members.image.update');
 
     Route::get('profile/companies', 'CompanyController@showProfile')->name('companies.profile.show');
     Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');

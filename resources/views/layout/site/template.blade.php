@@ -53,7 +53,7 @@
         </div>
         <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap.min.js') !!}"></script>
-        <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script type="text/javascript" src="{!! asset('js/canvasjs.min.js') !!}"></script>
         @yield('javascript')
     </body>
 </html>

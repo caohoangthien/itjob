@@ -138,6 +138,50 @@ class JobController extends Controller
         return view('job.list', compact('jobs'));
     }
 
+    public function search(Request $request)
+    {
+        $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+            ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+            ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+            ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+            ->get();
+
+        if ($request->title) {
+            $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->where('title', 'like', '%'. $request->title .'%')
+                ->get();
+            $results = $results->intersect($jobs);
+        }
+
+        if ($request->address_id) {
+            $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->where('title', 'like', '%'. $request['title'] .'%')
+                ->whereHas('address', function ($query) use ($request) {
+                    $query->where('id', $request['address_id']);
+                })->get();
+            $results = $results->intersect($jobs);
+        }
+        dd($results);
+
+        if ($request->level_id) {
+            $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->where('title', 'like', '%'. $request['title'] .'%')
+                ->whereHas('address', function ($query) use ($request) {
+                    $query->where('id', $request['address_id']);
+                })->get();
+            $results = $results->intersect($jobs);
+        }
+    }
+
     public function searchAjax(Request $request)
     {
         $noResult = collect(new Job);

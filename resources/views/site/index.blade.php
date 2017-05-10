@@ -27,46 +27,35 @@
     </div>
 
     <!-- Form search -->
-    <form class="form-inline form-search col-md-8 col-md-offset-2 col-sm-12">
-        <div class="center-block">
-            <div class="input-group col-md-3">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+    <div class="row">
+        <div class="form-search text-center col-md-8 col-md-offset-2 col-sm-12">
+            <div class="form-inline">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                    </div>
+                    <input id="search-name" type="text" class="form-control" placeholder="Tên công việc">
                 </div>
-                <select class="form-control">
-                    <option value="" disabled selected>Địa điểm</option>
-                    @foreach($address as $value)
-                        <option value="{{$value->id}}">{{$value->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="input-group col-md-4">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                    <input id="search-company" type="text" class="form-control" placeholder="Tên công ty">
                 </div>
-                <select class="form-control">
-                    <option value="" disabled selected>Công nghệ</option>
-                    @foreach($skills as $skill)
-                        <option value="{{$skill->id}}">{{$skill->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="input-group col-md-3">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    </div>
+                    <select id="search-address" class="form-control">
+                        <option value="" disabled selected>Địa điểm</option>
+                        @foreach($address as $value)
+                            <option value="{{$value->id}}">{{$value->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <select class="form-control">
-                    <option value="" disabled selected>Cấp bậc</option>
-                    @foreach($levels as $level)
-                        <option value="{{$level->id}}">{{$level->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="input-group">
-                <button type="submit" class="btn btn-default"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Tìm kiếm</button>
             </div>
         </div>
-    </form>
+    </div>
 
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -85,43 +74,27 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Việc làm mới nhất</div>
                 <div class="panel-body">
-                    <div class="well">
-                        <div class="row text-center">
-                            <div class="col-md-4">
-                                <input id="search-name" type="text" class="form-control" placeholder="Tên công việc">
-                            </div>
-                            <div class="col-md-4">
-                                <input id="search-company" type="text" class="form-control" placeholder="Công ty">
-                            </div>
-                            <div class="col-md-4">
-                                <select id="search-address" class="form-control">
-                                    <option value="" disabled selected>Địa điểm</option>
-                                    @foreach($address as $value)
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <p id="message-result"></p>
-                    <div id="new-job">
-                        <ul class="list-group">
-                            @foreach($jobs as $job)
+                    <div class="custom-scroll">
+                        <div id="new-job">
+                            <ul class="list-group">
+                                @foreach($jobs as $job)
+                                    <li class="list-group-item">
+                                        <p class="job-title"><a>{{ str_limit($job->title, 70) }}</a></p>
+                                        <p class="job-company"><a><b>{{ $job->company->name }}</b></a> - <a><b>{{ $job->address->name }}</b></a></p>
+                                        <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
+                                    </li>
+                                @endforeach
                                 <li class="list-group-item">
-                                    <p class="job-title"><a>{{ str_limit($job->title, 70) }}</a></p>
-                                    <p class="job-company"><a><b>{{ $job->company->name }}</b></a> - <a><b>{{ $job->address->name }}</b></a></p>
-                                    <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
+                                    <a class="btn btn-primary" href="#">Xem thêm</a>
                                 </li>
-                            @endforeach
-                            <li class="list-group-item">
-                                <a class="btn btn-primary" href="#">Xem thêm</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="search-job">
-                        <ul class="list-group">
-                            <div id="job-result"></div>
-                        </ul>
+                            </ul>
+                        </div>
+                        <div id="search-job">
+                            <ul class="list-group">
+                                <div id="job-result"></div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,7 +112,7 @@
                             <option value="" >Tháng 3</option>
                         </select>
                     </div>
-                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                    <div id="chartContainer" style="height: 320px; width: 100%;"></div>
                 </div>
             </div>
             <div class="panel panel-primary">
@@ -158,6 +131,7 @@
 @section('javascript')
 <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('js/canvasjs.min.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('js/jquery.nicescroll.min.js') !!}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $.ajaxSetup({
@@ -175,7 +149,7 @@
             $('#job-result').empty();
             search.title = $(this).val();
             $.ajax({
-                url : "{{route('job-search-ajax')}}",
+                url : "{{route('jobs.search-ajax')}}",
                 type : "post",
                 dataType:"json",
                 data : search,
@@ -203,7 +177,7 @@
             $('#job-result').empty();
             search.company = $(this).val();
             $.ajax({
-                url : "{{route('job-search-ajax')}}",
+                url : "{{route('jobs.search-ajax')}}",
                 type : "post",
                 dataType:"json",
                 data : search,
@@ -231,7 +205,7 @@
             $('#job-result').empty();
             search.address_id = $(this).val();
             $.ajax({
-                url : "{{route('job-search-ajax')}}",
+                url : "{{route('jobs.search-ajax')}}",
                 type : "post",
                 dataType:"json",
                 data : search,
