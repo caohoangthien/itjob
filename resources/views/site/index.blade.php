@@ -129,10 +129,17 @@
         <div class="col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Bảng xếp hạng Công nghệ</h3>
+                    <h3 class="panel-title">Top 5 công nghệ tuyển nhiều nhất</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <div class="well">
+                        <select class="form-control">
+                            <option value="" >Tháng 1</option>
+                            <option value="" >Tháng 2</option>
+                            <option value="" >Tháng 3</option>
+                        </select>
+                    </div>
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                 </div>
             </div>
             <div class="panel panel-primary">
@@ -150,6 +157,7 @@
 
 @section('javascript')
 <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('js/canvasjs.min.js') !!}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $.ajaxSetup({
@@ -245,6 +253,32 @@
                 }
             });
         });
+
+        var chart = new CanvasJS.Chart("chartContainer",
+            {
+                animationEnabled: true,
+                legend: {
+                    verticalAlign: "bottom",
+                    horizontalAlign: "center"
+                },
+                theme: "theme2",
+                data: [
+                    {
+                        type: "column",
+                        showInLegend: true,
+                        legendMarkerColor: "grey",
+                        dataPoints: [
+                            {y: 20, label: "PHP"},
+                            {y: 50,  label: "Java" },
+                            {y: 10,  label: "NodeJs"},
+                            {y: 15,  label: "C#"},
+                            {y: 2,  label: "Ruby"},
+                        ]
+                    }
+                ]
+            });
+
+        chart.render();
     });
 </script>
 @endsession
