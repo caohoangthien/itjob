@@ -22,7 +22,7 @@
                 <td>{{ $job->address->name }}</td>
                 <td>{{ $job->salary->salary }}</td>
                 <td>{{ $job->quantity }}</td>
-                <td>{{ $job->status }}</td>
+                <td><button class="btn btn-default">{{ $job->status == 1 ? 'Công khai' : 'Ẩn' }}</button></td>
                 <td>{{ $job->created_at }}</td>
                 <td class="text-center">
                     <a href="{!! route('jobs.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

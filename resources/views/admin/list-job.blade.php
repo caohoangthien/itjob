@@ -10,7 +10,6 @@
         <th>Địa chỉ</th>
         <th>Mức lương</th>
         <th>Số lượng</th>
-        <th>Trạng thái</th>
         <th>Duyệt</th>
         <th>Ngày tạo</th>
         <th class="text-center">Thao tác</th>
@@ -23,7 +22,6 @@
                 <td>{{ $job->address->name }}</td>
                 <td>{{ $job->salary->salary }}</td>
                 <td>{{ $job->quantity }}</td>
-                <td>{{ $job->status }}</td>
                 <td><button class="btn btn-default">{{ $job->check == 0 ? 'Chưa duyệt' : 'Đã duyệt'}}</button></td>
                 <td>{{ $job->created_at }}</td>
                 <td class="text-center">
