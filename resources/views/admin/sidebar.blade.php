@@ -46,8 +46,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-circle-o"></i> Tin đã duyệt</a></li>
-                    <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-circle-o"></i> Tin chưa duyệt</a></li>
+                    <li><a href="{!! route('admins.jobs.checked') !!}"><i class="fa fa-circle-o"></i> Tin đã duyệt</a></li>
+                    <li><a href="{!! route('admins.jobs.uncheck') !!}"><i class="fa fa-circle-o"></i> Tin chưa duyệt</a></li>
                 </ul>
             </li>
             <li class="treeview">

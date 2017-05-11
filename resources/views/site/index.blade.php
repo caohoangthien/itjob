@@ -85,9 +85,9 @@
                                         <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
                                     </li>
                                 @endforeach
-                                <li class="list-group-item">
-                                    <a class="btn btn-primary" href="#">Xem thêm</a>
-                                </li>
+                                {{--<li class="list-group-item">--}}
+                                    {{--<a class="btn btn-primary" href="#">Xem thêm</a>--}}
+                                {{--</li>--}}
                             </ul>
                         </div>
                         <div id="search-job">

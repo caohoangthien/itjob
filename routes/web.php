@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
     Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
     Route::post('image/admins', 'AdminController@updateImage')->name('admins.image.update');
+    Route::get('jobs-uncheck/admins', 'AdminController@listUncheck')->name('admins.jobs.uncheck');
+    Route::get('jobs-checked/admins', 'AdminController@listChecked')->name('admins.jobs.checked');
+    Route::get('show-job/admins/{id}', 'AdminController@showJob')->name('admins.jobs.show');
+    Route::get('show-member/admins/{id}', 'AdminController@showMember')->name('admins.members.show');
 
     Route::get('profile/members', 'MemberController@showProfile')->name('members.profile.show');
     Route::get('profile/members/edit', 'MemberController@editProfile')->name('members.profile.edit');

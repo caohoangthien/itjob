@@ -43,7 +43,9 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         unlink(Company::find($id)->avatar);
-        Company::find($id)->account->delete();
+        $company = Company::find($id);
+        $company->account->delete();
+        $company->delete();
         return redirect()->route('admins.index');
     }
 

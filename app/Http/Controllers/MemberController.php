@@ -63,7 +63,8 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $member = Member::find($id);
+        return view('member.show', $member);
     }
 
     /**
@@ -97,7 +98,10 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        unlink(Member::find($id)->avatar);
+        $member = Member::find($id);
+        $member->delete();
+        return redirect()->route('admins.index')->with('success', 'Xóa thành viên thành công.');
     }
 
     /**

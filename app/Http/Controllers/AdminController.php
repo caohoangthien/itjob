@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Account;
 use App\Models\Admin;
+use App\Models\Job;
+use App\Models\Member;
 
 class AdminController extends Controller
 {
@@ -75,5 +77,29 @@ class AdminController extends Controller
             'message' => 'Success',
             'fileName' => $data['avatar'],
         ]);
+    }
+
+    public function listUncheck()
+    {
+        $jobs = Job::where('check', Job::UNCHECK)->paginate(15);
+        return view('admin.list-job', compact('jobs'));
+    }
+
+    public function listChecked()
+    {
+        $jobs = Job::where('check', Job::CHECKED)->paginate(15);
+        return view('admin.list-job', compact('jobs'));
+    }
+
+    public function showJob($id)
+    {
+        $job = Job::find($id);
+        return view('admin.show-job', compact('job'));
+    }
+
+    public function showMember($id)
+    {
+        $member = Member::find($id);
+        return view('admin.show-member', compact('member'));
     }
 }
