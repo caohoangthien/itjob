@@ -15,6 +15,8 @@ Route::post('member-signup', 'MemberController@postSignup')->name('members.signu
 Route::post('search-job', 'JobController@search')->name('jobs.search');
 Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
 
+Route::get('full-job', 'SiteController@getFullJob')->name('jobs.full');
+
 Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::resource('members', 'MemberController');
     Route::resource('companies', 'CompanyController');

@@ -30,7 +30,7 @@ class JobCreateRequest extends FormRequest
         $salaries = Salary::all(['id'])->pluck('id')->toArray();
 
         return [
-            'title' => 'required|min:3|max:255',
+            'title' => 'required|max:255',
             'skills_id' => 'required',
             'levels_id' => 'required',
             'salary_id' => ['required', Rule::in($salaries)],
@@ -38,6 +38,7 @@ class JobCreateRequest extends FormRequest
             'quantity' => 'required|numeric',
             'describe' => 'required',
             'status' => ['required', Rule::in(['0', '1'])],
+            'deadline' => 'required|date|after:today',
         ];
     }
 
@@ -58,6 +59,9 @@ class JobCreateRequest extends FormRequest
             'describe.required' => 'Mô tả công việc không được để trống',
             'status.required' => 'Trạng thái không được để trống',
             'status.in' => 'Trạng thái không hợp lệ',
+            'deadline.required' => 'Hạn cuối không được để trống',
+            'deadline.date' => 'Hạn cuối sai định dạng',
+            'deadline.after' => 'Hạn cuối sau ngày hôm nay',
         ];
     }
 }

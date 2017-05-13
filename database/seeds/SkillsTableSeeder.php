@@ -14,32 +14,35 @@ class SkillsTableSeeder extends Seeder
         DB::table('skills')->insert(
             [
         		[
-                        'name' => 'IOS'
+                    'name' => 'IOS'
         		],
-                    [
-                        'name' => 'PHP'
+                [
+                    'name' => 'PHP'
         		],
         		[
-                        'name' => 'Java'
+                    'name' => 'Java'
         		],
-                    [
-                        'name' => '.Net'
+                [
+                    'name' => '.Net'
         		],
-                    [
-                        'name' => 'NodeJs'
+                [
+                    'name' => 'NodeJs'
         		],
-                    [
-                        'name' => 'Ruby'
+                [
+                    'name' => 'Ruby'
         		],
-                    [
-                        'name' => 'HTML,CSS,JAVASCRIPT'
+                [
+                    'name' => 'Frontend (HTML,CSS,JAVASCRIPT)'
         		],
-                    [
-                        'name' => 'Network'
+                [
+                    'name' => 'Network'
         		],
-                    [
-                        'name' => 'Hardware'
-                ]     
+                [
+                    'name' => 'Hardware'
+                ],
+                [
+                    'name' => 'Full stack'
+                ]
             ]
     	);
     }

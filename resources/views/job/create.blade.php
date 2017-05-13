@@ -88,6 +88,15 @@
             @endif
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Hạn cuối</label>
+        <div class="col-sm-9 {!! $errors->has('deadline') ? 'has-error' : '' !!}">
+            {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'datepicker', 'placeholder' => 'Hạn cuối']) !!}
+            <span class="help-block">
+                <strong>{!! $errors->first('deadline') !!}</strong>
+            </span>
+        </div>
+    </div>
     <div class="form-group row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9">

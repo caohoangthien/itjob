@@ -14,25 +14,22 @@ class LevelsTableSeeder extends Seeder
         DB::table('levels')->insert(
             [
         		[
-                        'name' => 'All'
+                    'name' => 'Intern'
+        		],
+                [
+                    'name' => 'Junior'
         		],
         		[
-                        'name' => 'Intern'
+                    'name' => 'Developer'
         		],
-                    [
-                        'name' => 'Junior'
+                [
+                    'name' => 'Senior'
         		],
-        		[
-                        'name' => 'Developer'
+                [
+                    'name' => 'Project Manager'
         		],
-                    [
-                        'name' => 'Senior'
-        		],
-                    [
-                        'name' => 'Project Manager'
-        		],
-                    [
-                        'name' => 'Bridge Engineer'
+                [
+                    'name' => 'Bridge Engineer'
         		]
             ]
     	);

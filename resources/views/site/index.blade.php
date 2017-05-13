@@ -7,7 +7,6 @@
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
         <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
     </ol>
 
     <!-- Wrapper for slides -->
@@ -20,9 +19,6 @@
         </div>
         <div class="item">
             <img src="{{asset('images/banners/bn3.jpg')}}" alt="Banner3">
-        </div>
-        <div class="item">
-            <img src="{{asset('images/banners/bn4.jpg')}}" alt="Banner3">
         </div>
     </div>
 
@@ -85,9 +81,9 @@
                                         <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
                                     </li>
                                 @endforeach
-                                {{--<li class="list-group-item">--}}
-                                    {{--<a class="btn btn-primary" href="#">Xem thêm</a>--}}
-                                {{--</li>--}}
+                                <li class="list-group-item">
+                                    <a class="btn btn-primary" href="{!! route('jobs.full') !!}">Xem tất cả</a>
+                                </li>
                             </ul>
                         </div>
                         <div id="search-job">

@@ -31,4 +31,15 @@ class SiteController extends Controller
 
         return view('site.index', compact('address', 'skills', 'levels', 'jobs', 'dataPoints'));
     }
+
+    /**
+     * Get full job
+     *
+     * @return view
+     */
+    public function getFullJob()
+    {
+        $jobs = Job::all();
+        return view('site.full-job', compact('jobs'));
+    }
 }

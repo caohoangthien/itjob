@@ -52,7 +52,7 @@
 <script src="{{asset('js/jquery-ui.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#datepicker").datepicker();
+        $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
     })
 </script>
 @yield('javascript')

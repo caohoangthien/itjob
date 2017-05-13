@@ -13,190 +13,193 @@ class AddressTableSeeder extends Seeder {
     	DB::table('address')->insert(
             [
         		[
-                        'name' => 'Cần Thơ'
+                    'name' => 'Cần Thơ'
         		],
         		[
-                        'name' => 'Đà Nẵng'
+                    'name' => 'Đà Nẵng'
         		],
-                    [
-                        'name' => 'Hà Nội'
+                [
+                    'name' => 'Hà Nội'
         		],
-                    [
-                        'name' => 'TP HCM'
+                [
+                    'name' => 'TP HCM'
         		],
-                    [
-                        'name' => 'Hải Phòng'
+                [
+                    'name' => 'Hải Phòng'
         		],
-                    [
-                        'name' => 'An Giang'
+                [
+                    'name' => 'An Giang'
         		],
-                    [
-                        'name' => 'Bà Rịa - Vũng tàu'
+                [
+                    'name' => 'Bà Rịa - Vũng tàu'
         		],
-                    [
-                        'name' => 'Bắc Giang'
+                [
+                    'name' => 'Bắc Giang'
         		],
-                    [
-                        'name' => 'Bắc Kạn'
+                [
+                    'name' => 'Bắc Kạn'
         		],
-                    [
-                        'name' => 'Bạc Liêu'
+                [
+                    'name' => 'Bạc Liêu'
         		],
-                    [
-                        'name' => 'Bắc Ninh'
+                [
+                    'name' => 'Bắc Ninh'
         		],
-                    [
-                        'name' => 'Bến Tre'
+                [
+                    'name' => 'Bến Tre'
         		],
-                    [
-                        'name' => 'Bình Định'
+                [
+                    'name' => 'Bình Định'
         		],
-                    [
-                        'name' => 'Bình Dương'
+                [
+                    'name' => 'Bình Dương'
         		],
-                    [
-                        'name' => 'Bình Phước'
+                [
+                    'name' => 'Bình Phước'
         		],
-                    [
-                        'name' => 'Bình Thuận'
+                [
+                    'name' => 'Bình Thuận'
         		],
-                    [
-                        'name' => 'Cà Mau'
+                [
+                    'name' => 'Cà Mau'
         		],
-                    [
-                        'name' => 'Cao Bằng'
+                [
+                    'name' => 'Cao Bằng'
         		],
-                    [
-                        'name' => 'Đắk Lắk'
+                [
+                    'name' => 'Đắk Lắk'
         		],
-                    [
-                        'name' => 'Đắk Nông'
+                [
+                    'name' => 'Đắk Nông'
         		],
-                    [
-                        'name' => 'Điện Biên'
+                [
+                    'name' => 'Điện Biên'
         		],
-                    [
-                        'name' => 'Đồng Nai'
+                [
+                    'name' => 'Đồng Nai'
         		],
-                    [
-                        'name' => 'Đồng Tháp'
+                [
+                    'name' => 'Đồng Tháp'
         		],
-                    [
-                        'name' => 'Gia Lai'
+                [
+                    'name' => 'Gia Lai'
         		],
-                    [
-                        'name' => 'Hà Giang'
+                [
+                    'name' => 'Hà Giang'
         		],
-                    [
-                        'name' => 'Hà Nam'
+                [
+                    'name' => 'Hà Nam'
         		],
-                    [
-                        'name' => 'Hà Tỉnh'
+                [
+                    'name' => 'Hà Tỉnh'
         		],
-                    [
-                        'name' => 'Hải Dương'
+                [
+                    'name' => 'Hải Dương'
         		],
-                    [
-                        'name' => 'Hậu Giang'
+                [
+                    'name' => 'Hậu Giang'
         		],
-                    [
-                        'name' => 'Hòa Bình'
+                [
+                    'name' => 'Hòa Bình'
         		],
-                    [
-                        'name' => 'Hưng Yên'
+                [
+                    'name' => 'Hưng Yên'
         		],
-                    [
-                        'name' => 'Khánh Hòa'
+                [
+                    'name' => 'Khánh Hòa'
         		],
-                    [
-                        'name' => 'Kiên Giang'
+                [
+                    'name' => 'Kiên Giang'
         		],
-                    [
-                        'name' => 'Kon Tum'
+                [
+                    'name' => 'Kon Tum'
         		],
-                    [
-                        'name' => 'Lai Châu'
+                [
+                    'name' => 'Lai Châu'
         		],
-                    [
-                        'name' => 'Lâm Đồng'
+                [
+                    'name' => 'Lâm Đồng'
         		],
-                    [
-                        'name' => 'Lạng Sơn'
+                [
+                    'name' => 'Lạng Sơn'
         		],
-                    [
-                        'name' => 'Lào Cai'
+                [
+                    'name' => 'Lào Cai'
         		],
-                    [
-                        'name' => 'Long An'
+                [
+                    'name' => 'Long An'
         		],
-                    [
-                        'name' => 'Nam Định'
+                [
+                    'name' => 'Nam Định'
         		],
-                    [
-                        'name' => 'Nghệ An'
+                [
+                    'name' => 'Nghệ An'
         		],
-                    [
-                        'name' => 'Ninh Bình'
+                [
+                    'name' => 'Ninh Bình'
         		],
-                    [
-                        'name' => 'Ninh Thuận'
+                [
+                    'name' => 'Ninh Thuận'
         		],
-                    [
-                        'name' => 'Phú Thọ'
+                [
+                    'name' => 'Phú Thọ'
         		],
-                    [
-                        'name' => 'Quảng Bình'
+                [
+                    'name' => 'Quảng Bình'
         		],
-                    [
-                        'name' => 'Quảng Nam'
+                [
+                    'name' => 'Quảng Nam'
         		],
-                    [
-                        'name' => 'Quãng Ngãi'
+                [
+                    'name' => 'Quãng Ngãi'
         		],
-                    [
-                        'name' => 'Quãng Ninh'
+                [
+                    'name' => 'Quãng Ninh'
         		],
-                    [
-                        'name' => 'Quãng Trị'
+                [
+                    'name' => 'Quãng Trị'
         		],
-                    [
-                        'name' => 'Sóc Trăng'
+                [
+                    'name' => 'Sóc Trăng'
         		],
-                    [
-                        'name' => 'Sơn La'
+                [
+                    'name' => 'Sơn La'
         		],
-                    [
-                        'name' => 'Tây Ninh'
+                [
+                    'name' => 'Tây Ninh'
         		],
-                    [
-                        'name' => 'Thái Bình'
+                [
+                    'name' => 'Thái Bình'
         		],
-                    [
-                        'name' => 'Thái Nguyên'
+                [
+                    'name' => 'Thái Nguyên'
         		],
-                    [
-                        'name' => 'Thanh Hóa'
-        		],[
+                [
+                    'name' => 'Thanh Hóa'
+        		],
+                [
                         'name' => 'Huế'
         		],
-                    [
-                        'name' => 'Tiền Giang'
-        		],[
+                [
+                    'name' => 'Tiền Giang'
+        		],
+                [
                         'name' => 'Trà Vinh'
-        		],[
+        		],
+                [
                         'name' => 'Tuyên Quang'
         		],
-                    [
-                        'name' => 'Vĩnh Long'
+                [
+                    'name' => 'Vĩnh Long'
         		],
-                    [
-                        'name' => 'Vĩnh Phúc'
+                [
+                    'name' => 'Vĩnh Phúc'
         		],
-                    [
-                        'name' => 'Yên Bái'
+                [
+                    'name' => 'Yên Bái'
         		],
-                    [
-                        'name' => 'Phú Yên'
+                [
+                    'name' => 'Phú Yên'
         		]             
             ]
     	);

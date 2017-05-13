@@ -19,6 +19,7 @@ class CreateJobSkillTable extends Migration
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->integer('skill_id')->unsigned();
             $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

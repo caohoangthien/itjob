@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,7 @@ class Job extends Model
     protected $table = 'jobs';
 
     protected $fillable = [
-        'title', 'address_id', 'salary_id', 'quantity', 'describe', 'company_id', 'status', 'check'
+        'title', 'address_id', 'salary_id', 'quantity', 'describe', 'company_id', 'status', 'check', 'deadline'
     ];
 
     /**

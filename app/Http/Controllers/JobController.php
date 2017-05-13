@@ -47,10 +47,11 @@ class JobController extends Controller
     public function store(JobCreateRequest $request)
     {
         try {
-            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id', 'status']);
+            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id', 'status', 'deadline']);
             $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
             $data['company_id'] = auth()->user()->company->id;
             $data['check'] = 0;
+            $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
             $job = Job::create($data);
             $job->skills()->sync($request->skills_id);
             $job->levels()->sync($request->levels_id);
@@ -58,8 +59,6 @@ class JobController extends Controller
         } catch (\Exception $ex) {
             return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
         }
-
-
     }
 
     /**

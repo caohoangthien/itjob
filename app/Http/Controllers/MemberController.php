@@ -124,29 +124,31 @@ class MemberController extends Controller
      */
     public function postSignup(MemberCreateRequest $request)
     {
+        $dataAccount = $request->only('email', 'password');
+        $dataAccount['password'] = bcrypt($dataAccount['password']);
+        $dataAccount['role'] = 3;
+        $account = Account::create($dataAccount);
+        $dataMember = $request->only('name', 'address_id', 'phone', 'about', 'gender', 'birthday');
+        $dataMember['birthday'] = date("Y-m-d", strtotime($dataMember['birthday']));
+        $dataMember['account_id'] = $account->id;
+        $path_image = "images/avatars/";
+        $path_cv = "file/cv/";
+        $nameImage = str_random('20') . time() . '.' . $request->avatar->getClientOriginalExtension();
+        $nameCV = str_random('20') . time() . '.' . $request->cv->getClientOriginalExtension();
+        $request->avatar->move($path_image, $nameImage);
+        $request->cv->move($path_cv, $nameCV);
+        $dataMember['avatar'] = $path_image . $nameImage;
+        $dataMember['cv'] = $path_cv . $nameCV;
+        $member = Member::create($dataMember);
+        foreach ($request->skills_id as $skill_id) {
+            $memberSkill = ['member_id' => $member->id, 'skill_id' => $skill_id];
+            MemberSkill::create($memberSkill);
+        }
+        if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
+            return redirect()->route('members.index');
+        }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
         try {
-            $dataAccount = $request->only('email', 'password');
-            $dataAccount['password'] = bcrypt($dataAccount['password']);
-            $dataAccount['role'] = 3;
-            $account = Account::create($dataAccount);
-            $dataMember = $request->only('name', 'address_id', 'phone', 'about', 'gender', 'birthday');
-            $dataMember['account_id'] = $account->id;
-            $path_image = "images/avatars/";
-            $path_cv = "file/cv/";
-            $nameImage = str_random('20') . time() . '.' . $request->avatar->getClientOriginalExtension();
-            $nameCV = str_random('20') . time() . '.' . $request->cv->getClientOriginalExtension();
-            $request->avatar->move($path_image, $nameImage);
-            $request->cv->move($path_cv, $nameCV);
-            $dataMember['avatar'] = $path_image . $nameImage;
-            $dataMember['cv'] = $path_cv . $nameCV;
-            $member = Member::create($dataMember);
-            foreach ($request->skills_id as $skill_id) {
-                $memberSkill = ['member_id' => $member->id, 'skill_id' => $skill_id];
-                MemberSkill::create($memberSkill);
-            }
-            if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
-                return redirect()->route('members.index');
-            }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+
         } catch (\Exception $ex) {
             return back()->withInput()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
         }
