@@ -26,6 +26,7 @@ class CreateJobsTable extends Migration
             $table->integer('status');
             $table->timestamp('deadline');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

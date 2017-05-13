@@ -9,7 +9,7 @@ class Skill extends Model
     protected $table = 'skills';
 
     /**
-     * Get job for skill
+     * Get job relationship
      */
     public function jobs()
     {

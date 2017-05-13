@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
 {
+    const PATH_AVATAR = 'images/avatars/';
+    const PATH_CV = 'files/cv/';
+
     protected $table = 'members';
 
     protected $fillable = [
@@ -13,18 +16,24 @@ class Member extends Model
     ];
 
     /**
-     * Get address
+     * Get address relationship
      */
     public function address()
     {
         return $this->belongsTo('App\Models\Address');
     }
 
+    /**
+     * Get account relationship
+     */
     public function account()
     {
         return $this->belongsTo('App\Models\Account');
     }
 
+    /**
+     * Get skills relationship
+     */
     public function skills()
     {
         return $this->belongsToMany('App\Models\Skill');

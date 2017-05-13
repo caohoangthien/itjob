@@ -18,3 +18,15 @@ body {
 .form-login img{
     margin: 0px auto;
 }
+
+.footer {
+    background-color: black;
+}
+
+.footer h5 {
+    color: white;
+}
+
+.footer p {
+    color: orange;
+}

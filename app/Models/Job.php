@@ -1,25 +1,25 @@
 <?php
 
 namespace App\Models;
-use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Job extends Model
 {
+    use SoftDeletes;
+
     const ACTIVE = 1;
     const DEACTIVE = 0  ;
-    const CHECKED = 1;
-    const UNCHECK = 0  ;
 
     protected $table = 'jobs';
-
+    protected $dates = ['deleted_at'];
     protected $fillable = [
-        'title', 'address_id', 'salary_id', 'quantity', 'describe', 'company_id', 'status', 'check', 'deadline'
+        'title', 'address_id', 'salary_id', 'describe', 'company_id', 'status', 'deadline'
     ];
 
     /**
-     * Get company for job.
+     * Get company relationship
      */
     public function company()
     {
@@ -27,7 +27,7 @@ class Job extends Model
     }
 
     /**
-     * Get address for job.
+     * Get address relationship
      */
     public function address()
     {
@@ -35,7 +35,7 @@ class Job extends Model
     }
 
     /**
-     * Get salary for job.
+     * Get salary relationship
      */
     public function salary()
     {
@@ -43,7 +43,7 @@ class Job extends Model
     }
 
     /**
-     * Get skill for job
+     * Get skill relationship
      */
     public function skills()
     {
@@ -51,7 +51,7 @@ class Job extends Model
     }
 
     /**
-     * Get levels for job
+     * Get levels relationship
      */
     public function levels()
     {

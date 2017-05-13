@@ -24,6 +24,17 @@
 	overflow: scroll;
 }
 
+.footer {
+	background-color: black;
+}
+
+.footer h5 {
+	color: white;
+}
+
+.footer p {
+	color: orange;
+}
 /* managements page */
 .form-delete {
 	display: inline;

@@ -46,9 +46,8 @@
             <div class="form-group">
                 {!! Form::label('', 'Giới tính') !!}
                 <div class="{!! $errors->has('gender') ? 'has-error' : '' !!}">
-                    {!! Form::radio('gender', '1', true) !!} Nam<br>
+                    {!! Form::radio('gender', '1', true) !!} Nam
                     {!! Form::radio('gender', '2') !!} Nữ
-
                     @if ($errors->has('gender'))
                         <span class="help-block">
                             <strong>{!! $errors->first('gender') !!}</strong>

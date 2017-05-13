@@ -14,6 +14,53 @@ use App\Http\Requests\MemberUpdateRequest;
 class MemberController extends Controller
 {
     /**
+     * Get form signup member
+     */
+    public function getSignup()
+    {
+        $skills = Skill::all(['id', 'name']);
+        $address = Address::all(['id', 'name'])->pluck('name', 'id');
+
+        return view('member.signup', compact('skills', 'address'));
+    }
+
+    /**
+     * Store member
+     */
+    public function postSignup(MemberCreateRequest $request)
+    {
+        try {
+            $dataAccount = $request->only('email', 'password');
+            $dataAccount['password'] = bcrypt($dataAccount['password']);
+            $dataAccount['role'] = Account::MEMBER;
+            $account = Account::create($dataAccount);
+
+            $dataMember = $request->only('name', 'address_id', 'phone', 'about', 'gender', 'birthday');
+            $dataMember['birthday'] = date("Y-m-d", strtotime($dataMember['birthday']));
+            $dataMember['account_id'] = $account->id;
+            $nameImage = str_random('20') . time() . '.' . $request->avatar->getClientOriginalExtension();
+            $nameCV = str_random('20') . time() . '.' . $request->cv->getClientOriginalExtension();
+            $request->avatar->move(Member::PATH_AVATAR, $nameImage);
+            $request->cv->move(Member::PATH_CV, $nameCV);
+            $dataMember['avatar'] = Member::PATH_AVATAR . $nameImage;
+            $dataMember['cv'] = Member::PATH_CV . $nameCV;
+            $member = Member::create($dataMember);
+            $member->skills()->sync($request->skills_id);
+
+            if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
+                return redirect()->route('members.index');
+            }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+        } catch (\Exception $ex) {
+            return back()->withInput()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+        }
+    }
+
+
+
+
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -104,55 +151,8 @@ class MemberController extends Controller
         return redirect()->route('admins.index')->with('success', 'Xóa thành viên thành công.');
     }
 
-    /**
-     * Get form signup
-     *
-     * @return view
-     */
-    public function getSignup()
-    {
-        $skills = Skill::all(['id', 'name']);
-        $address = Address::all(['id', 'name'])->pluck('name', 'id');
 
-        return view('member.signup', compact('skills', 'address'));
-    }
 
-    /**
-     * Post form signup
-     *
-     * @return redirect
-     */
-    public function postSignup(MemberCreateRequest $request)
-    {
-        $dataAccount = $request->only('email', 'password');
-        $dataAccount['password'] = bcrypt($dataAccount['password']);
-        $dataAccount['role'] = 3;
-        $account = Account::create($dataAccount);
-        $dataMember = $request->only('name', 'address_id', 'phone', 'about', 'gender', 'birthday');
-        $dataMember['birthday'] = date("Y-m-d", strtotime($dataMember['birthday']));
-        $dataMember['account_id'] = $account->id;
-        $path_image = "images/avatars/";
-        $path_cv = "file/cv/";
-        $nameImage = str_random('20') . time() . '.' . $request->avatar->getClientOriginalExtension();
-        $nameCV = str_random('20') . time() . '.' . $request->cv->getClientOriginalExtension();
-        $request->avatar->move($path_image, $nameImage);
-        $request->cv->move($path_cv, $nameCV);
-        $dataMember['avatar'] = $path_image . $nameImage;
-        $dataMember['cv'] = $path_cv . $nameCV;
-        $member = Member::create($dataMember);
-        foreach ($request->skills_id as $skill_id) {
-            $memberSkill = ['member_id' => $member->id, 'skill_id' => $skill_id];
-            MemberSkill::create($memberSkill);
-        }
-        if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->route('members.index');
-        }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
-        try {
-
-        } catch (\Exception $ex) {
-            return back()->withInput()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
-        }
-    }
 
     /**
      * Show profile

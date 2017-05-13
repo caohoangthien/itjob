@@ -19,7 +19,7 @@ class Account extends Authenticatable
     protected $table = 'accounts';
 
     /**
-     * Get company
+     * Get company relationship
      */
     public function company()
     {
@@ -27,7 +27,7 @@ class Account extends Authenticatable
     }
 
     /**
-     * Get admin
+     * Get admin relationship
      */
     public function admin()
     {
@@ -35,7 +35,7 @@ class Account extends Authenticatable
     }
 
     /**
-     * Get member
+     * Get member relationship
      */
     public function member()
     {

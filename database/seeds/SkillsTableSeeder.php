@@ -32,6 +32,9 @@ class SkillsTableSeeder extends Seeder
                     'name' => 'Ruby'
         		],
                 [
+                    'name' => 'Android'
+                ],
+                [
                     'name' => 'Frontend (HTML,CSS,JAVASCRIPT)'
         		],
                 [
