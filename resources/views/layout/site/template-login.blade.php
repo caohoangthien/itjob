@@ -78,6 +78,7 @@
             </div>
         </div>
         <script src="{{asset('js/jquery-ui.min.js')}}"></script>
+        @yield('javascript')
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#datepicker").datepicker({

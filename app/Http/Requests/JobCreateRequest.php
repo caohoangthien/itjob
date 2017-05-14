@@ -37,7 +37,6 @@ class JobCreateRequest extends FormRequest
             'address_id' => ['required', Rule::in($address)],
             'quantity' => 'required|numeric',
             'describe' => 'required',
-            'status' => ['required', Rule::in(['0', '1'])],
             'deadline' => 'required|date|after:today',
         ];
     }
@@ -57,8 +56,6 @@ class JobCreateRequest extends FormRequest
             'quantity.required' => 'Số lượng không được để trống.',
             'quantity.numeric' => 'Vui lòng nhập số lượng.',
             'describe.required' => 'Mô tả công việc không được để trống',
-            'status.required' => 'Trạng thái không được để trống',
-            'status.in' => 'Trạng thái không hợp lệ',
             'deadline.required' => 'Hạn cuối không được để trống',
             'deadline.date' => 'Hạn cuối sai định dạng',
             'deadline.after' => 'Hạn cuối sau ngày hôm nay',

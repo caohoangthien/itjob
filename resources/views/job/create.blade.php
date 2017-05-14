@@ -78,16 +78,6 @@
             @endif
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Trạng thái</label>
-        <div class="col-sm-9 {!! $errors->has('status') ? 'has-error' : '' !!}">
-            {!! Form::radio('status', '1', true) !!} Hiển thị<br>
-            {!! Form::radio('status', '0') !!} Ẩn
-            @if ($errors->has('status'))
-                <span class="help-block"><b>{!! $errors->first('status') !!}</b></span>
-            @endif
-        </div>
-    </div>
     <div class="form-group">
         <label class="col-sm-3 control-label">Hạn cuối</label>
         <div class="col-sm-9 {!! $errors->has('deadline') ? 'has-error' : '' !!}">

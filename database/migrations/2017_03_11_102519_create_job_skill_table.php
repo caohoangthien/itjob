@@ -16,9 +16,9 @@ class CreateJobSkillTable extends Migration
         Schema::create('job_skill', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
-            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('jobs');
             $table->integer('skill_id')->unsigned();
-            $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
+            $table->foreign('skill_id')->references('id')->on('skills');
             $table->integer('quantity');
             $table->timestamps();
         });

@@ -39,12 +39,8 @@
             <p>{{$job->describe}}</p>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Trạng thái</label>
-            <p>{{$job->status}}</p>
-        </div>
-        <div class="form-group">
             <label for="exampleInputEmail1">Ngày đăng</label>
-            <p>{{$job->created_at}}</p>
+            <p>{{ date_format($job->created_at,"d-m-Y") }}</p>
         </div>
         <div class="form-group">
             <a href="{!! route('companies.index') !!}" class="btn btn-primary">Trở về</a>

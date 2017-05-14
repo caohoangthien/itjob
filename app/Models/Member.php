@@ -36,6 +36,6 @@ class Member extends Model
      */
     public function skills()
     {
-        return $this->belongsToMany('App\Models\Skill');
+        return $this->belongsToMany('App\Models\Skill')->withTimestamps();
     }
 }

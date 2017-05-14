@@ -13,7 +13,7 @@ class SiteController extends Controller
     public function index()
     {
         $address = Address::all();
-        $jobs = Job::where('status', Job::ACTIVE)->orderBy('id', 'desc')->limit(20)->get();
+        $jobs = Job::where('status', Job::ACTIVE)->where('deleted_at', null)->orderBy('id', 'desc')->limit(20)->get();
 
         $dataPoints = array(
             array("y" => 4, "label" => "Pineapple"),

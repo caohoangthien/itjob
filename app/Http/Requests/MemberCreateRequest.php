@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Address;
-use App\Models\Skill;
 use Illuminate\Validation\Rule;
 
 class MemberCreateRequest extends FormRequest
@@ -31,7 +30,7 @@ class MemberCreateRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|unique:accounts|max:255',
-            'password' => 'required',
+            'password' => 'required|min:6|max:255',
             'phone' => 'required',
             'address_id' => ['required', Rule::in($address)],
             'skills_id' => 'required',
@@ -53,6 +52,8 @@ class MemberCreateRequest extends FormRequest
             'email.max' => 'Tên tối da 255 kí tự.',
             'email.unique' => 'Email đã tồn tại.',
             'password.required'  => 'Mật khẩu không được để trống.',
+            'password.min'  => 'Mật khẩu tối thiểu 6 kí tự.',
+            'password.max'  => 'Mật khẩu tối đa 255 kí tự.',
             'phone.required' => 'Số điện thoại không được để trống.',
             'address_id.required' => 'Địa chỉ không được để trống.',
             'address_id.in' => 'Địa chỉ không tồn tại.',
@@ -64,10 +65,10 @@ class MemberCreateRequest extends FormRequest
             'birthday.date_format' => 'Ngày sinh phải có định dạng dd-mm-yyyy.',
             'birthday.before' => 'Ngày sinh phải là ngày trong quá khứ.',
             'about.required' => 'Giới thiệu không được để trống.',
-            'avatar.required' => 'Ảnh đại diện không được để trống.',
+            'avatar.required' => 'Vui lòng chọn ảnh đại diện.',
             'avatar.mimes' => 'Ảnh đại diện phải có định dạng jpn, jpg, jpeg.',
             'avatar.max' => 'Ảnh đại diện có dung lượng tối đa 1000kb.',
-            'cv.required' => 'CV không được để trống.',
+            'cv.required' => 'Vui lòng đính kèm CV.',
             'cv.mimes' => 'CV phải phải có đinhj dạng pdf',
             'cv.max' => 'CV có dung lượng dưới 1000kb.',
         ];

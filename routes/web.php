@@ -7,6 +7,8 @@ Route::get('login', 'LoginController@getLogin')->name('login');
 Route::post('login', 'LoginController@postLogin')->name('login');
 Route::get('logout', 'LoginController@logout')->name('logout');
 Route::get('company-signup', 'CompanyController@getSignup')->name('companies.signup');
+Route::get('forgot-password', 'LoginController@getForgot')->name('forgot-password');
+Route::post('forgot-password', 'LoginController@postForgot')->name('forgot-password');
 Route::post('company-signup', 'CompanyController@postSignup')->name('companies.signup');
 Route::get('member-signup', 'MemberController@getSignup')->name('members.signup');
 Route::post('member-signup', 'MemberController@postSignup')->name('members.signup');
@@ -46,6 +48,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
     Route::post('image/companies', 'CompanyController@updateImage')->name('companies.image.update');
 
-    Route::get('jobs-uncheck', 'JobController@listUncheck')->name('jobs.uncheck');
-    Route::get('jobs-checked', 'JobController@listChecked')->name('jobs.checked');
+    Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
+    Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');
 });

@@ -5,13 +5,11 @@
     <div class="row">
         {!! Form::open(['route' => 'login', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
         <img src="{!! asset('images/icons/signin.png') !!}" width="100" class="img-responsive"/>
-
         @if (session('error'))
         <div class="alert alert-success">
             <p class="text-success">{{ session('error') }}</p>
         </div>
         @endif
-
         <div class="form-group ">
             {!! Form::label('', 'Email') !!}
             <div class="{!! $errors->has('email') ? 'has-error' : '' !!}">
@@ -23,11 +21,11 @@
                 @endif
             </div>
         </div>
-
         <div class="form-group ">
             {!! Form::label('', 'Mật khẩu') !!}
             <div class="{!! $errors->has('password') ? 'has-error' : '' !!}">
                 {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Mật khẩu']) !!}
+                <a class="help-block" href="{!! route('forgot-password') !!}">Quên mật khẩu ?</a>
                 @if ($errors->has('password'))
                 <span class="help-block">
                     <strong>{!! $errors->first('password') !!}</strong>
@@ -35,7 +33,6 @@
                 @endif
             </div>
         </div>
-
         {!! Form::submit('Đăng nhập', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
         {!! Form::close() !!}
     </div>

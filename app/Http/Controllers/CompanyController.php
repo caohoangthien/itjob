@@ -8,10 +8,65 @@ use App\Http\Requests\CompanyCreateRequest;
 use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Account;
 use App\Models\Company;
+use App\Models\Job;
 use Auth;
 
 class CompanyController extends Controller
 {
+    /**
+     * Get form signup company
+     */
+    public function getSignup()
+    {
+        $address = Address::all(['id', 'name'])->pluck('name', 'id');
+        return view('company.signup', ['address' => $address]);
+    }
+
+    /**
+     * Store company
+     */
+    public function postSignup(CompanyCreateRequest $request)
+    {
+        try {
+            $dataAccount = $request->only('email', 'password');
+            $dataAccount['password'] = bcrypt($dataAccount['password']);
+            $dataAccount['role'] = 2;
+            $account = Account::create($dataAccount);
+            $dataCompany = $request->only('name', 'address_id', 'phone', 'about');
+            $dataCompany['account_id'] = $account->id;
+            $fileName = str_random('10') . time() . '.' . $request->avatar->getClientOriginalExtension();
+            $request->avatar->move(Company::PATH_AVATAR, $fileName);
+            $dataCompany['avatar'] = Company::PATH_AVATAR . $fileName;
+            Company::create($dataCompany);
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+                return redirect()->route('companies.index');
+            }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+        } catch (\Exception $ex) {
+            return back()->withInput()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
+        }
+    }
+
+    /**
+     * Show list job uncheck
+     */
+    public function listUncheckJob()
+    {
+        $jobs = Job::where('status', Job::DEACTIVE)
+            ->where('company_id', auth()->user()->company->id)
+            ->where('deleted_at', null)
+            ->paginate(15);
+        return view('job.list', compact('jobs'));
+    }
+
+    public function listCheckedJob()
+    {
+        $jobs = Job::where('status', Job::ACTIVE)
+            ->where('company_id', auth()->user()->company->id)
+            ->where('deleted_at', null)
+            ->paginate(15);
+        return view('job.list', compact('jobs'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,48 +99,12 @@ class CompanyController extends Controller
     {
         unlink(Company::find($id)->avatar);
         $company = Company::find($id);
-        $company->account->delete();
+        $company->jobs()->delete();
         $company->delete();
         return redirect()->route('admins.index');
     }
 
-    /**
-     * Get form signup
-     *
-     * @return view
-     */
-    public function getSignup()
-    {
-        $address = Address::all(['id', 'name'])->pluck('name', 'id');
-        return view('company.signup', ['address' => $address]);
-    }
 
-    /**
-     * Post form signup
-     *
-     * @return redirect
-     */
-    public function postSignup(CompanyCreateRequest $request)
-    {
-        try {
-            $dataAccount = $request->only('email', 'password');
-            $dataAccount['password'] = bcrypt($dataAccount['password']);
-            $dataAccount['role'] = 2;
-            $account = Account::create($dataAccount);
-            $dataCompany = $request->only('name', 'address_id', 'phone', 'about');
-            $dataCompany['account_id'] = $account->id;
-            $path = "images/avatars/";
-            $fileName = str_random('10') . time() . '.' . $request->avatar->getClientOriginalExtension();
-            $request->avatar->move($path, $fileName);
-            $dataCompany['avatar'] = $path . $fileName;
-            Company::create($dataCompany);
-            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                return redirect()->route('companies.index');
-            }else return back()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
-        } catch (\Exception $ex) {
-            return back()->withInput()->with('error', 'Lỗi hệ thống. Vui lòng đăng kí lại !');
-        }
-    }
 
     /**
      * List company

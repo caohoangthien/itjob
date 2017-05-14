@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
+    const PATH_AVATAR = 'images/avatars/';
+
     protected $table = 'companies';
 
     protected $fillable = [

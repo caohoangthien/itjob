@@ -24,6 +24,7 @@ class CreateJobsTable extends Migration
             $table->integer('salary_id')->unsigned();
             $table->foreign('salary_id')->references('id')->on('salaries');
             $table->integer('status');
+            $table->integer('quantity');
             $table->timestamp('deadline');
             $table->timestamps();
             $table->softDeletes();

@@ -15,9 +15,7 @@ use App\Http\Requests\JobCreateRequest;
 class JobController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show home page
      */
     public function index()
     {
@@ -25,9 +23,7 @@ class JobController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show form create job
      */
     public function create()
     {
@@ -39,21 +35,21 @@ class JobController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store job
      */
     public function store(JobCreateRequest $request)
     {
         try {
-            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id', 'status', 'deadline']);
+            $data = $request->only(['title', 'salary_id', 'describe', 'quantity', 'address_id', 'deadline']);
             $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
             $data['company_id'] = auth()->user()->company->id;
-            $data['check'] = 0;
+            $data['status'] = 0;
             $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
             $job = Job::create($data);
-            $job->skills()->sync($request->skills_id);
+            foreach ($request->skills_id as $skill_id) {
+                $pivots[$skill_id] = ['quantity' => $request->quantity];
+            }
+            $job->skills()->sync($pivots);
             $job->levels()->sync($request->levels_id);
             return redirect()->route('companies.index')->with('success', 'Đăng tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
         } catch (\Exception $ex) {
@@ -62,10 +58,7 @@ class JobController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Show job
      */
     public function show($id)
     {
@@ -74,10 +67,7 @@ class JobController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Show edit job
      */
     public function edit($id)
     {
@@ -92,32 +82,29 @@ class JobController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update job
      */
     public function update(JobCreateRequest $request, $id)
     {
         try {
-            $data = $request->only(['title', 'salary_id', 'quantity', 'describe', 'address_id', 'status']);
+            $data = $request->only(['title', 'salary_id', 'describe', 'quantity', 'address_id', 'deadline']);
             $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
+            $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
             $job = Job::find($id);
             $job->update($data);
-            $job->skills()->sync($request->skills_id);
+            foreach ($request->skills_id as $skill_id) {
+                $pivots[$skill_id] = ['quantity' => $request->quantity];
+            }
+            $job->skills()->sync($pivots);
             $job->levels()->sync($request->levels_id);
-            return redirect()->route('companies.index')->with('success', 'Cập nhật tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
+            return redirect()->route('companies.index')->with('success', 'Cập nhật tin tuyển dụng thành công.');
         } catch (\Exception $ex) {
             return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
         }
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Soft delete job
      */
     public function destroy($id)
     {
@@ -125,17 +112,7 @@ class JobController extends Controller
         return redirect()->route('companies.index')->with('success', 'Xóa tin tuyển dụng thành công');
     }
 
-    public function listUncheck()
-    {
-        $jobs = Job::where('check', Job::UNCHECK)->where('company_id', auth()->user()->company->id)->paginate(15);
-        return view('job.list', compact('jobs'));
-    }
 
-    public function listChecked()
-    {
-        $jobs = Job::where('check', Job::CHECKED)->where('company_id', auth()->user()->company->id)->paginate(15);
-        return view('job.list', compact('jobs'));
-    }
 
     public function search(Request $request)
     {

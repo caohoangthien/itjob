@@ -9,9 +9,8 @@
         <th>Tiêu đề</th>
         <th>Địa chỉ</th>
         <th>Mức lương</th>
-        <th>Số lượng</th>
-        <th>Trạng thái</th>
-        <th>Ngày tạo</th>
+        <th class="text-center">Số lượng</th>
+        <th class="text-center">Ngày đăng</th>
         <th class="text-center">Thao tác</th>
         </thead>
         <tbody>
@@ -21,9 +20,8 @@
                 <td>{{ $job->title }}</td>
                 <td>{{ $job->address->name }}</td>
                 <td>{{ $job->salary->salary }}</td>
-                <td>{{ $job->quantity }}</td>
-                <td><button class="btn btn-default">{{ $job->status == 1 ? 'Công khai' : 'Ẩn' }}</button></td>
-                <td>{{ $job->created_at }}</td>
+                <td class="text-center">{{ $job->quantity }}</td>
+                <td class="text-center">{{ date_format($job->created_at,"d-m-Y") }}</td>
                 <td class="text-center">
                     <a href="{!! route('jobs.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('jobs.edit', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>

@@ -15,7 +15,7 @@ class Job extends Model
     protected $table = 'jobs';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'title', 'address_id', 'salary_id', 'describe', 'company_id', 'status', 'deadline'
+        'title', 'address_id', 'salary_id', 'describe', 'company_id', 'status', 'quantity', 'deadline'
     ];
 
     /**
@@ -47,7 +47,7 @@ class Job extends Model
      */
     public function skills()
     {
-        return $this->belongsToMany('App\Models\Skill')->withTimestamps();;
+        return $this->belongsToMany('App\Models\Skill')->withTimestamps()->withPivot('quantity');
     }
 
     /**

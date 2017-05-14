@@ -16,9 +16,9 @@ class CreateJobLevelTable extends Migration
         Schema::create('job_level', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
-            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');;
+            $table->foreign('job_id')->references('id')->on('jobs');
             $table->integer('level_id')->unsigned();
-            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');;
+            $table->foreign('level_id')->references('id')->on('levels');
             $table->timestamps();
         });
     }
