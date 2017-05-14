@@ -108,7 +108,9 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        Job::find($id)->delete();
+        $job = Job::find($id);
+        $job->levels()->detach();
+        $job->delete();
         return redirect()->route('companies.index')->with('success', 'Xóa tin tuyển dụng thành công');
     }
 

@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
+    use SoftDeletes;
+
     const PATH_AVATAR = 'images/avatars/';
 
     protected $table = 'companies';
-
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'name', 'account_id', 'address_id', 'phone', 'about', 'avatar'
     ];

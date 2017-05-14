@@ -55,6 +55,6 @@ class Job extends Model
      */
     public function levels()
     {
-        return $this->belongsToMany('App\Models\Level');
+        return $this->belongsToMany('App\Models\Level')->withTimestamps();
     }
 }

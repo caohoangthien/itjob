@@ -99,12 +99,14 @@ class CompanyController extends Controller
     {
         unlink(Company::find($id)->avatar);
         $company = Company::find($id);
+        foreach ($company->jobs as $job) {
+            $job->levels()->detach();
+        }
         $company->jobs()->delete();
+        $company->account()->delete();
         $company->delete();
-        return redirect()->route('admins.index');
+        return redirect()->route('admins.index')->with('success', 'Xóa công ty thành công.');
     }
-
-
 
     /**
      * List company

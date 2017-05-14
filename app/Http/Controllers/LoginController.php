@@ -22,7 +22,8 @@ class LoginController extends Controller
      * Post login
      */
     public function postLogin(LoginRequest $request){
-        if(auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+        $account = Account::where('email', $request->email)->where('deleted_at', null)->first();
+        if(($account != null) && auth()->attempt(['email' => $request->email, 'password' => $request->password]) ) {
             if (auth()->user()->role == 1) return redirect()->route('admins.index');
             elseif (auth()->user()->role == 2) return redirect()->route('companies.index');
             else return redirect()->route('members.index');
