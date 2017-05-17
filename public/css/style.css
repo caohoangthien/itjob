@@ -1,18 +1,19 @@
-/* Page home */
-.main-body {
-	margin-top: 30px;
+/* Site - Menu */
+.navbar b {
+	color: #f9f789;
 }
 
+.navbar {
+	border-radius: 0px;
+	margin: 0px;
+}
+/* Site - home */
 .form-search {
 	position: absolute;
-	top: 40%;
+	top: 30%;
 	padding: 50px;
 	background-color: black;
-	opacity: 0.9;
-}
-
-.pagination {
-	float: right;
+	opacity: 0.8;
 }
 
 .job-title a {
@@ -23,19 +24,7 @@
 	max-height: 400px;
 	overflow: scroll;
 }
-
-.footer {
-	background-color: black;
-}
-
-.footer h5 {
-	color: white;
-}
-
-.footer p {
-	color: orange;
-}
-/* managements page */
+/* admin page */
 .form-delete {
 	display: inline;
 }

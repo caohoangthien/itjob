@@ -23,31 +23,39 @@
     </div>
 
     <!-- Form search -->
-    <div class="row">
-        <div class="form-search text-center col-md-8 col-md-offset-2 col-sm-12">
-            <div class="form-inline">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="form-search col-md-8 col-md-offset-2 col-xs-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                            </div>
+                            <input id="search-name" type="text" class="form-control" placeholder="Tên công việc">
+                        </div>
                     </div>
-                    <input id="search-name" type="text" class="form-control" placeholder="Tên công việc">
-                </div>
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                            </div>
+                            <input id="search-company" type="text" class="form-control" placeholder="Tên công ty">
+                        </div>
                     </div>
-                    <input id="search-company" type="text" class="form-control" placeholder="Tên công ty">
-                </div>
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                            </div>
+                            <select id="search-address" class="form-control">
+                                <option value="" disabled selected>Địa điểm</option>
+                                @foreach($address as $value)
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <select id="search-address" class="form-control">
-                        <option value="" disabled selected>Địa điểm</option>
-                        @foreach($address as $value)
-                            <option value="{{$value->id}}">{{$value->name}}</option>
-                        @endforeach
-                    </select>
                 </div>
             </div>
         </div>
@@ -65,10 +73,15 @@
 </div>
 
 <div class="container">
-    <div class="row" style="margin-top: 10px;">
+    <div class="row" style="margin-top: 20px;">
         <div class="col-md-8">
             <div class="panel panel-primary">
-                <div class="panel-heading">Việc làm mới nhất</div>
+                <div class="panel-heading clearfix">
+                    <p class="panel-title pull-left">Việc làm mới nhất</p>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default">Xem thêm</a>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <p id="message-result"></p>
                     <div class="custom-scroll">
@@ -81,9 +94,6 @@
                                         <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
                                     </li>
                                 @endforeach
-                                <li class="list-group-item">
-                                    <a class="btn btn-primary" href="{!! route('jobs.full') !!}">Xem tất cả</a>
-                                </li>
                             </ul>
                         </div>
                         <div id="search-job">
@@ -98,17 +108,14 @@
         <div class="col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Top 5 công nghệ tuyển nhiều nhất</h3>
+                    <select class="form-control">
+                        <option value="" >Tháng 1</option>
+                        <option value="" >Tháng 2</option>
+                        <option value="" >Tháng 3</option>
+                    </select>
                 </div>
                 <div class="panel-body">
-                    <div class="well">
-                        <select class="form-control">
-                            <option value="" >Tháng 1</option>
-                            <option value="" >Tháng 2</option>
-                            <option value="" >Tháng 3</option>
-                        </select>
-                    </div>
-                    <div id="chartContainer" style="height: 320px; width: 100%;"></div>
+                    <div id="chartContainer" style="height: 410px; width: 100%;"></div>
                 </div>
             </div>
         </div>
@@ -243,4 +250,4 @@
         chart.render();
     });
 </script>
-@endsession
+@endsection
