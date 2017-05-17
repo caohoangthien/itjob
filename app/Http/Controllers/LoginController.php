@@ -52,12 +52,11 @@ class LoginController extends Controller
      * Send emaifogot password
      */
     public function postForgot(ForgotPasswordRequest $request){
-        $account = Account::where('email', $request->email)->first();
-        if ($account) {
-            dd();
-            return redirect()->back()->withInput()->with('message', 'Chúng tôi đã gởi mật khẩu về email của bạn. Vui lòng kiểm tra lại.');
-        } else {
-            return redirect()->back()->withInput()->with('message', 'Email không tồn tại.');
-        }
+//        $account = Account::where('email', $request->email)->first();
+//        if ($account) {
+//            return redirect()->back()->withInput()->with('message', 'Chúng tôi đã gởi mật khẩu về email của bạn. Vui lòng kiểm tra lại.');
+//        } else {
+//            return redirect()->back()->withInput()->with('message', 'Email không tồn tại.');
+//        }
     }
 }

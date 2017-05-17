@@ -24,6 +24,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">QUẢN TRỊ VIÊN</li>
+            <li><a href="{!! route('admins.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-handshake-o"></i>
@@ -39,20 +40,19 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-briefcase"></i>
                     <span>Tin tuyển dụng</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{!! route('admins.jobs.checked') !!}"><i class="fa fa-circle-o"></i> Tin đã duyệt</a></li>
-                    <li><a href="{!! route('admins.jobs.uncheck') !!}"><i class="fa fa-circle-o"></i> Tin chưa duyệt</a></li>
+                    <li><a href="{!! route('admins.jobs.list') !!}"><i class="fa fa-circle-o"></i> Danh sách tin tuyển dụng</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-users"></i>
                     <span>Thành viên</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -63,6 +63,7 @@
                     </li>
                 </ul>
             </li>
+            <li><a href="{!! route('logout') !!}"><i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

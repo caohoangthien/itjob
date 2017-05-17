@@ -79,15 +79,14 @@ class AdminController extends Controller
         ]);
     }
 
-    public function listUncheck()
+    /**
+     * Show list job
+     */
+    public function listJob()
     {
-        $jobs = Job::where('check', Job::UNCHECK)->paginate(15);
-        return view('admin.list-job', compact('jobs'));
-    }
-
-    public function listChecked()
-    {
-        $jobs = Job::where('check', Job::CHECKED)->paginate(15);
+        $jobs = Job::orderBy('id', 'desc')
+            ->orderBy('status', 'asc')
+            ->paginate(15);
         return view('admin.list-job', compact('jobs'));
     }
 

@@ -23,7 +23,7 @@ class CreateMembersTable extends Migration
             $table->integer('gender');
             $table->timestamp('birthday');
             $table->string('phone');
-            $table->string('about');
+            $table->text('about');
             $table->string('cv');
             $table->string('avatar');
             $table->timestamps();

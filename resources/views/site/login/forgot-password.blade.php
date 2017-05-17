@@ -6,7 +6,7 @@
             {!! Form::open(['route' => 'forgot-password', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
             @if (session('message'))
                 <div class="alert alert-success">
-                    <p class="text-success">{{ session('m') }}</p>
+                    <p class="text-success">{{ session('message') }}</p>
                 </div>
             @endif
             <div class="form-group ">

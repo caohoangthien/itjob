@@ -33,8 +33,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
     Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
     Route::post('image/admins', 'AdminController@updateImage')->name('admins.image.update');
-    Route::get('jobs-uncheck/admins', 'AdminController@listUncheck')->name('admins.jobs.uncheck');
-    Route::get('jobs-checked/admins', 'AdminController@listChecked')->name('admins.jobs.checked');
+    Route::get('jobs-list/admins', 'AdminController@listJob')->name('admins.jobs.list');
     Route::get('show-job/admins/{id}', 'AdminController@showJob')->name('admins.jobs.show');
     Route::get('show-member/admins/{id}', 'AdminController@showMember')->name('admins.members.show');
 
@@ -50,4 +49,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
 
     Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
     Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');
+    Route::get('ajax-update-status/{id}', 'JobController@updateStatus')->name('jobs.ajax-update-status');
 });

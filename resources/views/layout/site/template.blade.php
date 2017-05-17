@@ -55,27 +55,21 @@
         <div class="container-fluid footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <h5>THEO DÕI CHÚNG TÔI</h5>
                         <p><a href="#"><img src="{!! asset('images/icons/facebook.png') !!}"> Theo dõi chúng tôi trên Facebook</a></p>
                         <p><a href="#"><img src="{!! asset('images/icons/google.png') !!}"> Theo dõi chúng tôi trên Google +</a></p>
                         <p><a href="#"><img src="{!! asset('images/icons/twitter.png') !!}"> Theo dõi chúng tôi trên Twitter</a></p>
                     </div>
-                    <div class="col-md-4">
-                        <h5>THEO DÕI CHÚNG TÔI</h5>
-                        <p><a href="#"><img src="{!! asset('images/icons/facebook.png') !!}"> Theo dõi chúng tôi trên Facebook</a></p>
-                        <p><a href="#"><img src="{!! asset('images/icons/google.png') !!}"> Theo dõi chúng tôi trên Google +</a></p>
-                        <p><a href="#"><img src="{!! asset('images/icons/twitter.png') !!}"> Theo dõi chúng tôi trên Twitter</a></p>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <h5>THÔNG TIN LIÊN HỆ</h5>
-                        <p><i class="glyphicon glyphicon-eye-open"></i> : 0511.123.123</p>
-                        <p><i class="glyphicon glyphicon-eye-open"></i> : vieclamcntt@gmail.com</p>
-                        <p><i class="glyphicon glyphicon-eye-open"></i> : 54 - Nguyễn Lương Bằng, DN</p>
+                        <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> : 0511.123.123</p>
+                        <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : vieclamcntt@gmail.com</p>
+                        <p><span class="glyphicon glyphicon-home" aria-hidden="true"></span> : 54 Nguyễn Lương Bằng - Đà Nẵng.</p>
                     </div>
                 </div>
             </div>
-      </div>
+        </div>
         <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/canvasjs.min.js') !!}"></script>

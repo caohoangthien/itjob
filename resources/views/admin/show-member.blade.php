@@ -59,7 +59,7 @@
             <div class="form-group row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                    <a href="{!! route('.index') !!}" class='btn btn-primary'>Trở về</a>
+                    <a href="{!! route('admins.index') !!}" class='btn btn-primary'>Trở về</a>
                 </div>
             </div>
             {!! Form::close() !!}
