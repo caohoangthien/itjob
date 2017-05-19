@@ -32,7 +32,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
                             </div>
-                            <input id="search-name" type="text" class="form-control" placeholder="Tên công việc">
+                            <input id="search-name" type="text" class="form-control" data-url="{!! route('jobs.search-ajax') !!}" placeholder="Tên công việc">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -40,7 +40,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
                             </div>
-                            <input id="search-company" type="text" class="form-control" placeholder="Tên công ty">
+                            <input id="search-company" type="text" class="form-control" data-url="{!! route('jobs.search-ajax') !!}" placeholder="Tên công ty">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -48,7 +48,7 @@
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                             </div>
-                            <select id="search-address" class="form-control">
+                            <select id="search-address" class="form-control" data-url="{!! route('jobs.search-ajax') !!}">
                                 <option value="" disabled selected>Địa điểm</option>
                                 @foreach($address as $value)
                                     <option value="{{$value->id}}">{{$value->name}}</option>
@@ -104,22 +104,95 @@
                     </div>
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="chartContainer" style="height: 340px; width: 100%;"></div>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <select class="form-control">
-                        <option value="" >Tháng 1</option>
-                        <option value="" >Tháng 2</option>
-                        <option value="" >Tháng 3</option>
-                    </select>
+                <div class="panel-heading text-center">
+                    <a class="btn btn-default full-with">Tìm kiếm việc làm</a>
                 </div>
                 <div class="panel-body">
-                    <div id="chartContainer" style="height: 410px; width: 100%;"></div>
+                    {!! Form::open(['route' => 'jobs.search', 'method' => 'post']) !!}
+                    <div class="form-group">
+                        <label>Tên công việc</label>
+                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label>Tên công ty</label>
+                        {!! Form::text('company', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label>Địa điểm</label>
+                        {!! Form::select('address_id', $address_array, null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label>Kỹ năng</label>
+                        @foreach($skills as $skill)
+                            <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('skills_id[]', $skill->id) !!} {!! $skill->name !!}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <label>Cấp độ</label>
+                        @foreach($levels as $level)
+                            <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('levels_id[]', $level->id) !!} {!! $level->name !!}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <label>Mức lương</label>
+                        @foreach($salaries as $salary)
+                            <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('salaries_id[]', $salary->id) !!} {!! $salary->salary !!}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="container-fluid footer">
+   <div class="container">
+       <div class="text-center">
+           <h5>VIỆC LÀM CÔNG NGHỆ THÔNG TIN</h5>
+           <img src="{!! asset('images/icons/facebook.png') !!}">
+           <img src="{!! asset('images/icons/google.png') !!}">
+           <img src="{!! asset('images/icons/twitter.png') !!}">
+           <h5>Website tuyển dụng, tìm kiếm việc làm Công nghệ Thông tin.</h5>
+           <h5>Đồ án tốt nghiệp - Khoa Công nghệ Thông tin - Đại học Bách khoa Đà Nẵng.</h5>
+       </div>
+   </div>
 </div>
 @endsection
 
@@ -143,8 +216,9 @@
             $('#new-job').hide();
             $('#job-result').empty();
             search.title = $(this).val();
+            var url =  $(this).data('url');
             $.ajax({
-                url : "{{route('jobs.search-ajax')}}",
+                url : url,
                 type : "post",
                 dataType:"json",
                 data : search,
@@ -171,8 +245,9 @@
             $('#new-job').hide();
             $('#job-result').empty();
             search.company = $(this).val();
+            var url =  $(this).data('url');
             $.ajax({
-                url : "{{route('jobs.search-ajax')}}",
+                url : url,
                 type : "post",
                 dataType:"json",
                 data : search,
@@ -199,8 +274,9 @@
             $('#new-job').hide();
             $('#job-result').empty();
             search.address_id = $(this).val();
+            var url =  $(this).data('url');
             $.ajax({
-                url : "{{route('jobs.search-ajax')}}",
+                url : url,
                 type : "post",
                 dataType:"json",
                 data : search,
@@ -226,22 +302,24 @@
         var chart = new CanvasJS.Chart("chartContainer",
             {
                 animationEnabled: true,
-                legend: {
-                    verticalAlign: "bottom",
-                    horizontalAlign: "center"
-                },
                 theme: "theme2",
+                //exportEnabled: true,
+                title:{
+                    text: "Thống kê tuyển dụng theo tháng"
+                },
                 data: [
                     {
-                        type: "column",
-                        showInLegend: true,
-                        legendMarkerColor: "grey",
+                        type: "column", //change type to bar, line, area, pie, etc
                         dataPoints: [
-                            {y: 20, label: "PHP"},
-                            {y: 50,  label: "Java" },
-                            {y: 10,  label: "NodeJs"},
-                            {y: 15,  label: "C#"},
-                            {y: 2,  label: "Ruby"},
+                            { x: 10, y: 71 },
+                            { x: 20, y: 55 },
+                            { x: 30, y: 50 },
+                            { x: 40, y: 65 },
+                            { x: 50, y: 95 },
+                            { x: 60, y: 68 },
+                            { x: 70, y: 28 },
+                            { x: 80, y: 34 },
+                            { x: 90, y: 14 }
                         ]
                     }
                 ]

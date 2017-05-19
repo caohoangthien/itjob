@@ -7,10 +7,14 @@
 	border-radius: 0px;
 	margin: 0px;
 }
+
+.navbar b:hover {
+	color: white;
+}
 /* Site - home */
 .form-search {
 	position: absolute;
-	top: 30%;
+	top: 40%;
 	padding: 50px;
 	background-color: black;
 	opacity: 0.8;
@@ -21,8 +25,16 @@
 }
 
 .custom-scroll {
-	max-height: 400px;
+	max-height: 500px;
 	overflow: scroll;
+}
+
+.full-with {
+    width: 100%;
+}
+
+.footer {
+	background: #e3cfec;
 }
 /* admin page */
 .form-delete {

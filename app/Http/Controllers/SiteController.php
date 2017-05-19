@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Job;
+use App\Models\Skill;
+use App\Models\Level;
+use App\Models\Salary;
 use DB;
 
 class SiteController extends Controller
@@ -19,20 +22,13 @@ class SiteController extends Controller
 //            ->get();
 //        dd($data);
         $address = Address::all();
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
         $jobs = Job::where('status', Job::ACTIVE)->where('deleted_at', null)->orderBy('id', 'desc')->limit(20)->get();
-        $dataPoints = array(
-            array("y" => 6, "label" => "Apple"),
-            array("y" => 4, "label" => "Mango"),
-            array("y" => 5, "label" => "Orange"),
-            array("y" => 7, "label" => "Banana"),
-            array("y" => 4, "label" => "Pineapple"),
-            array("y" => 6, "label" => "Pears"),
-            array("y" => 7, "label" => "Grapes"),
-            array("y" => 5, "label" => "Lychee"),
-            array("y" => 4, "label" => "Jackfruit")
-        );
 
-        return view('site.index', compact('address', 'jobs'));
+        return view('site.index', compact('address', 'jobs', 'address_array', 'skills', 'levels', 'salaries'));
     }
 
     /**
