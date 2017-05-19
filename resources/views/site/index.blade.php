@@ -110,13 +110,13 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                <input type="text" class="form-control" id="datepicker" data-url="{!! route('jobs.chart') !!}">
+                                <input type="text" class="form-control" id="datepicker" data-url="{!! route('getChart') !!}">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div id="chartContainer" style="height: 340px; width: 100%;"></div>
+                    <div id="chartContainer" style="height: 320px; width: 100%;"></div>
                 </div>
             </div>
         </div>
@@ -321,9 +321,26 @@
                     url : url,
                     type : "post",
                     dataType:"json",
-                    data : yearMonth,
-                    success : function (result){
-                        console.log('123');
+                    data : {
+                        yearMonth : yearMonth
+                    },
+                    success : function (data){
+                        var chart = new CanvasJS.Chart("chartContainer",
+                            {
+                                animationEnabled: true,
+                                theme: "theme2",
+                                title:{
+                                    text: "Thống kê tuyển dụng theo tháng"
+                                },
+                                data: [
+                                    {
+                                        type: "column", //change type to bar, line, area, pie, etc
+                                        dataPoints: data
+                                    }
+                                ]
+                            });
+
+                        chart.render();
                     }
                 });
             }

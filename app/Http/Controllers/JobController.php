@@ -11,6 +11,7 @@ use App\Models\Address;
 use App\Models\JobSkill;
 use App\Models\JobLevel;
 use App\Http\Requests\JobCreateRequest;
+use Datetime;
 
 class JobController extends Controller
 {
@@ -215,7 +216,5 @@ class JobController extends Controller
         ]);
     }
 
-    public function getChart(Request $request) {
-        print_r($request);
-    }
+
 }
