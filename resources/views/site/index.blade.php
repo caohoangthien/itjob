@@ -110,13 +110,7 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                                <input type="text" class="form-control" id="datepicker" data-url="{!! route('jobs.chart') !!}">
                             </div>
                         </div>
                     </div>
@@ -197,9 +191,7 @@
 @endsection
 
 @section('javascript')
-<script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('js/canvasjs.min.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('js/jquery.nicescroll.min.js') !!}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $.ajaxSetup({
@@ -303,29 +295,39 @@
             {
                 animationEnabled: true,
                 theme: "theme2",
-                //exportEnabled: true,
                 title:{
                     text: "Thống kê tuyển dụng theo tháng"
                 },
                 data: [
                     {
                         type: "column", //change type to bar, line, area, pie, etc
-                        dataPoints: [
-                            { x: 10, y: 71 },
-                            { x: 20, y: 55 },
-                            { x: 30, y: 50 },
-                            { x: 40, y: 65 },
-                            { x: 50, y: 95 },
-                            { x: 60, y: 68 },
-                            { x: 70, y: 28 },
-                            { x: 80, y: 34 },
-                            { x: 90, y: 14 }
-                        ]
+                        dataPoints: <?php echo json_encode($chart, JSON_NUMERIC_CHECK); ?>
                     }
                 ]
             });
 
         chart.render();
+
+        $("#datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'm-yy',
+            onClose: function(dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                var yearMonth = $(this).val();
+                var url = $(this).data('url');
+                $.ajax({
+                    url : url,
+                    type : "post",
+                    dataType:"json",
+                    data : yearMonth,
+                    success : function (result){
+                        console.log('123');
+                    }
+                });
+            }
+        });
     });
 </script>
 @endsection

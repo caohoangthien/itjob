@@ -46,10 +46,7 @@ class JobController extends Controller
             $data['status'] = 0;
             $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
             $job = Job::create($data);
-            foreach ($request->skills_id as $skill_id) {
-                $pivots[$skill_id] = ['quantity' => $request->quantity];
-            }
-            $job->skills()->sync($pivots);
+            $job->skills()->sync($request->skills_id);
             $job->levels()->sync($request->levels_id);
             return redirect()->route('companies.index')->with('success', 'Đăng tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
         } catch (\Exception $ex) {
@@ -92,10 +89,7 @@ class JobController extends Controller
             $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
             $job = Job::find($id);
             $job->update($data);
-            foreach ($request->skills_id as $skill_id) {
-                $pivots[$skill_id] = ['quantity' => $request->quantity];
-            }
-            $job->skills()->sync($pivots);
+            $job->skills()->sync($request->skills_id);
             $job->levels()->sync($request->levels_id);
             return redirect()->route('companies.index')->with('success', 'Cập nhật tin tuyển dụng thành công.');
         } catch (\Exception $ex) {
@@ -219,5 +213,9 @@ class JobController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
+    }
+
+    public function getChart(Request $request) {
+        print_r($request);
     }
 }

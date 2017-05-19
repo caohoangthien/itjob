@@ -52,3 +52,7 @@
 .btn-update {
 	margin-top: 10px;
 }
+
+.ui-datepicker-calendar {
+	display: none;
+}​

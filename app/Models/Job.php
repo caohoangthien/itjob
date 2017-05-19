@@ -47,7 +47,7 @@ class Job extends Model
      */
     public function skills()
     {
-        return $this->belongsToMany('App\Models\Skill')->withTimestamps()->withPivot('quantity');
+        return $this->belongsToMany('App\Models\Skill')->withTimestamps();
     }
 
     /**

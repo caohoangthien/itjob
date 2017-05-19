@@ -16,6 +16,7 @@ Route::post('member-signup', 'MemberController@postSignup')->name('members.signu
 // Search job
 Route::post('search-job', 'JobController@search')->name('jobs.search');
 Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
+Route::post('getChart', 'JobController@getChart')->name('jobs.chart');
 
 Route::get('full-job', 'SiteController@getFullJob')->name('jobs.full');
 

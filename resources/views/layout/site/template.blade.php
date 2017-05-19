@@ -5,6 +5,7 @@
         <title>Việc làm CNTT</title>
         <link rel="shortcut icon" href="{!! asset('images/favicon.ico') !!}">
         <link rel="stylesheet" type="text/css" href="{!! asset('css/bootstrap.min.css') !!}">
+        <link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{!! asset('css/style.css') !!}">
     </head>
     <body>
@@ -53,6 +54,7 @@
         <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/canvasjs.min.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/jquery-ui.min.js') !!}"></script>
         @yield('javascript')
     </body>
 </html>
