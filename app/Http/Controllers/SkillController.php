@@ -88,6 +88,6 @@ class SkillController extends Controller
     public function destroy($id)
     {
         Skill::find($id)->delete();
-        return redirect()->route('skills.index')->with('message', 'Xóa kỹ năng thành công.');
+        return redirect()->route('skills.index')->with('message', 'Cập nhật kỹ năng thành công.');
     }
 }
