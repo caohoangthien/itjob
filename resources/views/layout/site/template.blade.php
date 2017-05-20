@@ -26,7 +26,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="{!! route('home-site') !!}"><b>Trang chủ</b></a></li>
-                        <li><a href="#"><b>Liên hệ</b></a></li>
+                        <li><a href="{!! route('contact') !!}"><b>Liên hệ</b></a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -50,6 +50,19 @@
         </nav>
 
         @yield('content')
+
+        <div class="container-fluid footer">
+            <div class="container">
+                <div class="text-center">
+                    <h5>VIỆC LÀM CÔNG NGHỆ THÔNG TIN</h5>
+                    <img src="{!! asset('images/icons/facebook.png') !!}">
+                    <img src="{!! asset('images/icons/google.png') !!}">
+                    <img src="{!! asset('images/icons/twitter.png') !!}">
+                    <h5>Website tuyển dụng, tìm kiếm việc làm Công nghệ Thông tin.</h5>
+                    <h5>Đồ án tốt nghiệp - Khoa Công nghệ Thông tin - Đại học Bách khoa Đà Nẵng.</h5>
+                </div>
+            </div>
+        </div>
 
         <script type="text/javascript" src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap.min.js') !!}"></script>

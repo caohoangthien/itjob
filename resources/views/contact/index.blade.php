@@ -2,22 +2,28 @@
 
 @section('content')
     <div class="container">
-        <div class="row" style="margin-bottom: 183px">
-            {!! Form::open(['route' => 'forgot-password', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
+        <div class="row">
+            {!! Form::open(['route' => 'contact', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
             @if (session('message'))
                 <div class="alert alert-success">
                     <p class="text-success">{{ session('message') }}</p>
                 </div>
             @endif
             <div class="form-group ">
-                {!! Form::label('', 'Mật khẩu sẽ được gởi về email của bạn.') !!}
+                {!! Form::label('', 'Họ tên') !!}
+                <div class="{!! $errors->has('name') ? 'has-error' : '' !!}">
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    @if ($errors->has('name'))
+                        <span class="help-block">
+                            <strong>{!! $errors->first('name') !!}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group ">
+                {!! Form::label('', 'Email') !!}
                 <div class="{!! $errors->has('email') ? 'has-error' : '' !!}">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-                        </div>
-                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
-                    </div>
+                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
                     @if ($errors->has('email'))
                         <span class="help-block">
                             <strong>{!! $errors->first('email') !!}</strong>

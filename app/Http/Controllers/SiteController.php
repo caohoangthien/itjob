@@ -52,16 +52,7 @@ class SiteController extends Controller
         return Skill::find($id)->name;
     }
 
-    /**
-     * Get full job
-     *
-     * @return view
-     */
-    public function getFullJob()
-    {
-        $jobs = Job::all();
-        return view('site.full-job', compact('jobs'));
-    }
+
 
     public function getChart(Request $request) {
         $month = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('m');
@@ -83,5 +74,9 @@ class SiteController extends Controller
         }
 
         return response()->json($chart);
+    }
+
+    public function contact() {
+        return view('contact.index');
     }
 }

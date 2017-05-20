@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Models\Account;
+use Mail;
 
 class LoginController extends Controller
 {
@@ -52,11 +53,17 @@ class LoginController extends Controller
      * Send emaifogot password
      */
     public function postForgot(ForgotPasswordRequest $request){
-//        $account = Account::where('email', $request->email)->first();
-//        if ($account) {
-//            return redirect()->back()->withInput()->with('message', 'Chúng tôi đã gởi mật khẩu về email của bạn. Vui lòng kiểm tra lại.');
-//        } else {
-//            return redirect()->back()->withInput()->with('message', 'Email không tồn tại.');
-//        }
+        $newPassword = rand();
+        $account = Account::where('email', $request->email)->first();
+        if ($account) {
+            $data['password'] = bcrypt($newPassword);
+            $account->update($data);
+            Mail::send('mail.forgot-password', array('newPassword'=>$newPassword), function($message) use ($request){
+                $message->to($request->email, 'Lập trình viên')->subject('Mật khẩu mới');
+            });
+            return redirect()->back()->withInput()->with('message', 'Chúng tôi đã gởi mật khẩu về email của bạn. Vui lòng kiểm tra lại.');
+        } else {
+            return redirect()->back()->withInput()->with('message', 'Email không tồn tại.');
+        }
     }
 }

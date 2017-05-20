@@ -13,7 +13,7 @@ class Job extends Model
     const DEACTIVE = 0  ;
 
     protected $table = 'jobs';
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'deadline'];
     protected $fillable = [
         'title', 'address_id', 'salary_id', 'describe', 'company_id', 'status', 'quantity', 'deadline'
     ];

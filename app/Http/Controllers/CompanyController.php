@@ -9,6 +9,9 @@ use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Account;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\Skill;
+use App\Models\Level;
+use App\Models\Salary;
 use Auth;
 
 class CompanyController extends Controller
@@ -177,5 +180,15 @@ class CompanyController extends Controller
             'message' => 'Success',
             'fileName' => $data['avatar'],
         ]);
+    }
+
+    public function showInfor($id) {
+        $company = Company::find($id);
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
+
+        return view('company.company-infor', compact('company', 'address_array', 'skills', 'levels', 'salaries'));
     }
 }

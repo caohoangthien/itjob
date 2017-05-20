@@ -113,46 +113,82 @@ class JobController extends Controller
 
     public function search(Request $request)
     {
-        $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
+        $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
             ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
             ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
             ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
             ->get();
 
         if ($request->title) {
-            $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
                 ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
                 ->where('title', 'like', '%'. $request->title .'%')
                 ->get();
-            $results = $results->intersect($jobs);
+            $jobs = $jobs->intersect($results);
+        }
+
+        if ($request->company) {
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->whereHas('company', function ($query) use ($request) {
+                    $query->where('name', $request->company);
+                })->get();
+            $jobs = $jobs->intersect($results);
         }
 
         if ($request->address_id) {
-            $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
                 ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
-                ->where('title', 'like', '%'. $request['title'] .'%')
                 ->whereHas('address', function ($query) use ($request) {
-                    $query->where('id', $request['address_id']);
+                    $query->where('id', $request->address_id);
                 })->get();
-            $results = $results->intersect($jobs);
+            $jobs = $jobs->intersect($results);
         }
-        dd($results);
 
-        if ($request->level_id) {
-            $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+        if ($request->skills_id) {
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
                 ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
-                ->where('title', 'like', '%'. $request['title'] .'%')
-                ->whereHas('address', function ($query) use ($request) {
-                    $query->where('id', $request['address_id']);
+                ->whereHas('skills', function ($query) use ($request) {
+                    $query->whereIn('skills.id', $request->skills_id);
                 })->get();
-            $results = $results->intersect($jobs);
+            $jobs = $jobs->intersect($results);
         }
+
+        if ($request->levels_id) {
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->whereHas('levels', function ($query) use ($request) {
+                    $query->whereIn('levels.id', $request->levels_id);
+                })->get();
+            $jobs = $jobs->intersect($results);
+        }
+
+        if ($request->salary_id) {
+            $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
+                ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->whereHas('salary', function ($query) use ($request) {
+                    $query->where('salaries.id', $request->salary_id);
+                })->get();
+            $jobs = $jobs->intersect($results);
+        }
+
+        return view('job.full-job', compact('jobs', 'address_array', 'skills', 'levels', 'salaries'));
     }
 
     public function searchAjax(Request $request)
@@ -216,5 +252,28 @@ class JobController extends Controller
         ]);
     }
 
+    /**
+     * Get full job
+     *
+     * @return view
+     */
+    public function getFullJob()
+    {
+        $jobs = Job::where('status', Job::ACTIVE)->paginate(8);
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
 
+        return view('job.full-job', compact('jobs', 'address_array', 'skills', 'levels', 'salaries'));
+    }
+
+    public function searchTitle($id) {
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
+        $job = Job::where('id', $id)->first();
+        return view('job.job-info', compact('job', 'address_array', 'skills', 'levels', 'salaries'));
+    }
 }

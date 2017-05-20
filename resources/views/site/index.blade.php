@@ -79,7 +79,7 @@
                 <div class="panel-heading clearfix">
                     <p class="panel-title pull-left">Việc làm mới nhất</p>
                     <div class="btn-group pull-right">
-                        <a class="btn btn-default">Xem thêm</a>
+                        <a href="{!! route('jobs.full') !!}" class="btn btn-default">Xem thêm</a>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -89,9 +89,9 @@
                             <ul class="list-group">
                                 @foreach($jobs as $job)
                                     <li class="list-group-item">
-                                        <p class="job-title"><a>{{ str_limit($job->title, 70) }}</a></p>
-                                        <p class="job-company"><a><b>{{ $job->company->name }}</b></a> - <a><b>{{ $job->address->name }}</b></a></p>
-                                        <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
+                                        <p class="job-title"><a href="{!! route('jobs.search-title', $job->id) !!}">{{ str_limit($job->title, 70) }}</a></p>
+                                        <p class="job-company"><a href="{!! route('company.infor', $job->company_id) !!}"><b>{{ $job->company->name }}</b></a> - <b>{{ $job->address->name }}</b></p>
+                                        <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ $job->created_at->format('d/m/Y') }} | Hạn cuối: {{ $job->deadline->format('d/m/Y') }}</p>
                                     </li>
                                 @endforeach
                             </ul>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div id="chartContainer" style="height: 320px; width: 100%;"></div>
+                    <div id="chartContainer" style="height: 325px; width: 100%;"></div>
                 </div>
             </div>
         </div>
@@ -175,18 +175,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container-fluid footer">
-   <div class="container">
-       <div class="text-center">
-           <h5>VIỆC LÀM CÔNG NGHỆ THÔNG TIN</h5>
-           <img src="{!! asset('images/icons/facebook.png') !!}">
-           <img src="{!! asset('images/icons/google.png') !!}">
-           <img src="{!! asset('images/icons/twitter.png') !!}">
-           <h5>Website tuyển dụng, tìm kiếm việc làm Công nghệ Thông tin.</h5>
-           <h5>Đồ án tốt nghiệp - Khoa Công nghệ Thông tin - Đại học Bách khoa Đà Nẵng.</h5>
-       </div>
-   </div>
 </div>
 @endsection
 
