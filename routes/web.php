@@ -26,6 +26,7 @@ Route::get('company/{id}', 'CompanyController@showInfor')->name('company.infor')
 // Full job
 Route::get('full-job', 'JobController@getFullJob')->name('jobs.full');
 Route::get('contact', 'SiteController@contact')->name('contact');
+Route::post('contact', 'SiteController@storeContact')->name('contact');
 
 // auth
 Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
@@ -33,6 +34,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::resource('companies', 'CompanyController');
     Route::resource('admins', 'AdminController');
     Route::resource('jobs', 'JobController');
+    Route::resource('skills', 'SkillController');
 
     Route::get('list-company', 'CompanyController@list')->name('companies.list');
     Route::get('list-member', 'MemberController@list')->name('members.list');
@@ -59,4 +61,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
     Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');
     Route::get('ajax-update-status/{id}', 'JobController@updateStatus')->name('jobs.ajax-update-status');
+
+    Route::get('contacts/list', 'AdminController@listContact')->name('contacts.list');
+    Route::get('contacts/{id}', 'AdminController@showContact')->name('contacts.show');
+    Route::get('contacts/{id}/delete', 'AdminController@deleteContact')->name('contacts.delete');
 });

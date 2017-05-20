@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Models\Admin;
 use App\Models\Job;
 use App\Models\Member;
+use App\Models\Contact;
 
 class AdminController extends Controller
 {
@@ -100,5 +101,27 @@ class AdminController extends Controller
     {
         $member = Member::find($id);
         return view('admin.show-member', compact('member'));
+    }
+
+    public function listContact()
+    {
+        $contacts = Contact::paginate(15);
+
+        return view('contact.list', compact('contacts'));
+    }
+
+    public function showContact($id)
+    {
+        $contact = Contact::find($id);
+
+        return view('contact.show', compact('contact'));
+    }
+
+    public function deleteContact($id)
+    {
+        $delete = Contact::find($id)->delete();
+        if ($delete) {
+            return redirect()->route('contacts.list')->with('message', 'Xóa thành công');
+        }
     }
 }

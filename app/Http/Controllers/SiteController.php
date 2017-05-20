@@ -7,8 +7,10 @@ use App\Models\Job;
 use App\Models\Skill;
 use App\Models\Level;
 use App\Models\Salary;
+use App\Models\Contact;
 use App\Models\JobSkill;
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactRequest;
 use Datetime;
 use DB;
 
@@ -52,8 +54,6 @@ class SiteController extends Controller
         return Skill::find($id)->name;
     }
 
-
-
     public function getChart(Request $request) {
         $month = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('m');
         $year = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('Y');
@@ -78,5 +78,13 @@ class SiteController extends Controller
 
     public function contact() {
         return view('contact.index');
+    }
+
+    public function storeContact(ContactRequest $request) {
+        $data = $request->only(['name', 'email', 'content']);
+        $contact = Contact::create($data);
+        if ($contact) {
+            return redirect()->route('contact')->with('message', 'Thông tin được gởi thành công. Xin cảm ơn !');
+        }
     }
 }
