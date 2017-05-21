@@ -67,8 +67,6 @@ class SiteController extends Controller
         }
     }
 
-
-
     public function showCompany($id) {
         $company = Company::find($id);
         $skills = Skill::all(['id', 'name']);

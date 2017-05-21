@@ -55,11 +55,6 @@ class MemberController extends Controller
         }
     }
 
-
-
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -90,27 +85,6 @@ class MemberController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -120,29 +94,6 @@ class MemberController extends Controller
     {
         $member = Member::find($id);
         return view('member.show', $member);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -158,9 +109,6 @@ class MemberController extends Controller
         $member->delete();
         return redirect()->route('admins.index')->with('message', 'Xóa thành viên thành công.');
     }
-
-
-
 
     /**
      * Show profile
@@ -216,7 +164,7 @@ class MemberController extends Controller
             $dataAccount['password'] = bcrypt($request->password);
         }
         $dataMember = $request->only(['name', 'address_id', 'phone', 'gender', 'about']);
-        if ($account->update($dataAccount) && $member->update($dataMember)) {
+        if ($account->update($dataAccount) && $member->update($dataMember) && $account->member->skills()->sync($request->skills_id)) {
             return redirect()->route('members.profile.show')->with('success', 'Cập nhật thông tin cá nhân thành công');
         } else {
             return redirect()->back()->with('error', 'Cập nhật thông tin cá nhân thất bại');
