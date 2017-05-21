@@ -20,5 +20,6 @@
             <label for="exampleInputEmail1">Nội dung</label>
             <p>{{$contact->content}}</p>
         </div>
+        <a href="{!! route('contacts.list') !!}" class="btn btn-primary">Trở về</a>
     </form>
 @endsection

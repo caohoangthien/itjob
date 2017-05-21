@@ -58,6 +58,9 @@ class CompanyController extends Controller
         return view('job.list', compact('jobs'));
     }
 
+    /**
+     * Show list job check
+     */
     public function listCheckedJob()
     {
         $jobs = Job::where('status', Job::ACTIVE)
@@ -110,19 +113,7 @@ class CompanyController extends Controller
         $company->jobs()->delete();
         $company->account()->delete();
         $company->delete();
-        return redirect()->route('admins.index')->with('success', 'Xóa công ty thành công.');
-    }
-
-    /**
-     * List company
-     *
-     * @return view
-     */
-    public function list()
-    {
-        $companies = Company::orderBy('id', 'desc')->paginate(15);
-
-        return view('company.list', compact('companies'));
+        return redirect()->route('admins.index')->with('message', 'Xóa công ty thành công.');
     }
 
     /**
@@ -184,10 +175,11 @@ class CompanyController extends Controller
         ]);
     }
 
-
-
     public function listMember() {
         $members = Member::orderBy('id', 'desc')->paginate(15);
-        return view('member.list', compact('members'));
+        return view('company.list-member', compact('members'));
+    }
+
+    public function showMember($id)
     }
 }

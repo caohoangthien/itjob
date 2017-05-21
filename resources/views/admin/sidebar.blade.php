@@ -34,7 +34,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{!! route('companies.list') !!}"><i class="fa fa-circle-o"></i> Danh sách công ty</a>
+                    <li><a href="{!! route('admins.company.list') !!}"><i class="fa fa-circle-o"></i> Danh sách công ty</a>
                     </li>
                 </ul>
             </li>

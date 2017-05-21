@@ -156,7 +156,7 @@ class MemberController extends Controller
         unlink(Member::find($id)->avatar);
         $member = Member::find($id);
         $member->delete();
-        return redirect()->route('admins.index')->with('success', 'Xóa thành viên thành công.');
+        return redirect()->route('admins.index')->with('message', 'Xóa thành viên thành công.');
     }
 
 

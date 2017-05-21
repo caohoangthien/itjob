@@ -3,6 +3,11 @@
 @section('title', 'Danh sách công việc')
 
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-success">
+            <p>{{ session('message') }}</p>
+        </div>
+    @endif
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <th class="text-center">Id</th>
@@ -23,10 +28,8 @@
                 <td class="text-center">{{ $job->quantity }}</td>
                 <td class="text-center">{{ date_format($job->created_at,"d-m-Y") }}</td>
                 <td>
-                    <a href="{!! route('jobs.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    {{ Form::open(['route' => ['jobs.destroy', $job->id], 'method' => 'DELETE', 'class' => 'form-delete']) }}
-                    <button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
-                    {{ Form::close() }}
+                    <a href="{!! route('admins.jobs.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('admins.jobs.delete', [$job->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
                     <a class='btn btn-primary btn-xs btn-active-job' data-url="{!! route('jobs.ajax-update-status', $job->id) !!}">{{ $job->status == 1 ? 'Active' : 'Deactive' }}</a>
                 </td>
             </tr>

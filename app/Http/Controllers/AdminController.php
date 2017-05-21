@@ -9,46 +9,30 @@ use App\Models\Admin;
 use App\Models\Job;
 use App\Models\Member;
 use App\Models\Contact;
+use App\Models\Company;
 
 class AdminController extends Controller
 {
-    /**
-     * Get home admin
-     *
-     * @return view
-     */
     public function index()
     {
-        return view('admin.index');
+        $jobs = Job::orderBy('id', 'desc')
+            ->orderBy('status', 'asc')
+            ->paginate(9);
+        return view('admin.list-job', compact('jobs'));
     }
 
-    /**
-     * Show profile
-     *
-     * @return view
-     */
     public function showProfile()
     {
         $profile = auth()->user()->admin;
         return view('admin.profile', compact('profile'));
     }
 
-    /**
-     * Edit profile
-     *
-     * @return view
-     */
     public function editProfile()
     {
         $profile = auth()->user()->admin;
         return view('admin.edit', compact('profile'));
     }
 
-    /**
-     * Update profile
-     *
-     * @return view
-     */
     public function updateProfile(AdminUpdateRequest $request)
     {
         $account = Account::find(auth()->id());
@@ -80,9 +64,6 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Show list job
-     */
     public function listJob()
     {
         $jobs = Job::orderBy('id', 'desc')
@@ -95,6 +76,12 @@ class AdminController extends Controller
     {
         $job = Job::find($id);
         return view('admin.show-job', compact('job'));
+    }
+
+    public function deleteJob($id)
+    {
+        Job::find($id)->delete();
+        return redirect()->route('admins.index')->with('message', 'Xóa công việc thành công.');
     }
 
     public function showMember($id)
@@ -136,5 +123,18 @@ class AdminController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
+    }
+
+    public function listCompany()
+    {
+        $companies = Company::orderBy('id', 'desc')->paginate(15);
+
+        return view('admin.list-company', compact('companies'));
+    }
+
+    public function showCompany($id)
+    {
+        $company = Company::find($id);
+        return view('admin.show-company', compact('company'));
     }
 }

@@ -31,18 +31,23 @@ Route::post('member-signup', 'MemberController@postSignup')->name('members.signu
 Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
 
     // Admin
-    Route::get('contacts/list', 'AdminController@listContact')->name('contacts.list')->middleware('admin');
-    Route::get('contacts/{id}', 'AdminController@showContact')->name('contacts.show')->middleware('admin');
-    Route::get('contacts/{id}/delete', 'AdminController@deleteContact')->name('contacts.delete')->middleware('admin');
+    Route::get('contacts/list', 'AdminController@listContact')->name('contacts.list');
+    Route::get('contacts/{id}', 'AdminController@showContact')->name('contacts.show');
+    Route::get('contacts/{id}/delete', 'AdminController@deleteContact')->name('contacts.delete');
     Route::resource('admins', 'AdminController');
     Route::get('profile/admins', 'AdminController@showProfile')->name('admins.profile.show');
     Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
     Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
     Route::post('image/admins', 'AdminController@updateImage')->name('admins.image.update');
     Route::get('jobs-list/admins', 'AdminController@listJob')->name('admins.jobs.list');
+    Route::get('company-list/admins', 'AdminController@listCompany')->name('admins.company.list');
+    Route::get('show-company/admins/{id}', 'AdminController@showCompany')->name('admins.company.show');
     Route::get('show-job/admins/{id}', 'AdminController@showJob')->name('admins.jobs.show');
+    Route::get('delete-job/admins/{id}', 'AdminController@deleteJob')->name('admins.jobs.delete');
     Route::get('show-member/admins/{id}', 'AdminController@showMember')->name('admins.members.show');
     Route::get('ajax-update-status/{id}', 'AdminController@updateStatus')->name('jobs.ajax-update-status');
+    // Skill
+    Route::resource('skills', 'SkillController');
 
     // Member
     Route::resource('members', 'MemberController');
@@ -55,7 +60,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
 
     // Company
     Route::resource('companies', 'CompanyController');
-    Route::get('list-company', 'CompanyController@list')->name('companies.list');
     Route::get('profile/companies', 'CompanyController@showProfile')->name('companies.profile.show');
     Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
     Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
@@ -63,11 +67,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::post('list-member', 'CompanyController@listMember')->name('companies.members');
     Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
     Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');
-
+    Route::get('member-show/conpanies', 'CompanyController@sh')->name('companies.show-member');
     // Job of company
     Route::resource('jobs', 'JobController');
-    Route::get('list-job', 'JobController@list')->name('jobs.list');
+    Route::get('list-job', 'JobController@list')->name('jobs.listowMember');
 
-    // Skill
-    Route::resource('skills', 'SkillController');
+
 });

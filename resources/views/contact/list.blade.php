@@ -5,7 +5,7 @@
 @section('content')
     @if (session('message'))
         <div class="alert alert-success">
-            <p class="text-success">{{ session('message') }}</p>
+            <p>{{ session('message') }}</p>
         </div>
     @endif
     <table class="table table-bordered table-hover table-striped">

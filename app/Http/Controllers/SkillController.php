@@ -26,7 +26,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        //
+        return view('skill.create');
     }
 
     /**
@@ -35,9 +35,13 @@ class SkillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SkillRequest $request)
     {
-        //
+        $data['name'] = $request->name;
+        $skill = Skill::create($data);
+        if ($skill) {
+            return redirect()->route('skills.index')->with('message', 'Thêm kỹ năng thành công.');
+        }
     }
 
     /**
@@ -66,17 +70,5 @@ class SkillController extends Controller
         if ($skill) {
             return redirect()->route('skills.index')->with('message', 'Cập nhật kỹ năng thành công.');
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Skill::find($id)->delete();
-        return redirect()->route('skills.index')->with('message', 'Cập nhật kỹ năng thành công.');
     }
 }

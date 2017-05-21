@@ -109,8 +109,6 @@ class JobController extends Controller
         return redirect()->route('companies.index')->with('success', 'Xóa tin tuyển dụng thành công');
     }
 
-
-
     public function search(Request $request)
     {
         $skills = Skill::all(['id', 'name']);
