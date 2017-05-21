@@ -178,7 +178,7 @@
                         @endforeach
                     </div>
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

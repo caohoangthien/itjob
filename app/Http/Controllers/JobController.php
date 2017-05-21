@@ -185,7 +185,15 @@ class JobController extends Controller
             $jobs = $jobs->intersect($results);
         }
 
-        return view('job.full-job', compact('jobs', 'address_array', 'skills', 'levels', 'salaries'));
+        $message = '';
+       if ($jobs->count() > 0){
+           return view('job.result-search', compact('jobs', 'address_array', 'skills', 'levels', 'salaries', 'message'));
+       } else {
+           $message = 'Không tìm thấy kết quả.';
+           return view('job.result-search', compact('jobs', 'address_array', 'skills', 'levels', 'salaries', 'message'));
+       }
+
+
     }
 
     public function searchAjax(Request $request)

@@ -9,6 +9,7 @@
                         <a href="{!! route('home-site') !!}" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
                     </div>
                     <div class="panel-body" style="height: 1007px">
+                        <p>{{ $message }}</p>
                         <ul class="list-group">
                             @foreach($jobs as $job)
                                 <li class="list-group-item">
@@ -17,7 +18,6 @@
                                     <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
                                 </li>
                             @endforeach
-                            {{ $jobs->links() }}
                         </ul>
                     </div>
                 </div>
