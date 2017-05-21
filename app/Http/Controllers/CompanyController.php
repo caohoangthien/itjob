@@ -9,6 +9,7 @@ use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Account;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\Member;
 use Auth;
 
 class CompanyController extends Controller
@@ -175,11 +176,15 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function listMember() {
+    public function listMember()
+    {
         $members = Member::orderBy('id', 'desc')->paginate(15);
         return view('company.list-member', compact('members'));
     }
 
     public function showMember($id)
+    {
+        $member = Member::find($id);
+        return view('company.show-member', compact('member'));
     }
 }
