@@ -55,8 +55,6 @@ class SiteController extends Controller
         return Skill::find($id)->name;
     }
 
-
-
     public function contact() {
         return view('contact.index');
     }

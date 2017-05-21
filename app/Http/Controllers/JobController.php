@@ -8,10 +8,10 @@ use App\Models\Skill;
 use App\Models\Salary;
 use App\Models\Level;
 use App\Models\Address;
-use App\Models\JobSkill;
-use App\Models\JobLevel;
 use App\Http\Requests\JobCreateRequest;
 use Datetime;
+use DB;
+
 
 class JobController extends Controller
 {

@@ -10,7 +10,7 @@ Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-aj
 Route::get('search-title/{id}', 'JobController@searchTitle')->name('jobs.search-title');
 Route::get('search-address/{id}', 'JobController@searchAddress')->name('jobs.search-address');
 Route::get('full-job', 'JobController@getFullJob')->name('jobs.full');
-Route::post('getChart', 'SiteController@getChart')->name('getChart');
+Route::post('getChart', 'JobController@getChart')->name('getChart');
 
 // Login - Logout
 Route::get('login', 'LoginController@getLogin')->name('login');
