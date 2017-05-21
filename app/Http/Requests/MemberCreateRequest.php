@@ -35,7 +35,6 @@ class MemberCreateRequest extends FormRequest
             'address_id' => ['required', Rule::in($address)],
             'skills_id' => 'required',
             'gender' => ['required', Rule::in(['1', '2'])],
-            'birthday' => 'required|date|date_format:d-m-Y|before:today',
             'about' => 'required',
             'avatar' => 'required|mimes:png,jpg,jpeg|max:1000',
             'cv' => 'required|mimes:pdf|max:1000',

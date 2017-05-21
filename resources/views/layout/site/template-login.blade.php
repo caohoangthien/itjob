@@ -61,7 +61,6 @@
                     <img src="{!! asset('images/icons/google.png') !!}">
                     <img src="{!! asset('images/icons/twitter.png') !!}">
                     <h5>Website tuyển dụng, tìm kiếm việc làm Công nghệ Thông tin.</h5>
-                    <h5>Đồ án tốt nghiệp - Khoa Công nghệ Thông tin - Đại học Bách khoa Đà Nẵng.</h5>
                 </div>
             </div>
         </div>

@@ -36,7 +36,6 @@ class MemberUpdateRequest extends FormRequest
             'address_id' => ['required', Rule::in($address)],
             'skills_id' => 'required',
             'gender' => ['required', Rule::in(['1', '2'])],
-            'birthday' => 'required|date|date_format:d-m-Y|before:today',
             'about' => 'required',
         ];
     }

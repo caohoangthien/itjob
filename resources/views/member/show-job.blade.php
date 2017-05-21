@@ -39,7 +39,7 @@
             <p>{{ date_format($job->deadline,"d-m-Y") }}</p>
         </div>
         <div class="form-group">
-            <a href="{!! route('companies.index') !!}" class="btn btn-primary">Trở về</a>
+            <a href="{!! route('members.index') !!}" class="btn btn-primary">Trở về</a>
         </div>
     </form>
 @endsection

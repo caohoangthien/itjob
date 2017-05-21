@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row" style="margin-bottom: 183px">
+        <div class="row" style="margin-bottom: 198px">
             {!! Form::open(['route' => 'forgot-password', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
             @if (session('message'))
                 <div class="alert alert-success">

@@ -37,7 +37,6 @@ class MemberController extends Controller
             $account = Account::create($dataAccount);
 
             $dataMember = $request->only('name', 'address_id', 'phone', 'about', 'gender', 'birthday');
-            $dataMember['birthday'] = date("Y-m-d", strtotime($dataMember['birthday']));
             $dataMember['account_id'] = $account->id;
             $nameImage = str_random('20') . time() . '.' . $request->avatar->getClientOriginalExtension();
             $nameCV = str_random('20') . time() . '.' . $request->cv->getClientOriginalExtension();
@@ -216,11 +215,16 @@ class MemberController extends Controller
         if ($request->password) {
             $dataAccount['password'] = bcrypt($request->password);
         }
-        $dataMember = $request->only(['name', 'address_id', 'phone', 'gender', 'birthday', 'about']);
+        $dataMember = $request->only(['name', 'address_id', 'phone', 'gender', 'about']);
         if ($account->update($dataAccount) && $member->update($dataMember)) {
             return redirect()->route('members.profile.show')->with('success', 'Cập nhật thông tin cá nhân thành công');
         } else {
             return redirect()->back()->with('error', 'Cập nhật thông tin cá nhân thất bại');
         }
+    }
+
+    public function showJob($id) {
+        $job = Job::find($id);
+        return view('member.show-job', compact('job'));
     }
 }

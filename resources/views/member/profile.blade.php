@@ -32,7 +32,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Ngày sinh</label>
                 <div class="col-sm-9">
-                    {!! Form::text('birthday', null, ['class' => 'form-control', 'disabled']) !!}
+                    {!! Form::text('birthday', null, ['class' => 'form-control', 'id' => 'datepicker', 'disabled']) !!}
                 </div>
             </div>
             <div class="form-group row">

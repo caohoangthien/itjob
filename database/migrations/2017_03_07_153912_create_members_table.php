@@ -21,7 +21,7 @@ class CreateMembersTable extends Migration
             $table->integer('address_id')->unsigned();
             $table->foreign('address_id')->references('id')->on('address');
             $table->integer('gender');
-            $table->timestamp('birthday');
+            $table->string('birthday');
             $table->string('phone');
             $table->text('about');
             $table->string('cv');

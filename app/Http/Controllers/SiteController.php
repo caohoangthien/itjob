@@ -8,10 +8,8 @@ use App\Models\Skill;
 use App\Models\Level;
 use App\Models\Salary;
 use App\Models\Contact;
-use App\Models\JobSkill;
-use Illuminate\Http\Request;
+use App\Models\Company;
 use App\Http\Requests\ContactRequest;
-use Datetime;
 use DB;
 
 class SiteController extends Controller

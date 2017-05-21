@@ -15,7 +15,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::paginate(15);
+        $skills = Skill::paginate(9);
         return view('skill.index', compact('skills'));
     }
 
@@ -36,17 +36,6 @@ class SkillController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }

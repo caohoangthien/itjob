@@ -105,7 +105,7 @@ class AdminController extends Controller
 
     public function listContact()
     {
-        $contacts = Contact::paginate(15);
+        $contacts = Contact::paginate(9);
 
         return view('contact.list', compact('contacts'));
     }
@@ -123,5 +123,18 @@ class AdminController extends Controller
         if ($delete) {
             return redirect()->route('contacts.list')->with('message', 'Xóa thành công');
         }
+    }
+
+    public function updateStatus($id) {
+        $job = Job::find($id);
+        if ($job->status == 0) {
+            $data['status'] = 1;
+        } else {
+            $data['status'] = 0;
+        }
+        $job->update($data);
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 }

@@ -163,6 +163,10 @@
                     $('#btn-update-avatar').attr("disabled",true);
                 }
             });
+
+            $("#datepicker").datepicker({
+                dateFormat: 'dd-mm-yy',
+            });
         });
     </script>
 @endsection

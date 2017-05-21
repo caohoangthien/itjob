@@ -239,18 +239,7 @@ class JobController extends Controller
         }
     }
 
-    public function updateStatus($id) {
-        $job = Job::find($id);
-        if ($job->status == 0) {
-            $data['status'] = 1;
-        } else {
-            $data['status'] = 0;
-        }
-        $job->update($data);
-        return response()->json([
-            'status' => 'success'
-        ]);
-    }
+
 
     /**
      * Get full job
