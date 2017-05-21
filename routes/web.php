@@ -1,32 +1,31 @@
 <?php
 // Home - site
 Route::get('/', 'SiteController@index')->name('home-site');
+Route::get('company/{id}', 'SiteController@showCompany')->name('company.infor');
+Route::get('contact', 'SiteController@contact')->name('contact');
+Route::post('contact', 'SiteController@storeContact')->name('contact');
+
+Route::post('search-job', 'JobController@search')->name('jobs.search');
+Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
+Route::get('search-title/{id}', 'JobController@searchTitle')->name('jobs.search-title');
+Route::get('search-address/{id}', 'JobController@searchAddress')->name('jobs.search-address');
+Route::get('full-job', 'JobController@getFullJob')->name('jobs.full');
+Route::post('getChart', 'SiteController@getChart')->name('getChart');
 
 // Login - Logout
 Route::get('login', 'LoginController@getLogin')->name('login');
 Route::post('login', 'LoginController@postLogin')->name('login');
 Route::get('logout', 'LoginController@logout')->name('logout');
-
-// Signup
-Route::get('company-signup', 'CompanyController@getSignup')->name('companies.signup');
 Route::get('forgot-password', 'LoginController@getForgot')->name('forgot-password');
 Route::post('forgot-password', 'LoginController@postForgot')->name('forgot-password');
+
+// Company
+Route::get('company-signup', 'CompanyController@getSignup')->name('companies.signup');
 Route::post('company-signup', 'CompanyController@postSignup')->name('companies.signup');
+
+// Member
 Route::get('member-signup', 'MemberController@getSignup')->name('members.signup');
 Route::post('member-signup', 'MemberController@postSignup')->name('members.signup');
-Route::post('getChart', 'SiteController@getChart')->name('getChart');
-
-// Search job
-Route::post('search-job', 'JobController@search')->name('jobs.search');
-Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
-Route::get('search-title/{id}', 'JobController@searchTitle')->name('jobs.search-title');
-Route::get('search-address/{id}', 'JobController@searchAddress')->name('jobs.search-address');
-Route::get('company/{id}', 'CompanyController@showInfor')->name('company.infor');
-
-// Full job
-Route::get('full-job', 'JobController@getFullJob')->name('jobs.full');
-Route::get('contact', 'SiteController@contact')->name('contact');
-Route::post('contact', 'SiteController@storeContact')->name('contact');
 
 // auth
 Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {

@@ -276,4 +276,26 @@ class JobController extends Controller
         $job = Job::where('id', $id)->first();
         return view('job.job-info', compact('job', 'address_array', 'skills', 'levels', 'salaries'));
     }
+
+    public function getChart(Request $request) {
+        $month = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('m');
+        $year = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('Y');
+        $jobSkills = DB::table('job_skill')
+            ->join('jobs', 'jobs.id', '=', 'job_skill.job_id')
+            ->select('job_skill.skill_id as idSkill', DB::raw('sum(jobs.quantity) as quantity'))
+            ->groupBy('job_skill.skill_id')
+            ->whereMonth('job_skill.created_at', $month)
+            ->whereYear('job_skill.created_at', $year)
+            ->get();
+        $chart = [];
+        if ($jobSkills->count() > 0) {
+            foreach ($jobSkills as $jobSkill) {
+                $skill['y'] = (int)$jobSkill->quantity;
+                $skill['label'] = $this->getNameSkill($jobSkill->idSkill);
+                $chart[] = $skill;
+            }
+        }
+
+        return response()->json($chart);
+    }
 }

@@ -55,27 +55,7 @@ class SiteController extends Controller
         return Skill::find($id)->name;
     }
 
-    public function getChart(Request $request) {
-        $month = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('m');
-        $year = DateTime::createFromFormat('m-Y', $request->yearMonth)->format('Y');
-        $jobSkills = DB::table('job_skill')
-            ->join('jobs', 'jobs.id', '=', 'job_skill.job_id')
-            ->select('job_skill.skill_id as idSkill', DB::raw('sum(jobs.quantity) as quantity'))
-            ->groupBy('job_skill.skill_id')
-            ->whereMonth('job_skill.created_at', $month)
-            ->whereYear('job_skill.created_at', $year)
-            ->get();
-        $chart = [];
-        if ($jobSkills->count() > 0) {
-            foreach ($jobSkills as $jobSkill) {
-                $skill['y'] = (int)$jobSkill->quantity;
-                $skill['label'] = $this->getNameSkill($jobSkill->idSkill);
-                $chart[] = $skill;
-            }
-        }
 
-        return response()->json($chart);
-    }
 
     public function contact() {
         return view('contact.index');
@@ -87,5 +67,17 @@ class SiteController extends Controller
         if ($contact) {
             return redirect()->route('contact')->with('message', 'Thông tin được gởi thành công. Xin cảm ơn !');
         }
+    }
+
+
+
+    public function showCompany($id) {
+        $company = Company::find($id);
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
+
+        return view('company.company-infor', compact('company', 'address_array', 'skills', 'levels', 'salaries'));
     }
 }
