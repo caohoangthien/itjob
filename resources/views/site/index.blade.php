@@ -1,5 +1,13 @@
 @extends('layout.site.template')
 
+@section('css')
+    <style>
+        .ui-datepicker-calendar {
+        display: none;
+        }​
+    </style>
+@endsection
+
 @section('content')
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -110,7 +118,7 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                <input type="text" class="form-control" id="datepicker" data-url="{!! route('getChart') !!}">
+                                <input type="text" class="form-control" id="datepicker-frontend" data-url="{!! route('getChart') !!}">
                             </div>
                         </div>
                     </div>
@@ -296,7 +304,7 @@
 
         chart.render();
 
-        $("#datepicker").datepicker({
+        $("#datepicker-frontend").datepicker({
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,

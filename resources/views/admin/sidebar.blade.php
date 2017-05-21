@@ -64,7 +64,7 @@
                 </ul>
             </li>
             <li><a href="{!! route('contacts.list') !!}"><i class="glyphicon glyphicon-refresh"></i> <span>Thông tin liên hệ</span></a></li>
-            <li><a href="{!! route('skills.index') !!}"><i class="glyphicon glyphicon-refresh"></i> <span>Kỹ năng tuyển dụng</span></a></li>
+            <li><a href="{!! route('skills.index') !!}"><i class="glyphicon glyphicon-stats"></i> <span>Kỹ năng tuyển dụng</span></a></li>
             <li><a href="{!! route('logout') !!}"><i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span></a></li>
         </ul>
     </section>

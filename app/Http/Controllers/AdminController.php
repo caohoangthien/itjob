@@ -87,7 +87,7 @@ class AdminController extends Controller
     {
         $jobs = Job::orderBy('id', 'desc')
             ->orderBy('status', 'asc')
-            ->paginate(15);
+            ->paginate(9);
         return view('admin.list-job', compact('jobs'));
     }
 

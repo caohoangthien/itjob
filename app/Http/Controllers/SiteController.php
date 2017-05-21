@@ -33,6 +33,7 @@ class SiteController extends Controller
             ->groupBy('job_skill.skill_id')
             ->whereMonth('job_skill.created_at', 5)
             ->whereYear('job_skill.created_at', 2017)
+            ->where('status', Job::ACTIVE)
             ->get();
         $chart = [];
         if ($jobSkills->count() > 0) {

@@ -68,7 +68,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Giới tính</label>
                 <div class="col-sm-9 {!! $errors->has('gender') ? 'has-error' : '' !!}">
-                    {!! Form::radio('gender', '1', $profile->gender == 1) !!} Nam<br>
+                    {!! Form::radio('gender', '1', $profile->gender == 1) !!} Nam
                     {!! Form::radio('gender', '2', $profile->gender == 2) !!} Nữ
 
                     @if ($errors->has('gender'))

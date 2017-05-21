@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
     Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
     Route::post('image/companies', 'CompanyController@updateImage')->name('companies.image.update');
+    Route::post('list-member', 'CompanyController@listMember')->name('companies.members');
 
     Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
     Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');

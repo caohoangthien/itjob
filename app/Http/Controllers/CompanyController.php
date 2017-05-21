@@ -57,7 +57,7 @@ class CompanyController extends Controller
         $jobs = Job::where('status', Job::DEACTIVE)
             ->where('company_id', auth()->user()->company->id)
             ->where('deleted_at', null)
-            ->paginate(15);
+            ->paginate(9);
         return view('job.list', compact('jobs'));
     }
 
@@ -66,7 +66,7 @@ class CompanyController extends Controller
         $jobs = Job::where('status', Job::ACTIVE)
             ->where('company_id', auth()->user()->company->id)
             ->where('deleted_at', null)
-            ->paginate(15);
+            ->paginate(9);
         return view('job.list', compact('jobs'));
     }
 
@@ -77,7 +77,12 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('company.index');
+        $jobs = Job::where('status', Job::ACTIVE)
+            ->where('company_id', auth()->user()->company->id)
+            ->where('deleted_at', null)
+            ->paginate(15);
+
+        return view('company.index', compact('jobs'));
     }
 
     /**
@@ -190,5 +195,10 @@ class CompanyController extends Controller
         $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
 
         return view('company.company-infor', compact('company', 'address_array', 'skills', 'levels', 'salaries'));
+    }
+
+    public function listMember() {
+        $members = Member::orderBy('id', 'desc')->paginate(15);
+        return view('member.list', compact('members'));
     }
 }

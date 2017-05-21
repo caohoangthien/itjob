@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             {!! Form::open(['route' => ['members.signup'], 'method' => 'post', 'files' => true, 'class' => 'col-md-6 col-md-offset-3 form-login'])  !!}
-            <img src="{!! asset('images/icons/signin.png') !!}" width="100" class="img-responsive"/>
+            <img class="avatar" src="{!! asset('images/icons/signin.png') !!}" width="100" class="img-responsive"/>
             @if (session('error'))
                 <div class="alert alert-danger">
                     <p>{{ session('error') }}</p>

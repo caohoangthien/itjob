@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Skill;
@@ -67,7 +68,15 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('member.index');
+        $profile = auth()->user()->member;
+        foreach ($profile->skills as $skill) {
+            $skills[] = $skill->id;
+        }
+        $jobs = Job::where('status', Job::ACTIVE)->whereHas('skills', function ($query) use ($skills) {
+            $query->whereIn('skills.id', $skills);
+        })->paginate(15);
+
+        return view('member.index', compact('jobs'));
     }
 
     /**

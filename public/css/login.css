@@ -10,23 +10,29 @@ body {
 .form-login{
     background-color: white;
     padding: 20px;
-    margin-top: 100px;
+    margin-top: 90px;
     margin-bottom: 50px;
     border-radius: 15px;
 }
 
-.form-login img{
-    margin: 0px auto;
+.avatar {
+    display: block;
+    margin: 0 auto;
 }
 
 .footer {
-    background-color: black;
+    background: #e3cfec;
 }
 
-.footer h5 {
+.navbar b {
+    color: #f9f789;
+}
+
+.navbar {
+    border-radius: 0px;
+    margin: 0px;
+}
+
+.navbar b:hover {
     color: white;
-}
-
-.footer p {
-    color: orange;
 }

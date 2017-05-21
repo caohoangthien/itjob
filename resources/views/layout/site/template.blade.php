@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="{!! asset('css/bootstrap.min.css') !!}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{!! asset('css/style.css') !!}">
+        @yield('css')
     </head>
     <body>
         <nav class="navbar navbar-inverse">

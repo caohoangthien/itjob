@@ -11,63 +11,57 @@
         <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top menu">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{!! route('home-site') !!}">Việc làm CNTT</a>
-                </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{!! route('home-site') !!}"><b>Việc làm CNTT</b></a>
+            </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="{!! route('home-site') !!}">Trang chủ</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{!! route('home-site') !!}"><b>Trang chủ</b></a></li>
+                    <li><a href="{!! route('contact') !!}"><b>Liên hệ</b></a></li>
+                </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <div class="dropdown">
-                                <button class="btn btn-default navbar-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Nhà tuyển dụng
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="{!! route('login') !!}"> Đăng nhập</a></li>
-                                    <li><a href="{!! route('companies.signup') !!}"> Đăng kí</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href="{!! route('login') !!}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Đăng nhập</a></li>
-                        <li><a href="{!! route('members.signup') !!}"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Đăng kí</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-default navbar-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Nhà tuyển dụng
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="{!! route('login') !!}"> Đăng nhập</a></li>
+                                <li><a href="{!! route('companies.signup') !!}"> Đăng kí</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="{!! route('login') !!}"><b><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Đăng nhập</b></a></li>
+                    <li><a href="{!! route('members.signup') !!}"><b><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Đăng kí</b></a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
         @yield('content')
 
         <div class="container-fluid footer">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>THEO DÕI CHÚNG TÔI</h5>
-                        <p><a href="#"><img src="{!! asset('images/icons/facebook.png') !!}"> Theo dõi chúng tôi trên Facebook</a></p>
-                        <p><a href="#"><img src="{!! asset('images/icons/google.png') !!}"> Theo dõi chúng tôi trên Google +</a></p>
-                        <p><a href="#"><img src="{!! asset('images/icons/twitter.png') !!}"> Theo dõi chúng tôi trên Twitter</a></p>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>THÔNG TIN LIÊN HỆ</h5>
-                        <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> : 0511.123.123</p>
-                        <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : vieclamcntt@gmail.com</p>
-                        <p><span class="glyphicon glyphicon-home" aria-hidden="true"></span> : 54 Nguyễn Lương Bằng - Đà Nẵng.</p>
-                    </div>
+                <div class="text-center">
+                    <h5>VIỆC LÀM CÔNG NGHỆ THÔNG TIN</h5>
+                    <img src="{!! asset('images/icons/facebook.png') !!}">
+                    <img src="{!! asset('images/icons/google.png') !!}">
+                    <img src="{!! asset('images/icons/twitter.png') !!}">
+                    <h5>Website tuyển dụng, tìm kiếm việc làm Công nghệ Thông tin.</h5>
+                    <h5>Đồ án tốt nghiệp - Khoa Công nghệ Thông tin - Đại học Bách khoa Đà Nẵng.</h5>
                 </div>
             </div>
         </div>

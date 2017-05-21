@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             {!! Form::model($member, ['class' => 'form-horizontal'])  !!}
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Tên</label>
@@ -64,9 +64,9 @@
             </div>
             {!! Form::close() !!}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="text-center">
-                <img id="previewing" src="{{ asset($member->avatar) }}" class="img-responsive img-thumbnail text-center" alt="User Image" />
+                <iframe src="{{ asset($member->cv)}}" width="500" height="500"></iframe>
             </div>
             <hr>
         </div>
