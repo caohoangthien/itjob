@@ -4,13 +4,13 @@ Route::get('/', 'SiteController@index')->name('home-site');
 Route::get('company/{id}', 'SiteController@showCompany')->name('company.infor');
 Route::get('contact', 'SiteController@contact')->name('contact');
 Route::post('contact', 'SiteController@storeContact')->name('contact');
+Route::post('getChart', 'SiteController@getChart')->name('getChart');
 
 Route::post('search-job', 'JobController@search')->name('jobs.search');
 Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
 Route::get('search-title/{id}', 'JobController@searchTitle')->name('jobs.search-title');
 Route::get('search-address/{id}', 'JobController@searchAddress')->name('jobs.search-address');
 Route::get('full-job', 'JobController@getFullJob')->name('jobs.full');
-Route::post('getChart', 'JobController@getChart')->name('getChart');
 
 // Login - Logout
 Route::get('login', 'LoginController@getLogin')->name('login');
@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
     Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
     Route::post('image/companies', 'CompanyController@updateImage')->name('companies.image.update');
-    Route::get('list-member', 'CompanyController@listMember')->name('companies.list-member');
+    Route::get('list-member/companies', 'CompanyController@listMember')->name('companies.list-member');
     Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
     Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');
     Route::get('member-show/conpanies/{id}', 'CompanyController@showMember')->name('companies.show-member');
