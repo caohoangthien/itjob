@@ -8,16 +8,16 @@
                     <div class="panel-heading">
                         <a href="{!! route('home-site') !!}" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
                     </div>
-                    <div class="panel-body">
-                        <h1>Công ty</h1>
+                    <div class="panel-body company-infor">
+                        <h4>Công ty</h4>
                         <p>{{ $company->name }}</p>
-                        <h1>Điạ chỉ</h1>
+                        <h4>Điạ chỉ</h4>
                         <p>{{ $company->address->name }}</p>
-                        <h1>Điện thoại</h1>
+                        <h4>Điện thoại</h4>
                         <p>{{ $company->phone }}</p>
-                        <h1>Giới thiệu</h1>
+                        <h4>Giới thiệu</h4>
                         <p>{{ $company->about }}</p>
-                        <h1>Hình đại diện</h1>
+                        <h4>Hình đại diện</h4>
                         <img src="{!! asset($company->avatar) !!}" class="img-responsive img-thumbnail text-center" alt="User Image" />
                     </div>
                 </div>

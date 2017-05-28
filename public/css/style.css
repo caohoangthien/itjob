@@ -36,6 +36,14 @@
 .footer {
 	background: #e3cfec;
 }
+/* Site-job-infor */
+.job-infor h4 {
+	font-weight: bold;
+}
+
+.company-infor h4 {
+	font-weight: bold;
+}
 /* admin page */
 .form-delete {
 	display: inline;

@@ -8,28 +8,28 @@
                     <div class="panel-heading">
                         <a href="{!! route('home-site') !!}" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
                     </div>
-                    <div class="panel-body">
-                        <h1>{{ $job->title }}</h1>
-                        <h1>Công ty</h1>
+                    <div class="panel-body job-infor">
+                        <h4>{{ $job->title }}</h4>
+                        <h4>Công ty</h4>
                         <p>{{ $job->company->name }}</p>
-                        <h1>Nơi làm việc</h1>
+                        <h4>Nơi làm việc</h4>
                         <p>{{ $job->address->name }}</p>
-                        <h1>Mô tả công việc</h1>
+                        <h4>Mô tả công việc</h4>
                         <p>{{ $job->describe }}</p>
-                        <h1>Mức lương</h1>
+                        <h4>Mức lương</h4>
                         <p>{{ $job->salary->salary }}</p>
-                        <h1>Số lượng</h1>
+                        <h4>Số lượng</h4>
                         <p>{{ $job->quantity }}</p>
-                        <h1>Hạn cuối</h1>
-                        <p>{{ $job->deadline }}</p>
-                        <h1>Kỹ năng</h1>
+                        <h4>Kỹ năng</h4>
                         @foreach($job->skills as $skill)
                             <p>{{$skill->name}}</p>
                         @endforeach
-                        <h1>Trình độ</h1>
+                        <h4>Trình độ</h4>
                         @foreach($job->levels as $level)
                             <p>{{$level->name}}</p>
                         @endforeach
+                        <h4>Hạn cuối</h4>
+                        <p>{{ $job->deadline }}</p>
                     </div>
                 </div>
             </div>
