@@ -14,8 +14,6 @@ use App\Models\Member;
 use App\Models\Skill;
 use App\Models\Salary;
 use App\Models\Level;
-use Auth;
-use DB;
 
 class CompanyController extends Controller
 {

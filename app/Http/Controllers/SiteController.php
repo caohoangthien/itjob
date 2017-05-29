@@ -16,9 +16,6 @@ use DB;
 
 class SiteController extends Controller
 {
-    /**
-     * Get home site
-     */
     public function index()
     {
         $address = Address::all();
@@ -46,11 +43,6 @@ class SiteController extends Controller
         return view('site.index', compact('address', 'jobs', 'address_array', 'skills', 'levels', 'salaries', 'chart'));
     }
 
-    /**
-     * Get name skill
-     *
-     * @return name
-     */
     public function getNameSkill($id) {
         return Skill::find($id)->name;
     }

@@ -14,9 +14,6 @@ use App\Http\Requests\MemberUpdateRequest;
 
 class MemberController extends Controller
 {
-    /**
-     * Get form signup member
-     */
     public function getSignup()
     {
         $skills = Skill::all(['id', 'name']);
@@ -25,9 +22,6 @@ class MemberController extends Controller
         return view('member.signup', compact('skills', 'address'));
     }
 
-    /**
-     * Store member
-     */
     public function postSignup(MemberCreateRequest $request)
     {
         try {
@@ -55,11 +49,6 @@ class MemberController extends Controller
         }
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $profile = auth()->user()->member;
@@ -73,14 +62,6 @@ class MemberController extends Controller
         return view('member.index', compact('jobs'));
     }
 
-
-
-
-    /**
-     * Show profile
-     *
-     * @return view
-     */
     public function showProfile()
     {
         $profile = auth()->user()->member;
@@ -102,11 +83,6 @@ class MemberController extends Controller
         ]);
     }
 
-    /**
-     * Edit profile
-     *
-     * @return view
-     */
     public function editProfile()
     {
         $profile = auth()->user()->member;
@@ -116,11 +92,6 @@ class MemberController extends Controller
         return view('member.edit', compact('profile', 'address', 'skills', 'oldSkill'));
     }
 
-    /**
-     * Update profile
-     *
-     * @return view
-     */
     public function updateProfile(MemberUpdateRequest $request)
     {
         $account = Account::find(auth()->id());
