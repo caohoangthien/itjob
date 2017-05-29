@@ -3,19 +3,14 @@
 Route::get('/', 'SiteController@index')->name('home-site');
 Route::get('contact', 'SiteController@contact')->name('site.contact');
 Route::post('contact', 'SiteController@storeContact')->name('site.contact');
-
-
-
-
 Route::get('company/{id}', 'SiteController@showCompany')->name('company.infor');
-
 Route::post('getChart', 'SiteController@getChart')->name('getChart');
 
-Route::post('search-job', 'JobController@search')->name('jobs.search');
-Route::post('ajax-search-job', 'JobController@searchAjax')->name('jobs.search-ajax');
-Route::get('search-title/{id}', 'JobController@searchTitle')->name('jobs.search-title');
-Route::get('search-address/{id}', 'JobController@searchAddress')->name('jobs.search-address');
-Route::get('full-job', 'JobController@getFullJob')->name('jobs.full');
+Route::post('search-job', 'SiteController@searchJob')->name('jobs.search');
+Route::post('ajax-search-job', 'SiteController@searchAjax')->name('jobs.search-ajax');
+Route::get('search-title/{id}', 'SiteController@searchTitle')->name('jobs.search-title');
+Route::get('search-address/{id}', 'SiteController@searchAddress')->name('jobs.search-address');
+Route::get('full-job', 'SiteController@getFullJob')->name('jobs.full');
 
 // Login - Logout
 Route::get('login', 'LoginController@getLogin')->name('login');
@@ -49,53 +44,47 @@ Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
     Route::get('skills/{id}/delete', 'AdminController@deleteSkill')->name('admins.skill.delete');
     // Member - Admin
     Route::get('admins/member/list', 'AdminController@listMember')->name('admins.member.list');
-    Route::get('admins/member/{id}', 'AdminController@showMember')->name('admins.member.show');
+    Route::get('admins/member/{id}/show', 'AdminController@showMember')->name('admins.member.show');
     Route::get('admins/member/{id}/delete', 'AdminController@deleteMember')->name('admins.member.delete');
     // Job - Admin
     Route::get('admins/job/list', 'AdminController@listJob')->name('admins.job.list');
-    Route::get('admins/job/{id}', 'AdminController@showJob')->name('admins.job.show');
+    Route::get('admins/job/{id}/show', 'AdminController@showJob')->name('admins.job.show');
     Route::get('admins/job/{id}/delete', 'AdminController@deleteJob')->name('admins.job.delete');
     Route::get('ajax-update-status/{id}', 'AdminController@updateJobStatus')->name('admins.job.ajax-update-status');
     // Company - Admin
     Route::get('admins/company/list', 'AdminController@listCompany')->name('admins.company.list');
-    Route::get('admins/company/{id}', 'AdminController@showCompany')->name('admins.company.show');
+    Route::get('admins/company/{id}/show', 'AdminController@showCompany')->name('admins.company.show');
     Route::get('admins/company/{id}/delete', 'AdminController@deleteCompany')->name('admins.company.delete');
 
-
-
-    Route::resource('admins', 'AdminController');
+    // Admin - Profile
+    Route::get('admins', 'AdminController@index')->name('admins.index');
     Route::get('profile/admins', 'AdminController@showProfile')->name('admins.profile.show');
     Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
     Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
     Route::post('image/admins', 'AdminController@updateImage')->name('admins.image.update');
 
-
-
-
-
+    // Company
+    Route::get('companies', 'CompanyController@index')->name('companies.index');
+    Route::get('companies/job/create', 'CompanyController@createJob')->name('companies.job.create');
+    Route::post('companies/job/create', 'CompanyController@storeJob')->name('companies.job.store');
+    Route::get('companies/job/{id}/show', 'CompanyController@showJob')->name('companies.job.show');
+    Route::get('companies/job/{id}/edit', 'CompanyController@editJob')->name('companies.job.edit');
+    Route::post('companies/job/{id}/edit', 'CompanyController@updateJob')->name('companies.job.update');
+    Route::get('companies/job/{id}/delete', 'CompanyController@deleteJob')->name('companies.job.delete');
+    Route::get('companies/job/uncheck', 'CompanyController@listUncheckJob')->name('companies.job.uncheck');
+    Route::get('companies/job/checked', 'CompanyController@listCheckedJob')->name('companies.job.checked');
+    Route::get('companies/member/list', 'CompanyController@listMember')->name('companies.member.list');
+    Route::get('companies/member/{id}/show', 'CompanyController@showMember')->name('companies.member.show');
+    Route::get('companies/profile', 'CompanyController@showProfile')->name('companies.profile.show');
+    Route::get('companies/profile/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
+    Route::post('companies/profile', 'CompanyController@updateProfile')->name('companies.profile.update');
+    Route::post('companies/image', 'CompanyController@updateImage')->name('companies.image.update');
 
     // Member
-    Route::resource('members', 'MemberController');
-    Route::get('list-member', 'MemberController@list')->name('members.list');
-    Route::get('profile/members', 'MemberController@showProfile')->name('members.profile.show');
-    Route::get('profile/members/edit', 'MemberController@editProfile')->name('members.profile.edit');
-    Route::post('profile/members', 'MemberController@updateProfile')->name('members.profile.update');
-    Route::post('image/members', 'MemberController@updateImage')->name('members.image.update');
-    Route::get('show-job/members/{id}', 'MemberController@showJob')->name('members.show-job');
-
-    // Company
-    Route::resource('companies', 'CompanyController');
-    Route::get('profile/companies', 'CompanyController@showProfile')->name('companies.profile.show');
-    Route::get('profile/companies/edit', 'CompanyController@editProfile')->name('companies.profile.edit');
-    Route::post('profile/companies', 'CompanyController@updateProfile')->name('companies.profile.update');
-    Route::post('image/companies', 'CompanyController@updateImage')->name('companies.image.update');
-    Route::get('list-member/companies', 'CompanyController@listMember')->name('companies.list-member');
-    Route::get('jobs-uncheck', 'CompanyController@listUncheckJob')->name('jobs.uncheck');
-    Route::get('jobs-checked', 'CompanyController@listCheckedJob')->name('jobs.checked');
-    Route::get('member-show/conpanies/{id}', 'CompanyController@showMember')->name('companies.show-member');
-    // Job of company
-    Route::resource('jobs', 'JobController');
-    Route::get('list-job', 'JobController@list')->name('jobs.listowMember');
-
-
+    Route::get('members', 'MemberController@index')->name('members.index');
+    Route::get('members/profile', 'MemberController@showProfile')->name('members.profile.show');
+    Route::get('members/profile/edit', 'MemberController@editProfile')->name('members.profile.edit');
+    Route::post('members/profile', 'MemberController@updateProfile')->name('members.profile.update');
+    Route::post('members/image', 'MemberController@updateImage')->name('members.image.update');
+    Route::get('members/show-job/{id}', 'MemberController@showJob')->name('members.show-job');
 });

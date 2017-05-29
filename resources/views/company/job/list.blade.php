@@ -3,6 +3,11 @@
 @section('title', 'Danh sách công việc')
 
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-success">
+            <p>{{ session('message') }}</p>
+        </div>
+    @endif
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <th class="text-center">Id</th>
@@ -23,11 +28,9 @@
                 <td class="text-center">{{ $job->quantity }}</td>
                 <td class="text-center">{{ date_format($job->created_at,"d-m-Y") }}</td>
                 <td class="text-center">
-                    <a href="{!! route('jobs.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('jobs.edit', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {{ Form::open(['route' => ['jobs.destroy', $job->id], 'method' => 'DELETE', 'class' => 'form-delete']) }}
-                    <button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
-                    {{ Form::close() }}
+                    <a href="{!! route('companies.job.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('companies.job.edit', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('companies.job.delete', [$job->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
         @endforeach

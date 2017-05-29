@@ -8,7 +8,7 @@
             <p>{{ session('error') }}</p>
         </div>
     @endif
-    {!! Form::model($job, ['route' => ['jobs.update', $job->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+    {!! Form::model($job, ['route' => ['companies.job.update', $job->id], 'method' => 'post', 'class' => 'form-horizontal']) !!}
     <div class="form-group row">
         <label class="col-sm-3 control-label">Tiêu đề</label>
         <div class="col-sm-9 {!! $errors->has('title') ? 'has-error' : '' !!}">

@@ -24,10 +24,10 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">QUẢN LÝ TUYỂN DỤNG</li>
-            <li><a href="{!! route('jobs.create') !!}"><i class="fa fa-plus-square"></i> <span>Đăng tin</span></a></li>
-            <li><a href="{!! route('jobs.checked') !!}"><i class="fa fa-check-circle-o"></i> <span>Tin đã duyệt</span></a></li>
-            <li><a href="{!! route('jobs.uncheck') !!}"><i class="fa fa-times-circle"></i> <span>Tin chưa duyệt</span></a></li>
-            <li><a href="{!! route('companies.list-member') !!}"><i class="fa fa-user-circle-o"></i> <span>Tìm ứng viên</span></a></li>
+            <li class="{{ Request::is('managements/companies/job/create') ? 'active' : '' }}"><a href="{!! route('companies.job.create') !!}"><i class="fa fa-plus-square"></i> <span>Đăng tin</span></a></li>
+            <li class="{{ Request::is('managements/companies/job/checked') ? 'active' : '' }}"><a href="{!! route('companies.job.checked') !!}"><i class="fa fa-check-circle-o"></i> <span>Tin đã duyệt</span></a></li>
+            <li class="{{ Request::is('managements/companies/job/uncheck') ? 'active' : '' }}"><a href="{!! route('companies.job.uncheck') !!}"><i class="fa fa-times-circle"></i> <span>Tin chưa duyệt</span></a></li>
+            <li class="{{ Request::is('managements/list-member/companies') ? 'active' : '' }}"><a href="{!! route('companies.member.list') !!}"><i class="fa fa-user-circle-o"></i> <span>Danh sách ứng viên</span></a></li>
             <li><a href="{!! route('companies.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
         </ul>
     </section>

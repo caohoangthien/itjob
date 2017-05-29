@@ -58,7 +58,7 @@ class LoginController extends Controller
         if ($account) {
             $data['password'] = bcrypt($newPassword);
             $account->update($data);
-            Mail::send('mail.forgot-password', array('newPassword'=>$newPassword), function($message) use ($request){
+            Mail::send('site.mail.forgot-password', array('newPassword'=>$newPassword), function($message) use ($request){
                 $message->to($request->email, 'Lập trình viên')->subject('Mật khẩu mới');
             });
             return redirect()->back()->withInput()->with('message', 'Chúng tôi đã gởi mật khẩu về email của bạn. Vui lòng kiểm tra lại.');

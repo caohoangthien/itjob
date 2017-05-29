@@ -21,7 +21,7 @@
                 <td>{{ $member->address->name }}</td>
                 <td>{{ $member->phone }}</td>
                 <td class="text-center">
-                    <a href="{!! route('companies.show-member', [$member->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('companies.member.show', [$member->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                 </td>
             </tr>
         @endforeach

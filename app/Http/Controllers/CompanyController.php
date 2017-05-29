@@ -6,26 +6,25 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Http\Requests\CompanyCreateRequest;
 use App\Http\Requests\CompanyUpdateRequest;
+use App\Http\Requests\JobCreateRequest;
 use App\Models\Account;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\Member;
+use App\Models\Skill;
+use App\Models\Salary;
+use App\Models\Level;
 use Auth;
+use DB;
 
 class CompanyController extends Controller
 {
-    /**
-     * Get form signup company
-     */
     public function getSignup()
     {
         $address = Address::all(['id', 'name'])->pluck('name', 'id');
         return view('company.signup', ['address' => $address]);
     }
 
-    /**
-     * Store company
-     */
     public function postSignup(CompanyCreateRequest $request)
     {
         try {
@@ -47,76 +46,115 @@ class CompanyController extends Controller
         }
     }
 
-    /**
-     * Show list job uncheck
-     */
+    public function index()
+    {
+        return redirect()->route('companies.job.uncheck');
+    }
+
     public function listUncheckJob()
     {
         $jobs = Job::where('status', Job::DEACTIVE)
             ->where('company_id', auth()->user()->company->id)
-            ->where('deleted_at', null)
             ->paginate(9);
-        return view('job.list', compact('jobs'));
+        return view('company.job.list', compact('jobs'));
     }
 
-    /**
-     * Show list job check
-     */
     public function listCheckedJob()
     {
         $jobs = Job::where('status', Job::ACTIVE)
             ->where('company_id', auth()->user()->company->id)
             ->where('deleted_at', null)
             ->paginate(9);
-        return view('job.list', compact('jobs'));
+        return view('company.job.list', compact('jobs'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function createJob()
     {
-        $jobs = Job::where('status', Job::ACTIVE)
-            ->where('company_id', auth()->user()->company->id)
-            ->where('deleted_at', null)
-            ->paginate(15);
-
-        return view('company.index', compact('jobs'));
+        $skills = Skill::all(['id', 'name']);
+        $levels = Level::all(['id', 'name']);
+        $salaries = Salary::all(['id', 'salary']);
+        $address = Address::all(['id', 'name'])->pluck('name', 'id');
+        return view('company.job.create', compact('skills', 'salaries', 'address', 'levels'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function storeJob(JobCreateRequest $request)
     {
-        $company = Company::find($id);
-        return view('company.show', compact('company'));
+        try {
+            $data = $request->only(['title', 'salary_id', 'describe', 'quantity', 'address_id', 'deadline']);
+            $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
+            $data['company_id'] = auth()->user()->company->id;
+            $data['status'] = 0;
+            $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
+            $job = Job::create($data);
+            $job->skills()->sync($request->skills_id);
+            $job->levels()->sync($request->levels_id);
+            return redirect()->route('companies.index')->with('message', 'Đăng tin tuyển dụng thành công. Chúng tôi sẽ duyệt trong thời gian sớm nhất.');
+        } catch (\Exception $ex) {
+            return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
+        }
     }
 
+    public function showJob($id)
+    {
+        $job = Job::find($id);
+        return view('company.job.show', compact('job'));
+    }
 
+    public function editJob($id)
+    {
+        $job = Job::find($id);
+        $skills = Skill::all(['id', 'name']);
+        $oldSkills = $job->skills->pluck('id')->toArray();
+        $levels = Level::all(['id', 'name']);
+        $oldLevels = $job->levels->pluck('id')->toArray();
+        $salaries = Salary::all(['id', 'salary']);
+        $address = Address::all(['id', 'name'])->pluck('name', 'id');
+        return view('company.job.edit', compact('job', 'skills', 'salaries', 'address', 'levels', 'oldSkills', 'oldLevels'));
+    }
 
+    public function updateJob(JobCreateRequest $request, $id)
+    {
+        try {
+            $data = $request->only(['title', 'salary_id', 'describe', 'quantity', 'address_id', 'deadline']);
+            $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
+            $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
+            $job = Job::find($id);
+            $job->update($data);
+            $job->skills()->sync($request->skills_id);
+            $job->levels()->sync($request->levels_id);
+            return redirect()->route('companies.index')->with('success', 'Cập nhật tin tuyển dụng thành công.');
+        } catch (\Exception $ex) {
+            return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
+        }
+    }
 
-    /**
-     * Show profile
-     *
-     * @return view
-     */
+    public function deleteJob($id)
+    {
+        $job = Job::find($id);
+        $job->levels()->detach();
+        $job->delete();
+        return redirect()->route('companies.index')->with('success', 'Xóa tin tuyển dụng thành công');
+    }
+
+    public function listMember()
+    {
+        $members = Member::orderBy('id', 'desc')->paginate(15);
+        return view('company.member.list', compact('members'));
+    }
+
+    public function showMember($id)
+    {
+        $member = Member::find($id);
+        return view('company.member.show', compact('member'));
+    }
+
+    // Company managements
     public function showProfile()
     {
         $profile = auth()->user()->company;
         return view('company.profile', compact('profile'));
     }
 
-    /**
-     * Edit profile
-     *
-     * @return view
-     */
     public function editProfile()
     {
         $address = Address::all(['id', 'name'])->pluck('name', 'id');
@@ -124,11 +162,6 @@ class CompanyController extends Controller
         return view('company.edit', compact('profile', 'address'));
     }
 
-    /**
-     * Update profile
-     *
-     * @return view
-     */
     public function updateProfile(CompanyUpdateRequest $request)
     {
         $account = Account::find(auth()->id());
@@ -158,17 +191,5 @@ class CompanyController extends Controller
             'message' => 'Success',
             'fileName' => $data['avatar'],
         ]);
-    }
-
-    public function listMember()
-    {
-        $members = Member::orderBy('id', 'desc')->paginate(15);
-        return view('company.list-member', compact('members'));
-    }
-
-    public function showMember($id)
-    {
-        $member = Member::find($id);
-        return view('company.show-member', compact('member'));
     }
 }

@@ -139,6 +139,6 @@ class MemberController extends Controller
 
     public function showJob($id) {
         $job = Job::find($id);
-        return view('member.show-job', compact('job'));
+        return view('member.job.show', compact('job'));
     }
 }
