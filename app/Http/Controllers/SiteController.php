@@ -12,6 +12,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use Datetime;
+use Carbon\Carbon;
 use DB;
 
 class SiteController extends Controller
@@ -23,7 +24,7 @@ class SiteController extends Controller
         $levels = Level::all(['id', 'name']);
         $salaries = Salary::all(['id', 'salary']);
         $address_array = Address::all(['id', 'name'])->pluck('name', 'id');
-        $jobs = Job::where('status', Job::ACTIVE)->where('deleted_at', null)->orderBy('id', 'desc')->limit(20)->get();
+        $jobs = Job::where('status', Job::ACTIVE)->where('deleted_at', null)->where('deadline', '>=', Carbon::today())->orderBy('id', 'desc')->limit(20)->get();
         $jobSkills = DB::table('job_skill')
             ->join('jobs', 'jobs.id', '=', 'job_skill.job_id')
             ->select('job_skill.skill_id as idSkill', DB::raw('sum(jobs.quantity) as quantity'))
@@ -101,6 +102,7 @@ class SiteController extends Controller
             ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
             ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
             ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+            ->where('deadline', '>=', Carbon::today())
             ->get();
 
         if ($request->title) {
@@ -189,6 +191,7 @@ class SiteController extends Controller
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
                 ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->where('deadline', '>=', Carbon::today())
                 ->get();
             if ($request['title']) {
                 $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
@@ -229,7 +232,7 @@ class SiteController extends Controller
 
     public function getFullJob()
     {
-        $jobs = Job::where('status', Job::ACTIVE)->paginate(8);
+        $jobs = Job::where('status', Job::ACTIVE)->where('deadline', '>=', Carbon::today())->paginate(8);
         $skills = Skill::all(['id', 'name']);
         $levels = Level::all(['id', 'name']);
         $salaries = Salary::all(['id', 'salary']);
