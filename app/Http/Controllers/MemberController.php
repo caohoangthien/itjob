@@ -73,42 +73,8 @@ class MemberController extends Controller
         return view('member.index', compact('jobs'));
     }
 
-    /**
-     * List company
-     *
-     * @return view
-     */
-    public function list()
-    {
-        $members = Member::orderBy('id', 'desc')->paginate(15);
-        return view('member.list', compact('members'));
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $member = Member::find($id);
-        return view('member.show', $member);
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        unlink(Member::find($id)->avatar);
-        $member = Member::find($id);
-        $member->delete();
-        return redirect()->route('admins.index')->with('message', 'Xóa thành viên thành công.');
-    }
 
     /**
      * Show profile

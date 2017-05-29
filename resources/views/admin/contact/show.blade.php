@@ -5,10 +5,6 @@
 @section('content')
     <form>
         <div class="form-group">
-            <label for="exampleInputEmail1">ID</label>
-            <p>{{$contact->id}}</p>
-        </div>
-        <div class="form-group">
             <label for="exampleInputEmail1">Tên</label>
             <p>{{$contact->name}}</p>
         </div>
@@ -20,6 +16,6 @@
             <label for="exampleInputEmail1">Nội dung</label>
             <p>{{$contact->content}}</p>
         </div>
-        <a href="{!! route('contacts.list') !!}" class="btn btn-primary">Trở về</a>
+        <a href="{!! route('admins.contact.list') !!}" class="btn btn-primary">Trở về</a>
     </form>
 @endsection

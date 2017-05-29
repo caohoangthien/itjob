@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Việc làm CNTT</title>
+    <link rel="shortcut icon" href="{!! asset('images/favicon.ico') !!}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/font-awesome.min.css') !!}">
@@ -42,9 +43,9 @@
         </div>
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>ĐỒ ÁN TỐT NGHIỆP 2017</b>
+                <b>ĐỒ ÁN TỐT NGHIỆP</b>
             </div>
-            <strong>SVTT: CAO HOÀNG THIỆN</strong>
+            <strong>SVTH: CAO HOÀNG THIỆN</strong>
         </footer>
     </div>
 <script src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>

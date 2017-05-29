@@ -10,7 +10,6 @@
     @endif
     <table class="table table-bordered table-hover table-striped">
         <thead>
-            <th class="text-center">Id</th>
             <th>Tên</th>
             <th>Email</th>
             <th>Nội dung</th>
@@ -19,13 +18,12 @@
         <tbody>
         @foreach($contacts as $contact)
             <tr>
-                <td class="text-center">{!! $contact->id !!}</td>
                 <td>{{ $contact->name }}</td>
                 <td>{{ $contact->email }}</td>
                 <td>{{ str_limit($contact->content, 40) }}</td>
                 <td class="text-center">
-                    <a href="{!! route('contacts.show', [$contact->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('contacts.delete', [$contact->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="{!! route('admins.contact.show', [$contact->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('admins.contact.delete', [$contact->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
         @endforeach

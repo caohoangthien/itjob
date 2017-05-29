@@ -3,6 +3,11 @@
 @section('title', 'Danh sách thành viên')
 
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-success">
+            <p>{{ session('message') }}</p>
+        </div>
+    @endif
     <table class="table table-bordered table-hover table-striped">
         <thead>
             <th class="text-center">Id</th>
@@ -21,10 +26,8 @@
                 <td>{{ $member->address->name }}</td>
                 <td>{{ $member->phone }}</td>
                 <td class="text-center">
-                    <a href="{!! route('admins.members.show', [$member->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    {{ Form::open(['route' => ['members.destroy', $member->id], 'method' => 'DELETE', 'class' => 'form-delete']) }}
-                    <button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
-                    {{ Form::close() }}
+                    <a href="{!! route('admins.member.show', [$member->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('admins.member.delete', [$member->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
         @endforeach

@@ -3,6 +3,11 @@
 @section('title', 'Danh sách công ty')
 
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-success">
+            <p>{{ session('message') }}</p>
+        </div>
+    @endif
     <table class="table table-bordered table-hover table-striped">
         <thead>
             <th class="text-center">Id</th>
@@ -24,9 +29,7 @@
                 <td>{{ str_limit($company->about, 30) }}</td>
                 <td class="text-center">
                     <a href="{!! route('admins.company.show', [$company->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    {{ Form::open(['route' => ['companies.destroy', $company->id], 'method' => 'DELETE', 'class' => 'form-delete']) }}
-                    <button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
-                    {{ Form::close() }}
+                    <a href="{!! route('admins.company.delete', [$company->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
         @endforeach

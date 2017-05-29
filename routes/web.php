@@ -1,9 +1,14 @@
 <?php
 // Home - site
 Route::get('/', 'SiteController@index')->name('home-site');
+Route::get('contact', 'SiteController@contact')->name('site.contact');
+Route::post('contact', 'SiteController@storeContact')->name('site.contact');
+
+
+
+
 Route::get('company/{id}', 'SiteController@showCompany')->name('company.infor');
-Route::get('contact', 'SiteController@contact')->name('contact');
-Route::post('contact', 'SiteController@storeContact')->name('contact');
+
 Route::post('getChart', 'SiteController@getChart')->name('getChart');
 
 Route::post('search-job', 'JobController@search')->name('jobs.search');
@@ -27,27 +32,47 @@ Route::post('company-signup', 'CompanyController@postSignup')->name('companies.s
 Route::get('member-signup', 'MemberController@getSignup')->name('members.signup');
 Route::post('member-signup', 'MemberController@postSignup')->name('members.signup');
 
-// auth
+// auth - managements
 Route::group(['middleware' => 'auth', 'prefix' => 'managements'], function () {
 
-    // Admin
-    Route::get('contacts/list', 'AdminController@listContact')->name('contacts.list');
-    Route::get('contacts/{id}', 'AdminController@showContact')->name('contacts.show');
-    Route::get('contacts/{id}/delete', 'AdminController@deleteContact')->name('contacts.delete');
+    // Contact - Admin
+    Route::get('contacts/list', 'AdminController@listContact')->name('admins.contact.list');
+    Route::get('contacts/{id}', 'AdminController@showContact')->name('admins.contact.show');
+    Route::get('contacts/{id}/delete', 'AdminController@deleteContact')->name('admins.contact.delete');
+    // Skill - Admin
+    Route::get('skills/create', 'AdminController@createSkill')->name('admins.skill.create');
+    Route::post('skills/create', 'AdminController@storeSkill')->name('admins.skill.store');
+    Route::get('skills/list', 'AdminController@listSkill')->name('admins.skill.list');
+    Route::get('skills/{id}', 'AdminController@showSkill')->name('admins.skill.show');
+    Route::get('skills/{id}/edit', 'AdminController@editSkill')->name('admins.skill.edit');
+    Route::post('skills/{id}/update', 'AdminController@updateSkill')->name('admins.skill.update');
+    Route::get('skills/{id}/delete', 'AdminController@deleteSkill')->name('admins.skill.delete');
+    // Member - Admin
+    Route::get('admins/member/list', 'AdminController@listMember')->name('admins.member.list');
+    Route::get('admins/member/{id}', 'AdminController@showMember')->name('admins.member.show');
+    Route::get('admins/member/{id}/delete', 'AdminController@deleteMember')->name('admins.member.delete');
+    // Job - Admin
+    Route::get('admins/job/list', 'AdminController@listJob')->name('admins.job.list');
+    Route::get('admins/job/{id}', 'AdminController@showJob')->name('admins.job.show');
+    Route::get('admins/job/{id}/delete', 'AdminController@deleteJob')->name('admins.job.delete');
+    Route::get('ajax-update-status/{id}', 'AdminController@updateJobStatus')->name('admins.job.ajax-update-status');
+    // Company - Admin
+    Route::get('admins/company/list', 'AdminController@listCompany')->name('admins.company.list');
+    Route::get('admins/company/{id}', 'AdminController@showCompany')->name('admins.company.show');
+    Route::get('admins/company/{id}/delete', 'AdminController@deleteCompany')->name('admins.company.delete');
+
+
+
     Route::resource('admins', 'AdminController');
     Route::get('profile/admins', 'AdminController@showProfile')->name('admins.profile.show');
     Route::get('profile/admins/edit', 'AdminController@editProfile')->name('admins.profile.edit');
     Route::post('profile/admins', 'AdminController@updateProfile')->name('admins.profile.update');
     Route::post('image/admins', 'AdminController@updateImage')->name('admins.image.update');
-    Route::get('jobs-list/admins', 'AdminController@listJob')->name('admins.jobs.list');
-    Route::get('company-list/admins', 'AdminController@listCompany')->name('admins.company.list');
-    Route::get('show-company/admins/{id}', 'AdminController@showCompany')->name('admins.company.show');
-    Route::get('show-job/admins/{id}', 'AdminController@showJob')->name('admins.jobs.show');
-    Route::get('delete-job/admins/{id}', 'AdminController@deleteJob')->name('admins.jobs.delete');
-    Route::get('show-member/admins/{id}', 'AdminController@showMember')->name('admins.members.show');
-    Route::get('ajax-update-status/{id}', 'AdminController@updateStatus')->name('jobs.ajax-update-status');
-    // Skill
-    Route::resource('skills', 'SkillController');
+
+
+
+
+
 
     // Member
     Route::resource('members', 'MemberController');

@@ -3,12 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends Model
 {
-    use SoftDeletes;
-
     const PATH_AVATAR = 'images/avatars/';
     const PATH_CV = 'files/cv/';
 

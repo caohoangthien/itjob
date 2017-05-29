@@ -98,24 +98,8 @@ class CompanyController extends Controller
         return view('company.show', compact('company'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        unlink(Company::find($id)->avatar);
-        $company = Company::find($id);
-        foreach ($company->jobs as $job) {
-            $job->levels()->detach();
-        }
-        $company->jobs()->delete();
-        $company->account()->delete();
-        $company->delete();
-        return redirect()->route('admins.index')->with('message', 'Xóa công ty thành công.');
-    }
+
+
 
     /**
      * Show profile

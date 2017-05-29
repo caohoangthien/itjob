@@ -28,9 +28,9 @@
                 <td class="text-center">{{ $job->quantity }}</td>
                 <td class="text-center">{{ date_format($job->created_at,"d-m-Y") }}</td>
                 <td>
-                    <a href="{!! route('admins.jobs.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('admins.jobs.delete', [$job->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
-                    <a class='btn btn-primary btn-xs btn-active-job' data-url="{!! route('jobs.ajax-update-status', $job->id) !!}">{{ $job->status == 1 ? 'Active' : 'Deactive' }}</a>
+                    <a href="{!! route('admins.job.show', [$job->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('admins.job.delete', [$job->id]) !!}" class='btn btn-danger btn-xs'><i class="glyphicon glyphicon-trash"></i></a>
+                    <a class='btn btn-primary btn-xs btn-active-job' data-url="{!! route('admins.job.ajax-update-status', $job->id) !!}">{{ $job->status == 1 ? 'Active' : 'Deactive' }}</a>
                 </td>
             </tr>
         @endforeach

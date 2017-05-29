@@ -27,7 +27,6 @@ class CreateMembersTable extends Migration
             $table->string('cv');
             $table->string('avatar');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

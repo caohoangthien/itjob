@@ -25,46 +25,11 @@
         <ul class="sidebar-menu">
             <li class="header">QUẢN TRỊ VIÊN</li>
             <li><a href="{!! route('admins.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-handshake-o"></i>
-                    <span>Nhà tuyển dụng</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{!! route('admins.company.list') !!}"><i class="fa fa-circle-o"></i> Danh sách công ty</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-briefcase"></i>
-                    <span>Tin tuyển dụng</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{!! route('admins.jobs.list') !!}"><i class="fa fa-circle-o"></i> Danh sách tin tuyển dụng</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-users"></i>
-                    <span>Thành viên</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{!! route('members.list') !!}"><i class="fa fa-circle-o"></i> Danh sách thành viên</a>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="{!! route('contacts.list') !!}"><i class="glyphicon glyphicon-refresh"></i> <span>Thông tin liên hệ</span></a></li>
-            <li><a href="{!! route('skills.index') !!}"><i class="glyphicon glyphicon-stats"></i> <span>Kỹ năng tuyển dụng</span></a></li>
+            <li><a href="{!! route('admins.company.list') !!}"><i class="fa fa-handshake-o"></i> Công ty</a>
+            <li><a href="{!! route('admins.job.list') !!}"><i class="fa fa-briefcase"></i> Tin tuyển dụng</a></li>
+            <li><a href="{!! route('admins.member.list') !!}"><i class="fa fa-users"></i> Thành viên</a>
+            <li><a href="{!! route('admins.contact.list') !!}"><i class="glyphicon glyphicon-refresh"></i> <span>Thông tin liên hệ</span></a></li>
+            <li><a href="{!! route('admins.skill.list') !!}"><i class="glyphicon glyphicon-stats"></i> <span>Kỹ năng tuyển dụng</span></a></li>
             <li><a href="{!! route('logout') !!}"><i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span></a></li>
         </ul>
     </section>

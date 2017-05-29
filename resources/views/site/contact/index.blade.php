@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
-            {!! Form::open(['route' => 'contact', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
+            {!! Form::open(['route' => 'site.contact', 'method' => 'post', 'class' => 'col-md-4 col-md-offset-4 form-login'])  !!}
             <h4 class="text-center"><b>THÔNG TIN LIÊN HỆ</b></h4>
             @if (session('message'))
                 <div class="alert alert-success">
-                    <p class="text-success">{{ session('message') }}</p>
+                    <p>{{ session('message') }}</p>
                 </div>
             @endif
             <div class="form-group ">

@@ -47,7 +47,7 @@
             <p>{{$job->created_at}}</p>
         </div>
         <div class="form-group">
-            <a href="{!! route('admins.index') !!}" class="btn btn-primary">Trở về</a>
+            <a href="{!! route('admins.job.list') !!}" class="btn btn-primary">Trở về</a>
         </div>
     </form>
 @endsection
