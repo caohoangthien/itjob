@@ -28,7 +28,7 @@
             <li class="{{ Request::is('managements/companies/job/checked') ? 'active' : '' }}"><a href="{!! route('companies.job.checked') !!}"><i class="fa fa-check-circle-o"></i> <span>Tin đã duyệt</span></a></li>
             <li class="{{ Request::is('managements/companies/job/uncheck') ? 'active' : '' }}"><a href="{!! route('companies.job.uncheck') !!}"><i class="fa fa-times-circle"></i> <span>Tin chưa duyệt</span></a></li>
             <li class="{{ Request::is('managements/list-member/companies') ? 'active' : '' }}"><a href="{!! route('companies.member.list') !!}"><i class="fa fa-user-circle-o"></i> <span>Danh sách ứng viên</span></a></li>
-            <li><a href="{!! route('companies.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
+            <li class="{{ Request::is('managements/companies') ? 'active' : '' }}"><a href="{!! route('companies.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

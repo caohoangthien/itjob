@@ -35,6 +35,12 @@
             @endforeach
         </div>
         <div class="form-group">
+            <label for="exampleInputEmail1">Cấp độ</label>
+            @foreach($job->levels as $level)
+                <p>{{$level->name}}</p>
+            @endforeach
+        </div>
+        <div class="form-group">
             <label for="exampleInputEmail1">Mô tả</label>
             <p>{{$job->describe}}</p>
         </div>

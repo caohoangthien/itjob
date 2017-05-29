@@ -14,6 +14,7 @@ use App\Models\Member;
 use App\Models\Skill;
 use App\Models\Salary;
 use App\Models\Level;
+use Auth;
 
 class CompanyController extends Controller
 {
@@ -46,14 +47,18 @@ class CompanyController extends Controller
 
     public function index()
     {
-        return redirect()->route('companies.job.uncheck');
+        $jobs = Job::where('status', Job::DEACTIVE)
+            ->where('company_id', auth()->user()->company->id)
+            ->paginate(8);
+        return view('company.job.list', compact('jobs'));
     }
 
     public function listUncheckJob()
     {
         $jobs = Job::where('status', Job::DEACTIVE)
             ->where('company_id', auth()->user()->company->id)
-            ->paginate(9);
+            ->where('deleted_at', null)
+            ->paginate(8);
         return view('company.job.list', compact('jobs'));
     }
 
@@ -120,7 +125,7 @@ class CompanyController extends Controller
             $job->update($data);
             $job->skills()->sync($request->skills_id);
             $job->levels()->sync($request->levels_id);
-            return redirect()->route('companies.index')->with('success', 'Cập nhật tin tuyển dụng thành công.');
+            return redirect()->route('companies.index')->with('message', 'Cập nhật tin tuyển dụng thành công.');
         } catch (\Exception $ex) {
             return redirect()->back()->with('error', 'Đăng tin tuyển dụng thất bại. Vui lòng thử lại.');
         }
@@ -131,7 +136,7 @@ class CompanyController extends Controller
         $job = Job::find($id);
         $job->levels()->detach();
         $job->delete();
-        return redirect()->route('companies.index')->with('success', 'Xóa tin tuyển dụng thành công');
+        return redirect()->route('companies.index')->with('message', 'Xóa tin tuyển dụng thành công');
     }
 
     public function listMember()

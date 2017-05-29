@@ -91,7 +91,7 @@
         <div class="col-sm-3"></div>
         <div class="col-sm-9">
             <button class="btn btn-primary">Đăng tin</button>
-            <a href="{!! route('admins.index') !!}" class='btn btn-primary'>Trở về</a>
+            <a href="{!! route('companies.index') !!}" class='btn btn-primary'>Trở về</a>
         </div>
     </div>
     {!! Form::close() !!}

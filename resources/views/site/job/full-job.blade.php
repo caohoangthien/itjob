@@ -8,7 +8,7 @@
                     <div class="panel-heading">
                         <a href="{!! route('home-site') !!}" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
                     </div>
-                    <div class="panel-body" style="height: 1007px">
+                    <div class="panel-body" style="height: 975px">
                         <ul class="list-group">
                             @foreach($jobs as $job)
                                 <li class="list-group-item">

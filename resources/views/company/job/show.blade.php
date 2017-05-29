@@ -6,7 +6,7 @@
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Tiêu đề</label>
-            <p>{{$job->company->name}}</p>
+            <p>{{$job->title}}</p>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Công ty</label>
@@ -28,6 +28,12 @@
             <label for="exampleInputEmail1">Kỹ năng</label>
             @foreach($job->skills as $skill)
                 <p>{{$skill->name}}</p>
+            @endforeach
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Cấp độ</label>
+            @foreach($job->levels as $level)
+                <p>{{$level->name}}</p>
             @endforeach
         </div>
         <div class="form-group">

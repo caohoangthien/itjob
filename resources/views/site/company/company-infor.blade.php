@@ -9,6 +9,8 @@
                         <a href="{!! route('home-site') !!}" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
                     </div>
                     <div class="panel-body company-infor">
+                        <h4>Hình đại diện</h4>
+                        <img src="{!! asset($company->avatar) !!}" class="text-center" height="100" />
                         <h4>Công ty</h4>
                         <p>{{ $company->name }}</p>
                         <h4>Điạ chỉ</h4>
@@ -17,8 +19,6 @@
                         <p>{{ $company->phone }}</p>
                         <h4>Giới thiệu</h4>
                         <p>{{ $company->about }}</p>
-                        <h4>Hình đại diện</h4>
-                        <img src="{!! asset($company->avatar) !!}" class="img-responsive img-thumbnail text-center" alt="User Image" />
                     </div>
                 </div>
             </div>
