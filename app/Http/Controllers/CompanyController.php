@@ -67,7 +67,7 @@ class CompanyController extends Controller
         $jobs = Job::where('status', Job::ACTIVE)
             ->where('company_id', auth()->user()->company->id)
             ->where('deleted_at', null)
-            ->paginate(9);
+            ->paginate(8);
         return view('company.job.list', compact('jobs'));
     }
 
@@ -141,7 +141,7 @@ class CompanyController extends Controller
 
     public function listMember()
     {
-        $members = Member::orderBy('id', 'desc')->paginate(15);
+        $members = Member::orderBy('id', 'desc')->paginate(8);
         return view('company.member.list', compact('members'));
     }
 

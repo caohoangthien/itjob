@@ -131,7 +131,7 @@ class AdminController extends Controller
     // Member management
     public function listMember()
     {
-        $members = Member::orderBy('id', 'desc')->paginate(15);
+        $members = Member::orderBy('id', 'desc')->paginate(8);
         return view('admin.member.list', compact('members'));
     }
 

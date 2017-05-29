@@ -151,13 +151,13 @@ class AddressTableSeeder extends Seeder {
                     'name' => 'Quảng Nam'
         		],
                 [
-                    'name' => 'Quãng Ngãi'
+                    'name' => 'Quảng Ngãi'
         		],
                 [
-                    'name' => 'Quãng Ninh'
+                    'name' => 'Quảng Ninh'
         		],
                 [
-                    'name' => 'Quãng Trị'
+                    'name' => 'Quảng Trị'
         		],
                 [
                     'name' => 'Sóc Trăng'

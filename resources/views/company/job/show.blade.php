@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Mô tả</label>
-            <p>{{$job->describe}}</p>
+            <textarea class="form-control" rows="10">{{$job->describe}}</textarea>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Hạn cuối</label>

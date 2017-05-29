@@ -59,7 +59,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 control-label">Giới thiệu</label>
                 <div class="col-sm-9">
-                    {!! Form::text('about', null, ['class' => 'form-control', 'disabled']) !!}
+                    {!! Form::textarea('about', null, ['class' => 'form-control', 'disabled']) !!}
                 </div>
             </div>
             <div class="form-group row">
