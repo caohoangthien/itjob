@@ -24,7 +24,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">WELCOME TO WEBSITE</li>
-            <li><a href="{!! route('members.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
+            <li class="{{ Request::is('managements/members') ? 'active' : '' }}"><a href="{!! route('members.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
             <li><a href="{!! route('logout') !!}"><i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span></a></li>
         </ul>
     </section>

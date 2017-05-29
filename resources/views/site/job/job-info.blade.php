@@ -29,7 +29,7 @@
                             <p>{{$level->name}}</p>
                         @endforeach
                         <h4>Hạn cuối</h4>
-                        <p>{{ $job->deadline }}</p>
+                        <p>{{ $job->deadline->format('d-m-Y') }}</p>
                     </div>
                 </div>
             </div>

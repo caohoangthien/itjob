@@ -12,8 +12,8 @@
                         <ul class="list-group">
                             @foreach($jobs as $job)
                                 <li class="list-group-item">
-                                    <p class="job-title"><a>{{ str_limit($job->title, 70) }}</a></p>
-                                    <p class="job-company"><a><b>{{ $job->company->name }}</b></a> - <a><b>{{ $job->address->name }}</b></a></p>
+                                    <p class="job-title"><a href="{!! route('jobs.search-title', $job->id) !!}">{{ str_limit($job->title, 70) }}</a></p>
+                                    <p class="job-company"><a href="{!! route('company.infor', $job->company_id) !!}"><b>{{ $job->company->name }}</b></a> - <b>{{ $job->address->name }}</b></p>
                                     <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
                                 </li>
                             @endforeach

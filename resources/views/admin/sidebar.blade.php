@@ -25,11 +25,11 @@
         <ul class="sidebar-menu">
             <li class="header">QUẢN TRỊ VIÊN</li>
             <li><a href="{!! route('admins.index') !!}"><i class="fa fa-home"></i> <span>Trang chủ</span></a></li>
-            <li><a href="{!! route('admins.company.list') !!}"><i class="fa fa-handshake-o"></i> Công ty</a>
-            <li><a href="{!! route('admins.job.list') !!}"><i class="fa fa-briefcase"></i> Tin tuyển dụng</a></li>
-            <li><a href="{!! route('admins.member.list') !!}"><i class="fa fa-users"></i> Thành viên</a>
-            <li><a href="{!! route('admins.contact.list') !!}"><i class="glyphicon glyphicon-refresh"></i> <span>Thông tin liên hệ</span></a></li>
-            <li><a href="{!! route('admins.skill.list') !!}"><i class="glyphicon glyphicon-stats"></i> <span>Kỹ năng tuyển dụng</span></a></li>
+            <li class="{{ Request::is('managements/admins/company/list') ? 'active' : '' }}"><a href="{!! route('admins.company.list') !!}"><i class="fa fa-handshake-o"></i> Công ty</a>
+            <li class="{{ Request::is('managements/admins/job/list') ? 'active' : '' }}"><a href="{!! route('admins.job.list') !!}"><i class="fa fa-briefcase"></i> Tin tuyển dụng</a></li>
+            <li class="{{ Request::is('managements/admins/member/list') ? 'active' : '' }}"><a href="{!! route('admins.member.list') !!}"><i class="fa fa-users"></i> Thành viên</a>
+            <li class="{{ Request::is('managements/contacts/list') ? 'active' : '' }}"><a href="{!! route('admins.contact.list') !!}"><i class="glyphicon glyphicon-refresh"></i> <span>Thông tin liên hệ</span></a></li>
+            <li class="{{ Request::is('managements/skills/list') ? 'active' : '' }}"><a href="{!! route('admins.skill.list') !!}"><i class="glyphicon glyphicon-stats"></i> <span>Kỹ năng tuyển dụng</span></a></li>
             <li><a href="{!! route('logout') !!}"><i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span></a></li>
         </ul>
     </section>

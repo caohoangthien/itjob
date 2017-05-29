@@ -48,14 +48,14 @@ class SiteController extends Controller
     }
 
     public function contact() {
-        return view('contact.index');
+        return view('site.contact.index');
     }
 
     public function storeContact(ContactRequest $request) {
         $data = $request->only(['name', 'email', 'content']);
         $contact = Contact::create($data);
         if ($contact) {
-            return redirect()->route('contact')->with('message', 'Thông tin được gởi thành công. Xin cảm ơn !');
+            return redirect()->route('site.contact')->with('message', 'Thông tin được gởi thành công. Xin cảm ơn !');
         }
     }
 
