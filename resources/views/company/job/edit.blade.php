@@ -81,7 +81,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">Hạn cuối</label>
         <div class="col-sm-9 {!! $errors->has('deadline') ? 'has-error' : '' !!}">
-            {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'datepicker', 'placeholder' => 'Hạn cuối']) !!}
+            {!! Form::text('deadline', null, ['class' => 'form-control', 'id' => 'datepicker-backend', 'placeholder' => 'Hạn cuối']) !!}
             <span class="help-block">
                 <strong>{!! $errors->first('deadline') !!}</strong>
             </span>
@@ -90,9 +90,17 @@
     <div class="form-group row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9">
-            <button class="btn btn-primary">Đăng tin</button>
+            <button class="btn btn-primary">Cập nhật</button>
             <a href="{!! route('companies.index') !!}" class='btn btn-primary'>Trở về</a>
         </div>
     </div>
     {!! Form::close() !!}
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#datepicker-backend").datepicker({ dateFormat: 'dd-mm-yy' });
+        })
+    </script>
 @endsection

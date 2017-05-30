@@ -45,12 +45,12 @@
             <p>{{$job->describe}}</p>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Trạng thái</label>
-            <p>{{$job->status}}</p>
+            <label for="exampleInputEmail1">Ngày đăng</label>
+            <p>{{$job->created_at->format('d-m-Y')}}</p>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Ngày đăng</label>
-            <p>{{$job->created_at}}</p>
+            <label for="exampleInputEmail1">Hạn cuối</label>
+            <p>{{$job->deadline->format('d-m-Y')}}</p>
         </div>
         <div class="form-group">
             <a href="{!! route('admins.job.list') !!}" class="btn btn-primary">Trở về</a>

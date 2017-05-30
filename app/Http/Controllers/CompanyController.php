@@ -121,6 +121,7 @@ class CompanyController extends Controller
             $data = $request->only(['title', 'salary_id', 'describe', 'quantity', 'address_id', 'deadline']);
             $data['title'] = mb_strtoupper($data['title'], 'UTF-8');
             $data['deadline'] = date("Y-m-d", strtotime($data['deadline']));
+            $data['status'] = 0;
             $job = Job::find($id);
             $job->update($data);
             $job->skills()->sync($request->skills_id);
