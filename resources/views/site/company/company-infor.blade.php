@@ -18,7 +18,7 @@
                         <h4>Điện thoại</h4>
                         <p>{{ $company->phone }}</p>
                         <h4>Giới thiệu</h4>
-                        <p>{{ $company->about }}</p>
+                        <textarea class="form-control" rows="29" disabled="">{{ $company->about }}</textarea>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                             @foreach($levels as $level)
                                 <div class="checkbox">
                                     <label>
-                                        {!! Form::checkbox('levels_id[]', $level->id) !!} {!! $level->name !!}
+                                        {!! Form::radio('levels_id', $level->id) !!} {!! $level->name !!}
                                     </label>
                                 </div>
                             @endforeach

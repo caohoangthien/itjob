@@ -172,7 +172,7 @@
                         @foreach($salaries as $salary)
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('salaries_id[]', $salary->id) !!} {!! $salary->salary !!}
+                                    {!! Form::radio('salaries_id', $salary->id) !!} {!! $salary->salary !!}
                                 </label>
                             </div>
                         @endforeach

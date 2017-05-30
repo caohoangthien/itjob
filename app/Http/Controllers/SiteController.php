@@ -167,6 +167,7 @@ class SiteController extends Controller
                 ->whereHas('salary', function ($query) use ($request) {
                     $query->where('salaries.id', $request->salary_id);
                 })->get();
+            dd($results);
             $jobs = $jobs->intersect($results);
         }
 
@@ -232,7 +233,7 @@ class SiteController extends Controller
 
     public function getFullJob()
     {
-        $jobs = Job::where('status', Job::ACTIVE)->where('deadline', '>=', Carbon::today())->paginate(8);
+        $jobs = Job::where('status', Job::ACTIVE)->where('deleted_at', null)->where('deadline', '>=', Carbon::today())->orderBy('id', 'desc')->paginate(8);
         $skills = Skill::all(['id', 'name']);
         $levels = Level::all(['id', 'name']);
         $salaries = Salary::all(['id', 'salary']);

@@ -15,7 +15,7 @@
                         <h4>Nơi làm việc</h4>
                         <p>{{ $job->address->name }}</p>
                         <h4>Mô tả công việc</h4>
-                        <p>{{ $job->describe }}</p>
+                        <textarea class="form-control" rows="18" disabled="">{{ $job->describe }}</textarea>
                         <h4>Mức lương</h4>
                         <p>{{ $job->salary->salary }}</p>
                         <h4>Số lượng</h4>
@@ -77,7 +77,7 @@
                             @foreach($levels as $level)
                                 <div class="checkbox">
                                     <label>
-                                        {!! Form::checkbox('levels_id[]', $level->id) !!} {!! $level->name !!}
+                                        {!! Form::radio('levels_id', $level->id) !!} {!! $level->name !!}
                                     </label>
                                 </div>
                             @endforeach
