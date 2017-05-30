@@ -80,6 +80,7 @@ class SiteController extends Controller
             ->whereMonth('job_skill.created_at', $month)
             ->whereYear('job_skill.created_at', $year)
             ->get();
+
         $chart = [];
         if ($jobSkills->count() > 0) {
             foreach ($jobSkills as $jobSkill) {
@@ -101,7 +102,7 @@ class SiteController extends Controller
         $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
             ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
             ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-            ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+            ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
             ->where('deadline', '>=', Carbon::today())
             ->get();
 
@@ -109,7 +110,7 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->where('title', 'like', '%'. $request->title .'%')
                 ->get();
             $jobs = $jobs->intersect($results);
@@ -119,7 +120,7 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->whereHas('company', function ($query) use ($request) {
                     $query->where('name', $request->company);
                 })->get();
@@ -130,7 +131,7 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->whereHas('address', function ($query) use ($request) {
                     $query->where('id', $request->address_id);
                 })->get();
@@ -141,7 +142,7 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->whereHas('skills', function ($query) use ($request) {
                     $query->whereIn('skills.id', $request->skills_id);
                 })->get();
@@ -152,7 +153,7 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->whereHas('levels', function ($query) use ($request) {
                     $query->whereIn('levels.id', $request->levels_id);
                 })->get();
@@ -163,11 +164,11 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->whereHas('salary', function ($query) use ($request) {
                     $query->where('salaries.id', $request->salary_id);
                 })->get();
-            dd($results);
+
             $jobs = $jobs->intersect($results);
         }
 
@@ -191,14 +192,14 @@ class SiteController extends Controller
             $results = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                 ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                 ->where('deadline', '>=', Carbon::today())
                 ->get();
             if ($request['title']) {
                 $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                     ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                     ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                     ->where('title', 'like', '%'. $request['title'] .'%')
                     ->get();
                 $results = $results->intersect($jobs);
@@ -208,7 +209,7 @@ class SiteController extends Controller
                 $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                     ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                     ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                     ->where('title', 'like', '%'. $request['title'] .'%')
                     ->whereHas('company', function ($query) use ($request) {
                         $query->where('name', 'like', '%'. $request['company'] .'%');
@@ -220,7 +221,7 @@ class SiteController extends Controller
                 $jobs = Job::with(['company' => function ($query) { $query->select(['id', 'name']); }])
                     ->with(['address' => function ($query) { $query->select(['id', 'name']); }])
                     ->with(['salary' => function ($query) { $query->select(['id', 'salary']); }])
-                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at'])
+                    ->select(['id', 'company_id', 'address_id', 'salary_id', 'title', 'created_at', 'deadline'])
                     ->where('title', 'like', '%'. $request['title'] .'%')
                     ->whereHas('address', function ($query) use ($request) {
                         $query->where('id', $request['address_id']);

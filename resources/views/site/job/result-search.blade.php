@@ -15,7 +15,7 @@
                                 <li class="list-group-item">
                                     <p class="job-title"><a href="{!! route('jobs.search-title', $job->id) !!}">{{ str_limit($job->title, 70) }}</a></p>
                                     <p class="job-company"><a href="{!! route('company.infor', $job->company_id) !!}"><b>{{ $job->company->name }}</b></a> - <b>{{ $job->address->name }}</b></p>
-                                    <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }}</p>
+                                    <p class="job-salary">{{ $job->salary->salary }} | Ngày đăng: {{ date_format($job->created_at,"d/m/Y") }} | Hạn cuối: {{ $job->deadline->format('d/m/Y') }}</p>
                                 </li>
                             @endforeach
                         </ul>
@@ -66,7 +66,7 @@
                             @foreach($salaries as $salary)
                                 <div class="checkbox">
                                     <label>
-                                        {!! Form::radio('salaries_id', $salary->id) !!} {!! $salary->salary !!}
+                                        {!! Form::radio('salary_id', $salary->id) !!} {!! $salary->salary !!}
                                     </label>
                                 </div>
                             @endforeach

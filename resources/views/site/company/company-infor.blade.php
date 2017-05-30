@@ -42,16 +42,6 @@
                             {!! Form::select('address_id', $address_array, null, ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            <label>Mức lương</label>
-                            @foreach($salaries as $salary)
-                                <div class="checkbox">
-                                    <label>
-                                        {!! Form::radio('salary_id', $salary->id) !!} {!! $salary->salary !!}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="form-group">
                             <label>Kỹ năng</label>
                             @foreach($skills as $skill)
                                 <div class="checkbox">
@@ -66,13 +56,23 @@
                             @foreach($levels as $level)
                                 <div class="checkbox">
                                     <label>
-                                        {!! Form::radio('levels_id', $level->id) !!} {!! $level->name !!}
+                                        {!! Form::checkbox('levels_id[]', $level->id) !!} {!! $level->name !!}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            <label>Mức lương</label>
+                            @foreach($salaries as $salary)
+                                <div class="checkbox">
+                                    <label>
+                                        {!! Form::radio('salary_id', $salary->id) !!} {!! $salary->salary !!}
                                     </label>
                                 </div>
                             @endforeach
                         </div>
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
